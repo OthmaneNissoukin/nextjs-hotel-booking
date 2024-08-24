@@ -1,0 +1,56 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+function Slider({ images, children }) {
+  const [active, setActive] = useState(1);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const ref = setInterval(() => {
+      setActive(active >= images.length ? 1 : active + 1);
+    }, 5000);
+
+    return () => clearInterval(ref);
+  });
+
+  function handleTranslate(index) {
+    clearInterval(ref);
+    setActive(index);
+  }
+
+  return (
+    <div className="slider">
+      {/* OVERLAY */}
+      <div className="slider-overlay">{children}</div>
+      {/* END OVERLAY */}
+
+      {/* SLIDES */}
+      <div className="slideshow">
+        {images.map((item, index) => (
+          <div key={index} className={`slide ${active === index + 1 ? "active" : ""}`}>
+            <img src={item} alt="slider image" />
+          </div>
+        ))}
+      </div>
+      {/* END SLIDES */}
+
+      {/* SLIDER MENU */}
+      <nav className="slider-menu">
+        {images.map((undefined, index) => (
+          <button
+            key={index}
+            onClick={() => handleTranslate(index + 1)}
+            className={active === index + 1 ? "active" : ""}
+          ></button>
+        ))}
+      </nav>
+      {/* END SLIDER MENU */}
+
+      {/* SLIDER CONTROL */}
+      {/* END SLIDER CONTROL */}
+    </div>
+  );
+}
+
+export default Slider;
