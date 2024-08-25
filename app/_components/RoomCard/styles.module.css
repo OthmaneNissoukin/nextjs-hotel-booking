@@ -1,0 +1,35 @@
+.roomCard {
+  background-color: #fff;
+}
+
+
+
+.thumbnailContainer {
+  overflow: hidden;
+}
+
+.thumbnailContainer img {
+  width: 100%;
+  /* aspect-ratio: 4/3; */
+  transition: all 300ms linear;
+}
+
+
+.thumbnailContainer img:hover {
+  transform: scale(1.2);
+}
+
+.roomDescription {
+  padding: 24px 16px;
+  text-align: center;
+}
+
+
+.roomDescription h2 {
+  margin-bottom: 12px;
+}
+
+.roomDescription p {
+  color: #333;
+  line-height: 1.8;
+}

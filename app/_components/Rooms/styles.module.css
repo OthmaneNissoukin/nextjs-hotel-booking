@@ -1,0 +1,11 @@
+.roomsSection {
+  padding: 60px 20px;
+  background-color: #F1F1F1;
+}
+
+.roomsGrid {
+  display: grid;
+  gap: 32px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  margin-top: 40px;
+}

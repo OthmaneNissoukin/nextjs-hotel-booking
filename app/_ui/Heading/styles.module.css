@@ -1,0 +1,31 @@
+.heading span {
+  display: inline-block;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  position: relative;
+  font-weight: bolder;
+  letter-spacing: 1px;
+  font-size: 32px;
+}
+
+.heading span::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  right: -10px;
+  transform: rotateZ(44.5deg);
+  height: 16px;
+  width: 3px;
+  background-color: crimson;
+}
+
+.heading span::before {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 1px;
+  transform: rotateZ(44.5deg);
+  height: 16px;
+  width: 3px;
+  background-color: crimson;
+}

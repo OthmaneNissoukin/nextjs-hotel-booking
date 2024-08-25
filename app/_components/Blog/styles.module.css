@@ -1,0 +1,48 @@
+.blogSection {
+  padding: 60px 20px;
+  min-height: 80vh;
+  
+  background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.479)), url('/bg.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.heading {
+  color: #FFF;
+  text-align: center;
+}
+
+.description {
+  text-align: center;
+  color: #FFF;
+}
+
+.blogGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(373px, 1fr));
+  gap: 20px;
+  margin-top: 60px;
+}
+
+.blogDescriptionContainer {
+  padding: 16px 24px;
+  background-color: #fff;
+}
+
+.blogHeading {
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+.blogLabel {
+  color: crimson;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.blogDescription {
+  color: #333;
+  line-height: 1.8;
+  text-align: justify;
+}

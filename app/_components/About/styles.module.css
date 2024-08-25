@@ -1,0 +1,37 @@
+.aboutSection {
+  padding: 60px 20px;
+  background-color: #fff;
+}
+
+@media(min-width: 720px) {
+  .aboutContainer {
+    display: flex;
+    justify-content: space-between;
+    gap: 56px;
+  }
+}
+
+.aboutContainer p {
+  text-align: justify;
+  line-height: 1.8;
+  font-size: 18px;
+  color: #333;
+}
+
+.gallery {
+  width: 100%;
+}
+
+@media(min-width: 720px) {
+  .gallery {
+    width: 55%;
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+}
+
+.gallery img {
+  width: 100%;
+  aspect-ratio: 16/9;
+}
+

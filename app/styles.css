@@ -30,6 +30,14 @@ a {
   padding: 0px 20px;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.bg-subtle {
+  background-color: #F1F1F1;
+}
+
 /* END GLOBAL STYLES */
 
 /* HEADER */
