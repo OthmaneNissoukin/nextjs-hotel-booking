@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "next": "14.2.6",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-leaflet": "^4.2.1"
   },
   "devDependencies": {
     "eslint": "^8",

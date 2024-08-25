@@ -1,0 +1,24 @@
+.footer {
+  padding: 40px 20px;
+  background-color: #161616;
+}
+
+.footerMenu {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.footerMenu h3 {
+  color: #fff;
+  padding-bottom: 2px;
+  border-bottom: 2px solid crimson;
+  margin-bottom: 12px;
+}
+
+.footerMenu ul {
+  display: flex;
+  flex-direction: column;
+  color: #fff;
+  gap: 6px;
+}
