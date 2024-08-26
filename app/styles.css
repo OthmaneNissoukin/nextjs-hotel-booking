@@ -161,3 +161,10 @@ div.slider nav.slider-menu button.active {
     display: block;
   }
 }
+
+.decriptionDivider {
+  width: 86px;
+  height: 2px;
+  margin: 12px auto 40px;
+  border: 2px solid rgb(168, 13, 44);
+}

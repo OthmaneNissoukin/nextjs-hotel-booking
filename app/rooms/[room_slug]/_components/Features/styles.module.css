@@ -1,0 +1,21 @@
+
+.features {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  color: #181b20;
+}
+
+.featureIcon {
+  color: rgb(168, 13, 44);
+  font-size: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.featureLabel {
+  color: #656a70;
+  font-size: 18px;
+}

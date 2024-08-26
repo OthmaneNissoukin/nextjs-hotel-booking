@@ -1,6 +1,6 @@
+import Footer from "./_components/Footer";
 import Navbar from "./_ui/Navbar";
 import styles from "./styles.css";
-// import sass_styles from "./styles.scss";
 
 import { Roboto } from "next/font/google";
 
@@ -12,6 +12,7 @@ export default function RootLayout({ children }) {
       <body className={roboto_font.className}>
         <Navbar />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

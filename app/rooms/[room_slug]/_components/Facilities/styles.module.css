@@ -1,0 +1,30 @@
+
+.facilitiesTable {
+  margin: auto;
+  color: #181b20;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;;
+}
+
+.facilitiesTable tr:nth-child(2n) {
+  background-color: #f8f8f8;
+}
+
+.facilitiesTable td {
+  font-size: 17px;
+  padding: 12px 32px;
+}
+
+.facilitiesTable td:not(:last-of-type) {
+  border-right: 1px solid #e8e8e8;
+}
+
+.facilitiesTable tr:not(:last-of-type) {
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.facilitiyIcon {
+  color: rgb(128, 12, 35);
+  margin-right: 12px;
+}

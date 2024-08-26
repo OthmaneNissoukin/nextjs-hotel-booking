@@ -1,0 +1,24 @@
+.description {
+  padding: 40px 0px;
+}
+
+.descriptionHeading {
+  font-size: 22px !important;
+  color: #181b20;
+  text-align: center;
+}
+
+
+.descriptionContent {
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+  color: #656a70;
+  text-align: justify;
+  font-size: 18px;
+  line-height: 1.8;
+}
+
+.descriptionContent p:not(:last-of-type) {
+  margin-bottom: 20px;
+}

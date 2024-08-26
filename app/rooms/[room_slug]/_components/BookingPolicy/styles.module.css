@@ -1,0 +1,9 @@
+.accordion {
+  width: 100%;
+  max-width: 800px;
+  gap: 20px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
