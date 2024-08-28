@@ -3,6 +3,7 @@
   flex-direction: column;
   gap: 6px;
   transition: all 300ms linear;
+  padding-bottom: 12px;
 }
 
 .accordionControl {
@@ -15,21 +16,23 @@
   cursor: pointer;
   font-weight: 500;
   margin-bottom: 6px;
+  user-select: none;
 }
 
 .toggleBtn {
   border-radius: 50%;
-  padding: 12px;
+  padding: 13px 16px;
   background-color: crimson;
   color: #fff;
   border: none;
   outline: none;
   flex-grow: 0;
   flex-shrink: 0;
+  cursor: pointer;
 }
 
 .accordionContent {
-  padding-left: 48px 
+  padding-left: 57px 
 }
 
 .accordionContent p {

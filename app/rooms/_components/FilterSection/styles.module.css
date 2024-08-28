@@ -1,0 +1,11 @@
+.filterSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+  padding: 20px 0px;
+}
+
+.select {
+  width: 100%;
+  max-width: 320px;
+}

@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 function Navbar() {
   return (
     <header>
@@ -5,8 +7,12 @@ function Navbar() {
         <h2>LOGO</h2>
         <nav>
           <ul>
-            <li>Home</li>
-            <li>Rooms</li>
+            <li>
+              <Link href="/">Home</Link>
+            </li>
+            <li>
+              <Link href="/rooms">Rooms</Link>
+            </li>
             <li>About</li>
             <li>Contact</li>
           </ul>

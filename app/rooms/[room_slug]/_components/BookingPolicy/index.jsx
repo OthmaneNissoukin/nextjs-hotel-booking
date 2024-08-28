@@ -5,13 +5,13 @@ import styles from "./styles.module.css";
 
 function BookingPolicy() {
   return (
-    <section>
+    <section className={styles.BookingPolicySection}>
       <Heading className="text-center">Booking Policy</Heading>
 
       <hr className="decriptionDivider" />
 
       <div className={styles.accordion}>
-        <Accordion label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
+        <Accordion className={styles.accordionItem} label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
             elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
@@ -22,7 +22,7 @@ function BookingPolicy() {
             elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </Accordion>
-        <Accordion label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
+        <Accordion className={styles.accordionItem} label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
             elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
@@ -33,7 +33,7 @@ function BookingPolicy() {
             elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
           </p>
         </Accordion>
-        <Accordion label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
+        <Accordion className={styles.accordionItem} label={"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing
             elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur
