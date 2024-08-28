@@ -1,9 +1,18 @@
 "use client";
-import { Icon, LatLng } from "leaflet";
+import dynamic from "next/dynamic";
+const Icon = dynamic(() => import("leaflet").then((module) => module.Icon), { ssr: false });
+
+// Dynamically import React Leaflet components
+const MapContainer = dynamic(() => import("react-leaflet").then((module) => module.MapContainer), { ssr: false });
+const Marker = dynamic(() => import("react-leaflet").then((module) => module.Marker), { ssr: false });
+const Popup = dynamic(() => import("react-leaflet").then((module) => module.Popup), { ssr: false });
+const TileLayer = dynamic(() => import("react-leaflet").then((module) => module.TileLayer), { ssr: false });
+const useMap = dynamic(() => import("react-leaflet").then((module) => module.useMap), { ssr: false });
+const useMapEvent = dynamic(() => import("react-leaflet").then((module) => module.useMapEvent), { ssr: false });
+const useMapEvents = dynamic(() => import("react-leaflet").then((module) => module.useMapEvents), { ssr: false });
 import styles from "./styles.module.css";
 
 import "leaflet/dist/leaflet.css";
-import { MapContainer, Marker, Popup, TileLayer, useMap, useMapEvent, useMapEvents } from "react-leaflet";
 import { useState } from "react";
 
 const initialCenter = [30.390245794565757, -9.556749533359007];

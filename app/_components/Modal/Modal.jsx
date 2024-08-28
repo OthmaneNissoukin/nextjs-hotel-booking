@@ -17,16 +17,18 @@ function Modal({ children }) {
 function Overlay({ children }) {
   const { isOpen } = useContext(ModalContext);
 
-  return (
-    <>
-      {isOpen
-        ? createPortal(
-            <div className={styles.modalOverlay}>{children}</div>,
-            typeof window !== "undefined" ? document.body : null
-          )
-        : null}
-    </>
-  );
+  if (isMounted)
+    return (
+      <>
+        {isOpen
+          ? createPortal(
+              <div className={styles.modalOverlay}>{children}</div>,
+              typeof window !== "undefined" ? document.body : null
+            )
+          : null}
+      </>
+    );
+  else return null;
 }
 
 function Heading({ children }) {
