@@ -22,7 +22,7 @@
   height: 100%;
   padding: 20px;
   display: flex;
-  align-items: end;
+  align-items: flex-end;
   color: #FFF;
 }
 
