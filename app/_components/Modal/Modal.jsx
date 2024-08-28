@@ -20,7 +20,10 @@ function Overlay({ children }) {
   return (
     <>
       {isOpen
-        ? createPortal(<div className={styles.modalOverlay}>{children}</div>, typeof document ? document.body : null)
+        ? createPortal(
+            <div className={styles.modalOverlay}>{children}</div>,
+            typeof window !== "undefined" ? document.body : null
+          )
         : null}
     </>
   );
