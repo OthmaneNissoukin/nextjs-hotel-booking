@@ -1,15 +1,12 @@
 "use client";
-import dynamic from "next/dynamic";
-const Modal = dynamic(() => import("../Modal/Modal"), { ssr: false });
 import Slider from "../Slider";
 import BookingForm from "../BookingForm";
 import styles from "./index.module.css";
 import BookingButton from "../BookingButton";
-// import Modal from "../Modal/Modal";
+import Modal from "@/app/_components/Modal/Modal";
 const images = ["/bg.png", "/bg.png", "/bg.png", "/bg.png"];
 
 function HeroSection() {
-  return null;
   return (
     <Slider images={images}>
       <div className={`container ${styles.wrapper}`}>
