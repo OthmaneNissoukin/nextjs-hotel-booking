@@ -9,6 +9,7 @@ import BookingButton from "../BookingButton";
 const images = ["/bg.png", "/bg.png", "/bg.png", "/bg.png"];
 
 function HeroSection() {
+  return null;
   return (
     <Slider images={images}>
       <div className={`container ${styles.wrapper}`}>
