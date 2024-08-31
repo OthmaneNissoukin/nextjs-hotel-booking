@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect, createContext, cloneElement, useContext } from "react";
 import { createPortal } from "react-dom";
 import styles from "./styles.module.css";
+import { useState, createContext, cloneElement, useContext, useEffect } from "react";
 
 const ModalContext = createContext();
 
@@ -19,12 +19,22 @@ function Overlay({ children }) {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
+    if (typeof w !== "undefined") {
+      setIsMounted(true);
+    }
   }, []);
 
-  if (!isMounted) return null;
-
-  return <>{isOpen && createPortal(<div className={styles.modalOverlay}>{children}</div>, document.body)}</>;
+  if (!isMounted)
+    return (
+      <>
+        {isOpen
+          ? createPortal(
+              <div className={styles.modalOverlay}>{children}</div>,
+              typeof window !== "undefined" ? document.body : null
+            )
+          : null}
+      </>
+    );
 }
 
 function Heading({ children }) {

@@ -1,65 +1,45 @@
 "use client";
 import dynamic from "next/dynamic";
 // const Icon = dynamic(() => import("leaflet").then((module) => module.Icon), { ssr: false });
-import { Icon } from "leaflet";
+// import { Icon } from "leaflet";
 // Dynamically import React Leaflet components
-const MapContainer = dynamic(() => import("react-leaflet").then((module) => module.MapContainer), { ssr: false });
-const Marker = dynamic(() => import("react-leaflet").then((module) => module.Marker), { ssr: false });
-const Popup = dynamic(() => import("react-leaflet").then((module) => module.Popup), { ssr: false });
-const TileLayer = dynamic(() => import("react-leaflet").then((module) => module.TileLayer), { ssr: false });
+
+// const MapContainer = dynamic(() => import("react-leaflet").then((module) => module.MapContainer), { ssr: false });
+
+// const Marker = dynamic(() => import("react-leaflet").then((module) => module.Marker), { ssr: false });
+// const Popup = dynamic(() => import("react-leaflet").then((module) => module.Popup), { ssr: false });
+// const TileLayer = dynamic(() => import("react-leaflet").then((module) => module.TileLayer), { ssr: false });
 // const useMap = dynamic(() => import("react-leaflet").then((module) => module.useMap), { ssr: false });
 // const useMapEvent = dynamic(() => import("react-leaflet").then((module) => module.useMapEvent), { ssr: false });
-import { useMap, useMapEvent } from "react-leaflet";
+// import { useMap, useMapEvent } from "react-leaflet";
 import styles from "./styles.module.css";
 
+const Map = dynamic((module) => import("../Map"), { ssr: false });
+
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+// import Map from "../Map";
 
 const initialCenter = [30.390245794565757, -9.556749533359007];
 
-function SetViewOnClick() {
-  const map = useMapEvent("click", (e) => {
-    map.setView(e.latlng, map.getZoom(), {
-      animate: true,
-    });
-  });
-
-  return null;
-}
-
-function ChangeView({ position }) {
-  const map = useMap();
-  if (position) map.flyTo(position, 13);
-
-  return null;
-}
-
 function ContactMap() {
   const [center, setCenter] = useState([...initialCenter]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const handleReset = () => setCenter([30.390245794565757, -9.556749533359007]);
+
+  if (!isMounted) return null;
 
   return (
     <div className={styles.mapWrapper}>
       <button type="button" className={styles.goBackButton} onClick={handleReset}>
         Refresh
       </button>
-      <MapContainer style={{ height: "100%" }} center={center} zoom={13} scrollWheelZoom={true}>
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <Marker
-          icon={new Icon({ iconUrl: "/marker-icon.png", iconSize: [25, 41], iconAnchor: [12, 41] })}
-          position={[30.390245794565757, -9.556749533359007]}
-        >
-          <Popup>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </Popup>
-        </Marker>
-        <SetViewOnClick />
-        <ChangeView position={initialCenter} />
-      </MapContainer>
+      <Map initialCenter={initialCenter} center={center} />
     </div>
   );
 }
