@@ -1,0 +1,56 @@
+.formSection {
+  padding: 40px 0px;
+  background-color: #fff;
+}
+
+.form {
+  width: 100%;
+}
+
+.loginHeading {
+  font-size: 24px;
+  position: relative;
+  margin-bottom: 40px;
+  width: fit-content;
+}
+
+.loginHeading::after {
+  position: absolute;
+  content: "";
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 2px;
+  background-color: crimson;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.loginLabel {
+  letter-spacing: 1px;
+  color: #656a70;
+}
+
+.loginInput {
+  padding: 16px 12px;
+  border-radius: none;
+  outline: none;
+  border: 1px solid #dedede;
+  font-size: 17px;
+}
+
+.formButton {
+  padding: 16px 48px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: crimson;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
