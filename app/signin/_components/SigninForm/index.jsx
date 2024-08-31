@@ -9,7 +9,7 @@ function SigninForm() {
           <label htmlFor="" className={styles.loginLabel}>
             Email Address
           </label>
-          <input type="text" className={styles.loginInput} />
+          <input type="email" className={styles.loginInput} />
         </div>
         <div className={styles.formControl}>
           <label htmlFor="" className={styles.loginLabel}>
@@ -24,6 +24,24 @@ function SigninForm() {
         <br />
         <a href="#">Forget Password?</a>
       </form>
+
+      {/* AUTH PROVIDERS */}
+      <div>
+        <div class={styles.orDivider}>
+          <span>or</span>
+        </div>
+        <div className={styles.authProviders}>
+          <button className={styles.googleButton}>
+            <img src="https://authjs.dev/img/providers/google.svg" alt="Google logo" height="24" width="24" />
+            <span>Continue with Google</span>
+          </button>
+
+          <button class={styles.facebookBtn}>
+            <i class={styles.facebookIcon}></i>
+            Sign in with Facebook
+          </button>
+        </div>
+      </div>
     </div>
   );
 }
