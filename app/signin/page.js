@@ -4,7 +4,7 @@ import SigninForm from "./_components/SigninForm";
 function Page() {
   return (
     <>
-      <Banner />
+      <Banner title={"My Account"} />
       <SigninForm />
     </>
   );

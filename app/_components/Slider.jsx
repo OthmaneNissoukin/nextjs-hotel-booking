@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-function Slider({ images, children }) {
+function Slider({ height = "calc(100vh - 64px)", images, children }) {
   const [active, setActive] = useState(1);
   const ref = useRef(null);
 
@@ -20,7 +20,7 @@ function Slider({ images, children }) {
   }
 
   return (
-    <div className="slider">
+    <div className="slider" style={{ height: height }}>
       {/* OVERLAY */}
       <div className="slider-overlay">{children}</div>
       {/* END OVERLAY */}

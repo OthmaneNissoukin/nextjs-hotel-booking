@@ -22,7 +22,7 @@ function Navbar() {
             <li>About</li>
             <li>Contact</li>
             <li>
-              <a href="#">Guest Area</a>
+              <Link href="/signin">Guest Area</Link>
             </li>
           </ul>
         </nav>

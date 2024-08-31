@@ -4,10 +4,12 @@ import FilterSection from "./_components/FilterSection";
 
 import styles from "./styles.module.css";
 import RoomItem from "./_components/RoomItem";
+import Banner from "../signin/_components/Banner";
 function Rooms() {
   return (
     <>
-      <Slider images={["/bg.png", "/bg.png", "/bg.png"]} />
+      {/* <Slider height="60vh" images={["/bg.png", "/bg.png", "/bg.png"]} /> */}
+      <Banner title={"Accomodation Options"} />
 
       <div className={`container ${styles.roomsHolder}`}>
         <FilterSection />
