@@ -15,7 +15,7 @@ const options = [
 function FilterSection() {
   return (
     <form className={`${styles.filterSection}`}>
-      <Select options={options} className={styles.select} defaultValue={options.at(0)} />
+      <Select options={options} isSearchable={false} className={styles.select} defaultValue={options.at(0)} />
     </form>
   );
 }
