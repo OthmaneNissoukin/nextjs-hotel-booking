@@ -1,6 +1,7 @@
 import Heading from "@/app/_ui/Heading";
 import styles from "./styles.module.css";
 import ContactMap from "../ContactMap";
+import SubmitButton from "@/app/_ui/SubmitButton";
 
 function Contact() {
   return (
@@ -23,9 +24,7 @@ function Contact() {
             </div>
 
             <div>
-              <button type="button" className={styles.sendBtn}>
-                Send
-              </button>
+              <SubmitButton>Send</SubmitButton>
             </div>
           </form>
           <ContactMap />

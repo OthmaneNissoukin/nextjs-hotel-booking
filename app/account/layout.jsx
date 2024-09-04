@@ -9,7 +9,7 @@ function Layout({ children }) {
       <aside className={styles.accountSidebar}>
         <ul className={styles.sidebarList}>
           <li>
-            <Link href={"#"} className={styles.sidebarLink}>
+            <Link href={"/account/history"} className={styles.sidebarLink}>
               <span>
                 <FontAwesomeIcon icon={faHistory} />
               </span>
@@ -17,7 +17,7 @@ function Layout({ children }) {
             </Link>
           </li>
           <li>
-            <Link href={"#"} className={styles.sidebarLink}>
+            <Link href={"/account/profile"} className={styles.sidebarLink}>
               <span>
                 <FontAwesomeIcon icon={faUser} />
               </span>

@@ -1,0 +1,18 @@
+.sendBtn {
+  padding: 12px 64px;
+  color: #fff;
+  background-color: #303030;
+  transition: all 150ms linear;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.sendBtn:hover {
+  background-color: #161616;
+}

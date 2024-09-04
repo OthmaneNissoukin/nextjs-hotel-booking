@@ -1,0 +1,55 @@
+.heading {
+  font-size: 22px !important;
+}
+
+.profileFormInputs {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.profileFormInputs div {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex-grow: 1;
+}
+
+.formLabel {
+  font-size: 17px;
+  font-weight: 600;
+  color: #656a70;
+}
+
+.formControl {
+  font-size: 17px;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-radius: none;
+  outline: none;
+  border: 1px solid #dedede;
+  width: 100%;
+}
+
+.formControl:focus {
+  border-color: #656a70;
+}
+
+.formControl::placeholder {
+  color: #929394;
+}
+
+.formButtonContainer {
+  text-align: right;
+  padding: 20px 0px;
+}
+
+.formButton {
+  width: 100%;
+}
+
+@media (min-width: 620px) {
+  .formButton {
+    width: auto;
+  }
+}
