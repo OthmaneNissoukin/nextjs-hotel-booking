@@ -1,0 +1,86 @@
+.accountLayout {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  min-height: calc(100vh - 64px);
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+  gap: 8px;
+}
+
+@media (min-width: 780px) {
+  .accountLayout {
+    gap: 32px;
+  }
+}
+
+@media (min-width: 714px) {
+  .accountLayout {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+.accountSidebar {
+  height: 100%;
+  background-color: #ddd;
+  padding: 20px 12px;
+}
+
+@media (min-width: 780px) {
+  .accountSidebar {
+    padding: 32px 20px;
+  }
+}
+
+
+.sidebarList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 780px) {
+  .sidebarList {
+    gap: 32px;
+  }
+}
+
+.sidebarLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #eee;
+}
+
+@media (min-width: 780px) {
+  .sidebarLink {
+    gap: 12px;
+    padding: 16px 32px;
+    font-size: 17px;
+  }
+}
+
+.sidebarLink span:last-child {
+  display: none;
+}
+
+@media (min-width: 714px) {
+  .sidebarLink span:last-child {
+    display: inline;
+  }
+}
+
+
+.content {
+  height: 100%;
+  padding: 32px 0px 32px 20px;
+  padding: 20px 0px 20px 12px;
+}
+
+@media (min-width: 780px) {
+  .content {
+    padding: 32px 0px 32px 20px;
+  }
+}

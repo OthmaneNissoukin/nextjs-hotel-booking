@@ -1,9 +1,9 @@
 import styles from "./styles.module.css";
 
-function Heading({ className = "", children }) {
+function Heading({ className = "", textClassName = "", children }) {
   return (
     <h1 className={`${styles.heading} ${className}`}>
-      <span>{children}</span>
+      <span className={textClassName}>{children}</span>
     </h1>
   );
 }
