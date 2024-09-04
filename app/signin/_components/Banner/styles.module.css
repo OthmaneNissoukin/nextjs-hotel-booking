@@ -18,6 +18,7 @@
   position: relative;
   color: #fff;
   letter-spacing: 2px;
+  text-align: center;
 }
 
 .bannerHeading::after {

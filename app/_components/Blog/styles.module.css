@@ -1,5 +1,5 @@
 .blogSection {
-  padding: 60px 20px;
+  padding: 60px 0px;
   min-height: 80vh;
   
   background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.527), rgba(0, 0, 0, 0.479)), url('/bg.png');
@@ -19,7 +19,7 @@
 
 .blogGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(373px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
   gap: 20px;
   margin-top: 60px;
 }

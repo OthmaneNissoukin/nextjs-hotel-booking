@@ -20,7 +20,7 @@ function Slider({ height = "calc(100vh - 64px)", images, children }) {
   }
 
   return (
-    <div className="slider" style={{ height: height }}>
+    <div className="slider" style={{ maxHeight: height }}>
       {/* OVERLAY */}
       <div className="slider-overlay">{children}</div>
       {/* END OVERLAY */}
