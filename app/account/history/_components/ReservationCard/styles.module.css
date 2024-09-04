@@ -1,0 +1,93 @@
+.reservationItem {
+  width: 100%;
+  box-shadow: 2px 2px 8px 1px #DDD;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 780px) {
+  .reservationItem {
+    display: grid;
+    grid-template-columns: 132px 1fr; 
+    height: 132px;
+  }
+}
+
+.reservationThumbnail {
+  overflow: hidden;
+}
+
+.reservationThumbnail img {
+  width: 100%;
+  aspect-ratio: 1/1;
+}
+
+.reservationInfos {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (min-width: 780px) {
+  .reservationInfos {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+}
+
+
+.reservationOverview {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.reservationOverview h2 {
+  font-size: 22px;
+}
+
+.reservationOverview p {
+  color: #656a70;
+}
+
+.reservationPriceContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+@media (min-width: 780px) {
+  .reservationPriceContainer {
+    flex-direction: column-reverse;
+    justify-content: space-between;
+  }
+}
+
+
+.reservationPriceContainer button {
+  display: inline-block;
+  padding: 12px 16px;
+  background-color: crimson;
+  color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms linear;
+}
+
+.reservationPriceContainer button:hover {
+  background-color: rgb(160, 6, 37)
+}
+
+.reservationPriceContainer p {
+  font-weight: 600;
+  color: crimson;
+  text-align: center;
+}
+
+@media (min-width: 780px) {
+  .reservationPriceContainer p {
+    text-align: right;
+  }
+}
