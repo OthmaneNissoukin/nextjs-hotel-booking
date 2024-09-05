@@ -16,3 +16,8 @@
 .sendBtn:hover {
   background-color: #161616;
 }
+
+.sendBtn:disabled {
+  background-color: #929292;
+  cursor: not-allowed;
+}

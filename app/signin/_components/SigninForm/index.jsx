@@ -27,7 +27,7 @@ function SigninForm() {
 
       {/* AUTH PROVIDERS */}
       <div>
-        <div class={styles.orDivider}>
+        <div className={styles.orDivider}>
           <span>or</span>
         </div>
         <div className={styles.authProviders}>
@@ -36,8 +36,8 @@ function SigninForm() {
             <span>Continue with Google</span>
           </button>
 
-          <button class={styles.facebookBtn}>
-            <i class={styles.facebookIcon}></i>
+          <button className={styles.facebookBtn}>
+            <i className={styles.facebookIcon}></i>
             Sign in with Facebook
           </button>
         </div>

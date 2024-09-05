@@ -233,3 +233,11 @@ div.slider nav.slider-menu button.active {
   margin: 12px auto 40px;
   border: 2px solid rgb(168, 13, 44);
 }
+
+/* GLOBAL LOADING */
+.golobal-loading {
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

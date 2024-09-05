@@ -20,7 +20,8 @@
     "react": "^18",
     "react-dom": "^18",
     "react-leaflet": "^4.2.1",
-    "react-select": "^5.8.0"
+    "react-select": "^5.8.0",
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
     "eslint": "^8",

@@ -1,5 +1,11 @@
+import LoadingSpinner from "./_ui/LoadingSpinner";
+
 function Loading() {
-  return <div>Loading ...</div>;
+  return (
+    <div className="golobal-loading">
+      <LoadingSpinner />
+    </div>
+  );
 }
 
 export default Loading;
