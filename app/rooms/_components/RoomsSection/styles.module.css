@@ -1,0 +1,12 @@
+.roomsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+@media (min-width: 720px) {
+  
+  .roomsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 333.33));
+  }
+}

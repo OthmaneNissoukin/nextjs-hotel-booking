@@ -1,24 +1,29 @@
-import Link from "next/link";
-import Slider from "../_components/Slider";
 import FilterSection from "./_components/FilterSection";
 
 import styles from "./styles.module.css";
-import RoomItem from "./_components/RoomItem";
 import Banner from "../signin/_components/Banner";
-function Rooms() {
+import RoomsSection from "./_components/RoomsSection";
+import { Suspense } from "react";
+import Loader from "../_ui/Loader";
+function Rooms({ searchParams }) {
+  const filter = searchParams?.sort ?? "default";
   return (
     <>
-      {/* <Slider height="60vh" images={["/bg.png", "/bg.png", "/bg.png"]} /> */}
       <Banner title={"Accomodation Options"} />
 
       <div className={`container ${styles.roomsHolder}`}>
         <FilterSection />
 
-        <div className={styles.roomsGrid}>
-          <RoomItem price="300" imgPath="/bg.png" link="#" />
-          <RoomItem price="300" imgPath="/bg.png" link="#" />
-          <RoomItem price="300" imgPath="/bg.png" link="#" />
-        </div>
+        <Suspense
+          key={filter}
+          fallback={
+            <div className={styles.loader}>
+              <Loader />
+            </div>
+          }
+        >
+          <RoomsSection filter={filter} />
+        </Suspense>
       </div>
     </>
   );

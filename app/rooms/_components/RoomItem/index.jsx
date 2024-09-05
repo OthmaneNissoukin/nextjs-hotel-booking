@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 
-function RoomItem({ imgPath, price, link }) {
+function RoomItem({ imgPath, price, link, title }) {
   return (
     <div className={styles.roomsGrid}>
       <div className={styles.roomItem}>
@@ -9,8 +9,8 @@ function RoomItem({ imgPath, price, link }) {
         </div>
         <div className={styles.roomDescription}>
           <div>
-            <h2>Room King</h2>
-            <a href={link ?? "#"}>From {price} / Night</a>
+            <h2 className={styles.roomTitle}>{title}</h2>
+            <a href={link ?? "#"}>From ${price} / Night</a>
           </div>
         </div>
       </div>

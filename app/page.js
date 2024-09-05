@@ -5,7 +5,6 @@ import Contact from "./_components/Contact";
 import Gallery from "./_components/Gallery";
 import HeroSection from "./_components/HeroSection";
 import Rooms from "./_components/Rooms";
-import { getAllRooms } from "./_lib/supabase/services";
 
 export const metadata = {
   title: "Hotel Booking App",
@@ -13,8 +12,6 @@ export const metadata = {
 };
 
 export default async function Home() {
-  await getAllRooms();
-
   return (
     <>
       <HeroSection />

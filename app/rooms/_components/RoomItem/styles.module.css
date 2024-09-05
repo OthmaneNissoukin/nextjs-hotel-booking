@@ -29,10 +29,16 @@
 .roomDescription div {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 6px;
   justify-content: space-between;
   flex-wrap: wrap;
   width: 100%;
+}
+
+@media (min-width: 720px) {
+  .roomDescription div {
+    flex-wrap: nowrap;
+  }
 }
 
 .roomDescription div a {
@@ -41,4 +47,9 @@
   background-color: crimson;
   text-decoration: none;
   color: #FFF;
+  flex-shrink: 0;
+}
+
+.roomTitle {
+  font-size: 22px;
 }
