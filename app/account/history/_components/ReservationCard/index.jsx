@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./styles.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +7,7 @@ function ReservationCard({ thumbnailPath = "/bg.png", title, guestsCount, date, 
   return (
     <article className={styles.reservationItem}>
       <div className={styles.reservationThumbnail}>
-        <img src={thumbnailPath} />
+        <Image fill src={thumbnailPath} />
       </div>
 
       <div className={styles.reservationInfos}>

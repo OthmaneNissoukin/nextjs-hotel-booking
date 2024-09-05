@@ -2,8 +2,6 @@
   background-color: #fff;
 }
 
-
-
 .thumbnailContainer {
   overflow: hidden;
 }
@@ -12,6 +10,7 @@
   width: 100%;
   /* aspect-ratio: 4/3; */
   transition: all 300ms linear;
+  aspect-ratio: 4/3;
 }
 
 

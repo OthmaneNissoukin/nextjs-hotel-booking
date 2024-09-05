@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./styles.module.css";
 
 function RoomItem({ imgPath, price, link, title }) {
@@ -5,7 +6,7 @@ function RoomItem({ imgPath, price, link, title }) {
     <div className={styles.roomsGrid}>
       <div className={styles.roomItem}>
         <div className={styles.imgOverlay}>
-          <img src={imgPath ?? "/bg.png"} alt="" />
+          <Image fill src={imgPath ?? "/bg.png"} alt="" />
         </div>
         <div className={styles.roomDescription}>
           <div>

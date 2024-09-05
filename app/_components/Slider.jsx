@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 function Slider({ height = "calc(100vh - 64px)", images, children }) {
@@ -29,7 +30,7 @@ function Slider({ height = "calc(100vh - 64px)", images, children }) {
       <div className="slideshow">
         {images.map((item, index) => (
           <div key={index} className={`slide ${active === index + 1 ? "active" : ""}`}>
-            <img src={item} alt="slider image" />
+            <Image fill src={item} alt="slider image" />
           </div>
         ))}
       </div>

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./styles.module.css";
 
 function SigninForm() {
@@ -18,9 +19,10 @@ function SigninForm() {
           <input type="password" className={styles.loginInput} />
         </div>
 
-        <button type="button" className={styles.formButton}>
+        {/* TODO: CONVERT THIS TO BUTTON */}
+        <Link href="account/history" type="button" className={styles.formButton}>
           Sign In
-        </button>
+        </Link>
         <br />
         <a href="#">Forget Password?</a>
       </form>

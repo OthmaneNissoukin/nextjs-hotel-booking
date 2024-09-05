@@ -160,14 +160,16 @@ div.slider div.slide.active {
 }
 
 div.slider div.slide img {
-  object-fit: cover;
+  /* object-fit: cover; */
   width: 100%;
   aspect-ratio: 16/9;
 }
 
-/* div.slider div.slideshow {
-  display: flex;
-} */
+div.slider div.slideshow {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
 
 div.slider div.slider-overlay {
   position: absolute;

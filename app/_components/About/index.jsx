@@ -1,5 +1,6 @@
 import Heading from "@/app/_ui/Heading";
 import styles from "./styles.module.css";
+import Image from "next/image";
 
 function About() {
   return (
@@ -16,7 +17,9 @@ function About() {
           </p>
         </div>
         <div className={styles.gallery}>
-          <img src="/bg.png" alt="" />
+          <div>
+            <Image fill src="/bg.png" alt="" />
+          </div>
         </div>
       </div>
     </section>

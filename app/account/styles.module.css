@@ -22,7 +22,8 @@
 
 .accountSidebar {
   height: 100%;
-  background-color: #ddd;
+  /* background-color: #ddd; */
+  background-color: #252525;
   padding: 20px 12px;
 }
 
@@ -51,7 +52,13 @@
   gap: 12px;
   width: 100%;
   padding: 8px 16px;
-  background-color: #eee;
+  background-color: #1a1a1a;
+  color: #F1F1F1;
+  transition: all 150ms linear;
+}
+
+.sidebarLink:hover {
+  background-color: crimson;
 }
 
 @media (min-width: 780px) {

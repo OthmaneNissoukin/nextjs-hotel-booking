@@ -2,7 +2,7 @@ import LoadingSpinner from "./_ui/LoadingSpinner";
 
 function Loading() {
   return (
-    <div className="golobal-loading">
+    <div className="global-loading">
       <LoadingSpinner />
     </div>
   );

@@ -6,7 +6,7 @@ function RoomCard() {
   return (
     <Card>
       <Card.Thumbnail>
-        <img src={"/room.png"} alt="" />
+        <Image fill src={"/room.png"} alt="" />
       </Card.Thumbnail>
 
       <Card.Description className={styles.roomDescription}>

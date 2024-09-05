@@ -2,6 +2,7 @@
 import Heading from "@/app/_ui/Heading";
 import styles from "./styles.module.css";
 import Card from "../Card/Card";
+import Image from "next/image";
 function Blog() {
   return (
     <section className={styles.blogSection}>
@@ -12,7 +13,7 @@ function Blog() {
         <div className={styles.blogGrid}>
           <Card>
             <Card.Thumbnail>
-              <img src="/bg.png" alt="" />
+              <Image fill src="/bg.png" alt="" />
             </Card.Thumbnail>
             <Card.Description className={styles.blogDescriptionContainer}>
               <h2 className={styles.blogHeading}>Bed Room</h2>
@@ -26,7 +27,7 @@ function Blog() {
           </Card>
           <Card>
             <Card.Thumbnail>
-              <img src="/bg.png" alt="" />
+              <Image fill src="/bg.png" alt="" />
             </Card.Thumbnail>
             <Card.Description className={styles.blogDescriptionContainer}>
               <h2 className={styles.blogHeading}>Bed Room</h2>
@@ -41,7 +42,7 @@ function Blog() {
 
           <Card>
             <Card.Thumbnail>
-              <img src="/bg.png" alt="" />
+              <Image fill src="/bg.png" alt="" />
             </Card.Thumbnail>
             <Card.Description className={styles.blogDescriptionContainer}>
               <h2 className={styles.blogHeading}>Bed Room</h2>

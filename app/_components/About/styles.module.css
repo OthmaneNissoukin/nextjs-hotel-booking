@@ -22,6 +22,11 @@
   width: 100%;
 }
 
+.gallery div {
+  position: relative;
+  aspect-ratio: 16/9;
+}
+
 @media(min-width: 720px) {
   .gallery {
     width: 55%;
