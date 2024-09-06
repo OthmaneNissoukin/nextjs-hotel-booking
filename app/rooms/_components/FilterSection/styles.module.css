@@ -1,11 +1,54 @@
 .filterSection {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 20px 0px;
+  gap: 12px;
 }
 
 .select {
   width: 100%;
-  max-width: 320px;
+}
+
+@media (min-width: 590px) {
+  .select {
+    max-width: 320px;
+  }
+  
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1px solid #cccccc;
+  outline: none;
+  background-color: transparent;
+  border-radius: 2px;
+  color-scheme: dark;
+  font-size: 17px;
+  color: #333333;
+}
+
+
+.datesContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 280px;
+  width: 100%;
+}
+
+@media (min-width: 590px) {
+  .formControl {
+    width: auto;
+  }
+}
+
+.formControl label {
+  font-weight: 600;
 }

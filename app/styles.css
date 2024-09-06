@@ -243,3 +243,12 @@ div.slider nav.slider-menu button.active {
   justify-content: center;
   align-items: center;
 }
+
+/* DATE PICKER */
+@media (max-width: 590px) {
+  
+  .react-datepicker-wrapper, .styles_input__lVi_H .react-datepicker-ignore-onclickoutside, .styles_input__lVi_H {
+    width: 100%;
+  }
+
+}
