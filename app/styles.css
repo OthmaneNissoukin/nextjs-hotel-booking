@@ -247,7 +247,9 @@ div.slider nav.slider-menu button.active {
 /* DATE PICKER */
 @media (max-width: 590px) {
   
-  .react-datepicker-wrapper, .styles_input__lVi_H .react-datepicker-ignore-onclickoutside, .styles_input__lVi_H {
+  .roomsForm .react-datepicker-wrapper, 
+  .roomsForm .styles_input__lVi_H .react-datepicker-ignore-onclickoutside, 
+  .roomsForm .styles_input__lVi_H {
     width: 100%;
   }
 

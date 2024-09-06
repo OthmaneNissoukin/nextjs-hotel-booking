@@ -7,36 +7,28 @@
 @media(min-width: 1000px) {
   .roomBookingForm {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr auto;
   }
 }
 
 .formItem {
   width: 100%;
+  /* padding: 20px; */
 }
 
-.formItem:not(:last-of-type) {
+.formInput {
   padding: 20px;
-}
-
-
-.formItem:not(:last-of-type) {
   display: flex;
   align-items: center;
   gap: 20px;
-  border-bottom: 1px solid #dedede;
+  border-left: 1px solid #dedede;
 }
 
 @media(min-width: 1000px) {
-  .formItem:not(:last-of-type) {
-    border-bottom: none;
-    border-right: 1px solid #dedede;
+  
+  .formInput {
+    border-left: 1px solid #dedede;
   }
-}
-
-
-.formItem:last-of-type {
-  text-align: center;
 }
 
 .formIcon {
@@ -86,7 +78,7 @@
   outline: none;
   display: inline-block;
   width: 100%;
-  height: 100%;
+  /* height: 100%; */
   cursor: pointer;
   transition: all 300ms linear;
   padding: 40px;
@@ -95,4 +87,69 @@
 .formButton:hover {
   background-color: rgb(128, 12, 35);
 
+}
+
+.datepicker {
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.datepickerToday {
+  color: rgb(190, 13, 48);
+  font-weight: 600;
+}
+
+.datepickerRangeControlStart, .datepickerRangeControlEnd {
+  position: relative;
+  background-color: rgb(209, 17, 55);
+  border-radius: 50%;
+  color: #fff;
+}
+
+.datepickerRangeControlStart::before {
+  position: absolute;
+  content: "";
+  top: 0;
+  width: 100%;
+  height: 100%;
+  right: 0%;
+  border-bottom-left-radius: 50%;
+  border-top-left-radius: 50%;
+  background-color: rgba(243, 6, 53, 0.096);
+  z-index: -1;
+}
+
+.datepickerRangeControlEnd::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0%;
+  border-bottom-right-radius: 50%;
+  border-top-right-radius: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(243, 6, 53, 0.096);
+  z-index: -1;
+}
+
+.datepickerRangeMiddle {
+  background-color: rgba(243, 6, 53, 0.096);
+}
+
+.chevron {
+  fill: rgb(209, 17, 55);
+}
+
+.datepickerFooter {
+  margin-top: 8px;
+  padding: 12px 0px;
+  text-align: center;
+  background-color: #181b20;
+  color: #fff;
+}
+
+.footerIcon {
+  margin-right: 6px;
 }

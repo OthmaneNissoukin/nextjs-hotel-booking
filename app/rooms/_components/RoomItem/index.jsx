@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./styles.module.css";
+import Link from "next/link";
 
 function RoomItem({ imgPath, price, link, title }) {
   return (
@@ -11,7 +12,7 @@ function RoomItem({ imgPath, price, link, title }) {
         <div className={styles.roomDescription}>
           <div>
             <h2 className={styles.roomTitle}>{title}</h2>
-            <a href={link ?? "#"}>From ${price} / Night</a>
+            <Link href={link ?? "rooms/temp-slug"}>From ${price} / Night</Link>
           </div>
         </div>
       </div>

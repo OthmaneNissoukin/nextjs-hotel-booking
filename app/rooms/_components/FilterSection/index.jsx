@@ -31,7 +31,7 @@ function FilterSection() {
   }
 
   return (
-    <form className={`${styles.filterSection}`}>
+    <form className={`${styles.filterSection} roomsForm`}>
       <div className={styles.formControl}>
         <label>Filter By Date</label>
         <div className={styles.datesContainer}>
