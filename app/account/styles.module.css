@@ -1,7 +1,5 @@
 .accountLayout {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  min-height: calc(100vh - 64px);
+  
   max-width: 1200px;
   margin: auto;
   padding: 0 20px;
@@ -10,6 +8,9 @@
 
 @media (min-width: 780px) {
   .accountLayout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    min-height: calc(100vh - 64px);
     gap: 32px;
   }
 }
@@ -36,25 +37,37 @@
 
 .sidebarList {
   display: flex;
-  flex-direction: column;
   gap: 16px;
 }
 
 @media (min-width: 780px) {
   .sidebarList {
     gap: 32px;
+    flex-direction: column;
   }
 }
+
+.sidebarList li {
+  flex-grow: 1;
+}
+
 
 .sidebarLink {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 12px;
   width: 100%;
   padding: 8px 16px;
   background-color: #1a1a1a;
   color: #F1F1F1;
   transition: all 150ms linear;
+}
+
+@media (min-width: 780px) {
+  .sidebarLink {
+    justify-content: initial;
+  }
 }
 
 .sidebarLink:hover {
