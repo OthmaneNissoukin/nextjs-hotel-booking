@@ -4,10 +4,35 @@ import DatePicker from "react-datepicker";
 import BookingButton from "../BookingButton";
 import styles from "./index.module.css";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { formatISO } from "date-fns";
 
 function BookingForm({ children }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const router = useRouter();
+
+  function handleStartSelection(date) {
+    setStartDate(date);
+    console.log(date);
+  }
+
+  function handleEndSelection(date) {
+    setEndDate(date);
+    console.log(date);
+  }
+
+  function handleSearch() {
+    if (!startDate || !endDate) return;
+    // const params = new URLSearchParams(searchParams);
+    const arrival = formatISO(new Date(startDate), { representation: "date" });
+    const departure = formatISO(new Date(endDate), { representation: "date" });
+    const formatedRange = `${arrival}_${departure}`;
+    // params.set("range", formatedRange);
+    // replace(`${pathname}?${params.toString()}`, { scroll: false });
+    router.push(`rooms?range=${formatedRange}`);
+  }
+
   return (
     <form className={styles.bookingForm}>
       <h1 className={styles.formHeading}>BOOK A ROOM ONLINE</h1>
@@ -17,7 +42,7 @@ function BookingForm({ children }) {
         </label>
         <DatePicker
           selected={startDate}
-          onChange={(date) => setStartDate(date)}
+          onChange={(date) => handleStartSelection(date)}
           selectsStart
           startDate={startDate}
           endDate={endDate}
@@ -32,7 +57,7 @@ function BookingForm({ children }) {
         </label>
         <DatePicker
           selected={endDate}
-          onChange={(date) => setEndDate(date)}
+          onChange={(date) => handleEndSelection(date)}
           selectsEnd
           startDate={startDate}
           endDate={endDate}
@@ -44,7 +69,7 @@ function BookingForm({ children }) {
       </div>
 
       <div className={styles.actions}>
-        <BookingButton />
+        <BookingButton onClick={handleSearch} />
         <div>{children}</div>
       </div>
     </form>
