@@ -1,44 +1,30 @@
 "use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.css";
-import { faBed, faCalendar, faInfo, faInfoCircle, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/style.css";
+import { faBed, faCalendar, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
+import { formatISO } from "date-fns";
+import FormDayPicker from "../FormDayPicker";
 
 function RoomBookingForm() {
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const [guests, setGuests] = useState(1);
+
+  function handleDateSelection(range) {
+    if (!range) return;
+    const from = formatISO(range?.from, { representation: "date" });
+    const to = formatISO(range?.to, { representation: "date" });
+    console.log({ from, to });
+
+    setStartDate(from);
+    setEndDate(to);
+  }
+
   return (
     <form className={styles.roomBookingForm}>
-      <div className={styles.datepicker}>
-        <div>
-          <DayPicker
-            captionLayout="dropdown"
-            min={0}
-            mode="range"
-            startMonth={new Date(2024, 0)}
-            endMonth={new Date(2027, 11)}
-            weekStartsOn={1}
-            numberOfMonths={2}
-            disabled={[{ before: new Date() }]}
-            footer={
-              <p>
-                <span className={styles.footerIcon}>
-                  <FontAwesomeIcon icon={faInfoCircle} />
-                </span>
-                <span>Please Pick a Range</span>
-              </p>
-            }
-            classNames={{
-              today: styles.datepickerToday,
-              selected: styles.datepickerSelected,
-              range_start: styles.datepickerRangeControlStart,
-              range_end: styles.datepickerRangeControlEnd,
-              range_middle: styles.datepickerRangeMiddle,
-              chevron: styles.chevron,
-              footer: styles.datepickerFooter,
-            }}
-          />
-        </div>
-      </div>
+      <FormDayPicker handleDateSelection={handleDateSelection} />
 
       <div className={styles.formItem}>
         <div className={styles.formInput}>
@@ -56,7 +42,7 @@ function RoomBookingForm() {
           </div>
           <div className={styles.formControl}>
             <label>Check In</label>
-            <input type="date" disabled />
+            <input type="date" value={startDate} disabled />
           </div>
         </div>
         <div className={styles.formInput}>
@@ -65,7 +51,7 @@ function RoomBookingForm() {
           </div>
           <div className={styles.formControl}>
             <label>Check Out</label>
-            <input type="date" disabled />
+            <input type="date" value={endDate} disabled />
           </div>
         </div>
         <div className={styles.formInput}>
@@ -74,7 +60,7 @@ function RoomBookingForm() {
           </div>
           <div className={styles.formControl}>
             <label>Guests</label>
-            <input type="number" min={1} value={3} max={12} />
+            <input type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value)} max={16} />
           </div>
         </div>
 

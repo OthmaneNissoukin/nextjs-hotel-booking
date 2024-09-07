@@ -5,7 +5,7 @@ function RoomSlider({ images }) {
   console.log(images);
   return (
     <div className={styles.sliderContainer}>
-      <Slider images={images} />
+      <Slider images={images} imgPriority={true} />
     </div>
   );
 }
