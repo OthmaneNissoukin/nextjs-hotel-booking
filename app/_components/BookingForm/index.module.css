@@ -44,7 +44,9 @@
   color-scheme: dark;
   font-weight: 600;
   font-size: 18px;
-  width: 340px;
+  /* width: 340px; */
+  width: 100%;
+
 }
 
 .actions {

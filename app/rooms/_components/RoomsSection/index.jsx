@@ -30,7 +30,7 @@ async function RoomsSection({ filter }) {
   return (
     <div className={styles.roomsGrid}>
       {filteredRooms.map((item) => (
-        <RoomItem key={item.id} title={item.name} price={item.price} imgPath={item.thumbnail} link="#" />
+        <RoomItem key={item.id} id={item.id} title={item.name} price={item.price} imgPath={item.thumbnail} link="#" />
       ))}
     </div>
   );
