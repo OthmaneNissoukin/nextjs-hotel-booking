@@ -24,12 +24,10 @@ function BookingForm({ children }) {
 
   function handleSearch() {
     if (!startDate || !endDate) return;
-    // const params = new URLSearchParams(searchParams);
     const arrival = formatISO(new Date(startDate), { representation: "date" });
     const departure = formatISO(new Date(endDate), { representation: "date" });
     const formatedRange = `${arrival}_${departure}`;
-    // params.set("range", formatedRange);
-    // replace(`${pathname}?${params.toString()}`, { scroll: false });
+
     router.push(`rooms?range=${formatedRange}`);
   }
 

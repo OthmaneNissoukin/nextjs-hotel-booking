@@ -1,12 +1,14 @@
 "use client";
-import { faBars, faClose, faCross } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faClose } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
 import fa_styles from "@fortawesome/fontawesome-svg-core/styles.css";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 function Navbar() {
   const [hideMenu, setHideMenu] = useState(true);
+  const pathname = usePathname();
   return (
     <header>
       <div className="container header-items">
@@ -14,15 +16,29 @@ function Navbar() {
         <nav className={`navbar ${hideMenu ? "hide-menu" : "show-menu"}`}>
           <ul>
             <li>
-              <Link href="/">Home</Link>
+              <Link className={pathname === "/" ? "active" : ""} href="/" onClick={() => setHideMenu(true)}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link href="/rooms">Rooms</Link>
+              <Link
+                className={pathname.includes("rooms") ? "active" : ""}
+                href="/rooms"
+                onClick={() => setHideMenu(true)}
+              >
+                Rooms
+              </Link>
             </li>
             <li>About</li>
             <li>Contact</li>
             <li>
-              <Link href="/signin">Guest Area</Link>
+              <Link
+                className={pathname.includes("account") || pathname === "/signin" ? "active" : ""}
+                href="/signin"
+                onClick={() => setHideMenu(true)}
+              >
+                Guest Area
+              </Link>
             </li>
           </ul>
         </nav>

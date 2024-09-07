@@ -76,7 +76,7 @@ header nav ul {
   width: 100dvw;
   flex-direction: column;
   align-items: center;
-  background-color: #333;
+  background-color: #F1F1F1;
   padding: 40px 20px;
   z-index: 9999;
 }
@@ -89,6 +89,15 @@ header nav ul {
     padding: 0 0;
     flex-direction: row;
   }
+}
+
+.navbar ul a {
+  color: #161616;
+  transition: all 150ms linear;
+}
+
+.navbar ul a:hover, .navbar ul a.active {
+  color: crimson;
 }
 
 .toggle-menu-button {

@@ -95,8 +95,7 @@
 
 .content {
   height: 100%;
-  padding: 32px 0px 32px 20px;
-  padding: 20px 0px 20px 12px;
+  padding: 24px 0px;
 }
 
 @media (min-width: 780px) {

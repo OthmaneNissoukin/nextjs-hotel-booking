@@ -7,9 +7,15 @@
 }
 
 .heroTitle {
-  font-size: 22px;
+  font-size: 18px;
   color: #FFF;
   text-align: center;
+}
+
+@media (min-width: 540px) { 
+  .heroTitle {
+    font-size: 22px;
+  }
 }
 
 @media (min-width: 820px) {
