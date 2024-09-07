@@ -13,7 +13,7 @@ function Rooms({ searchParams }) {
       <Banner title={"Accomodation Options"} />
 
       <div className={`container ${styles.roomsHolder}`}>
-        <FilterSection />
+        <FilterSection filters={{ filter, range }} />
 
         <Suspense
           key={`${filter}-${range}`}

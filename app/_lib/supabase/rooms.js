@@ -28,10 +28,15 @@ export async function filterRoomsByDate(start = "2024-09-21", end = "2024-09-27"
     .from("reservations")
     .select("*")
     .eq("status", "confirmed")
-    .lte("start_date", start)
-    .gte("end_date", end);
+    .or(
+      `and(start_date.gte.${start},start_date.lte.${end}),and(end_date.gte.${start},end_date.lte.${end}),and(start_date.lte.${start}, end_date.gte.${end})`
+    );
 
-  const reservations_ids = reservations?.map((item) => item.room_id);
+  if (error) {
+    console.log(error);
+  }
+
+  const reservations_ids = reservations?.map((item) => item.room_id) ?? [];
 
   let { data: rooms, rooms_error } = await supabase
     .from("rooms")

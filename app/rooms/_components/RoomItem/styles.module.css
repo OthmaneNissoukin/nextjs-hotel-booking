@@ -49,6 +49,10 @@
   text-decoration: none;
   color: #FFF;
   flex-shrink: 0;
+  transition: all 150ms linear;
+}
+.roomDescription div a:hover {
+  background-color: rgb(156, 16, 44);
 }
 
 .roomTitle {

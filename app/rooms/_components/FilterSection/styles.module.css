@@ -6,6 +6,7 @@
   gap: 12px;
 }
 
+
 .select {
   width: 100%;
 }
@@ -51,4 +52,28 @@
 
 .formControl label {
   font-weight: 600;
+}
+
+
+.searchButton {
+  padding: 8px 12px;
+  color: #fff;
+  background-color: crimson;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all 150ms linear;
+  display: inline-block;
+  width: 100%;
+  font-size: 17px;
+}
+
+.searchButton:hover {
+  background-color: rgb(156, 16, 44);
+}
+
+@media (min-width: 590px) {
+  .searchButton {
+    width: auto;
+  }
 }

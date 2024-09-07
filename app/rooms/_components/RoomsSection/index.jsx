@@ -1,6 +1,7 @@
 import { filterRoomsByDate, getAllRooms } from "@/app/_lib/supabase/rooms";
 import styles from "./styles.module.css";
 import RoomItem from "../RoomItem";
+import { isValid } from "date-fns";
 
 async function RoomsSection({ filter, range }) {
   const rooms = await getAllRooms();
@@ -9,9 +10,10 @@ async function RoomsSection({ filter, range }) {
 
   let filteredRooms = rooms;
 
-  if (range) {
-    // ADD REGEX CONDITION FOR DATE PATTERN
-    filteredRooms = await filterRoomsByDate(range.split("_")?.at(0), range.split("_")?.at(1));
+  if (range && isValid(new Date(range.split("_")?.at(0))) && isValid(new Date(range.split("_")?.at(1)))) {
+    const arrivalDate = range.split("_")?.at(0);
+    const departureDate = range.split("_")?.at(1);
+    filteredRooms = await filterRoomsByDate(arrivalDate, departureDate);
   }
 
   switch (filter) {
