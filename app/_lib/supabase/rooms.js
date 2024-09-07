@@ -22,3 +22,21 @@ export async function getRoomImages(id) {
 
   return room_images;
 }
+
+export async function filterRoomsByDate(start = "2024-09-21", end = "2024-09-27") {
+  let { data: reservations, error } = await supabase
+    .from("reservations")
+    .select("*")
+    .eq("status", "confirmed")
+    .lte("start_date", start)
+    .gte("end_date", end);
+
+  const reservations_ids = reservations?.map((item) => item.room_id);
+
+  let { data: rooms, rooms_error } = await supabase
+    .from("rooms")
+    .select("*")
+    .not("id", "in", `(${reservations_ids.join(",")})`);
+
+  return rooms;
+}

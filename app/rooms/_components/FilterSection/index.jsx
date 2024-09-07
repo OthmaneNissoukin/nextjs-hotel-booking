@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
+import { formatISO } from "date-fns";
 
 const options = [
   { value: "default", label: "Default Sorting" },
@@ -17,16 +18,35 @@ const options = [
 ];
 
 function FilterSection() {
-  const [startDate, setStartDate] = useState();
-  const [endDate, setEndDate] = useState();
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-  function handleSearch(e) {
+
+  function handleSort(e) {
     console.log(e);
     const params = new URLSearchParams(searchParams);
     params.set("sort", e.value);
+    replace(`${pathname}?${params.toString()}`, { scroll: false });
+  }
+
+  function handleStartSelection(date) {
+    setStartDate(date);
+    console.log(date);
+  }
+
+  function handleEndSelection(date) {
+    setEndDate(date);
+    console.log(date);
+
+    if (!startDate || !date) return;
+    const params = new URLSearchParams(searchParams);
+    const arrival = formatISO(new Date(startDate), { representation: "date" });
+    const departure = formatISO(new Date(date), { representation: "date" });
+    const formatedRange = `${arrival}_${departure}`;
+    params.set("range", formatedRange);
     replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
 
@@ -37,7 +57,7 @@ function FilterSection() {
         <div className={styles.datesContainer}>
           <DatePicker
             selected={startDate}
-            onChange={(date) => setStartDate(date)}
+            onChange={(date) => handleStartSelection(date)}
             selectsStart
             startDate={startDate}
             endDate={endDate}
@@ -45,10 +65,11 @@ function FilterSection() {
             dateFormat={"dd/MM/yyyy"}
             excludeDateIntervals={[{ start: new Date("01/01/1970"), end: new Date() }]}
             placeholderText="Arrival Date"
+            // onSelect={(date) => handleStartSelection(date)}
           />
           <DatePicker
             selected={endDate}
-            onChange={(date) => setEndDate(date)}
+            onChange={(date) => handleEndSelection(date)}
             selectsEnd
             startDate={startDate}
             endDate={endDate}
@@ -57,6 +78,7 @@ function FilterSection() {
             dateFormat={"dd/MM/yyyy"}
             excludeDateIntervals={[{ start: new Date("01/01/1970"), end: new Date() }]}
             placeholderText="Departure Date"
+            // onSelect={(date) => handleEndSelection(date)}
           />
         </div>
       </div>
@@ -65,7 +87,7 @@ function FilterSection() {
         <label htmlFor="">Sort Rooms</label>
         <Select
           onChange={(e) => {
-            handleSearch(e);
+            handleSort(e);
           }}
           options={options}
           isSearchable={false}

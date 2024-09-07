@@ -7,6 +7,7 @@ import { Suspense } from "react";
 import Loader from "../_ui/Loader";
 function Rooms({ searchParams }) {
   const filter = searchParams?.sort ?? "default";
+  const range = searchParams?.range ?? "";
   return (
     <>
       <Banner title={"Accomodation Options"} />
@@ -15,14 +16,14 @@ function Rooms({ searchParams }) {
         <FilterSection />
 
         <Suspense
-          key={filter}
+          key={`${filter}-${range}`}
           fallback={
             <div className={styles.loader}>
               <Loader />
             </div>
           }
         >
-          <RoomsSection filter={filter} />
+          <RoomsSection filter={filter} range={range} />
         </Suspense>
       </div>
     </>
