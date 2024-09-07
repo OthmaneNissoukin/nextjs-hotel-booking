@@ -263,3 +263,8 @@ div.slider nav.slider-menu button.active {
   }
 
 }
+.section-loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

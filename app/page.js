@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import About from "./_components/About";
 import Blog from "./_components/Blog/Blog";
 import Contact from "./_components/Contact";
@@ -5,6 +6,7 @@ import Contact from "./_components/Contact";
 import Gallery from "./_components/Gallery";
 import HeroSection from "./_components/HeroSection";
 import Rooms from "./_components/Rooms";
+import LoadingSpinner from "./_ui/LoadingSpinner";
 
 export const metadata = {
   title: "Hotel Booking App",
@@ -16,8 +18,16 @@ export default async function Home() {
     <>
       <HeroSection />
       <About />
-      <Rooms />
-      <Gallery />
+      <Suspense
+        fallback={
+          <div className="global-loading">
+            <LoadingSpinner />
+          </div>
+        }
+      >
+        <Rooms />
+        <Gallery />
+      </Suspense>
       <Blog />
       <Contact />
     </>

@@ -2,11 +2,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.css";
 import { faBed, faCalendar, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { formatISO } from "date-fns";
 import FormDayPicker from "../FormDayPicker";
+import Loader from "@/app/_ui/Loader";
 
-function RoomBookingForm() {
+function RoomBookingForm({ room }) {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -24,7 +25,15 @@ function RoomBookingForm() {
 
   return (
     <form className={styles.roomBookingForm}>
-      <FormDayPicker handleDateSelection={handleDateSelection} />
+      <Suspense
+        fallback={
+          <div className="section-loader">
+            <Loader />
+          </div>
+        }
+      >
+        <FormDayPicker handleDateSelection={handleDateSelection} />
+      </Suspense>
 
       <div className={styles.formItem}>
         <div className={styles.formInput}>
@@ -60,7 +69,13 @@ function RoomBookingForm() {
           </div>
           <div className={styles.formControl}>
             <label>Guests</label>
-            <input type="number" min={1} value={guests} onChange={(e) => setGuests(e.target.value)} max={16} />
+            <input
+              type="number"
+              min={1}
+              value={guests}
+              onChange={(e) => setGuests(e.target.value)}
+              max={room.capacity}
+            />
           </div>
         </div>
 

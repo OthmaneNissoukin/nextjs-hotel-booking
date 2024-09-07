@@ -14,12 +14,10 @@ function BookingForm({ children }) {
 
   function handleStartSelection(date) {
     setStartDate(date);
-    console.log(date);
   }
 
   function handleEndSelection(date) {
     setEndDate(date);
-    console.log(date);
   }
 
   function handleSearch() {

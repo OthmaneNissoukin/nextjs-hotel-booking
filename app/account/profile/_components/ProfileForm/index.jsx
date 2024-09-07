@@ -28,8 +28,6 @@ function ProfileForm() {
       // TODO: FIND A WAY TO REDIRECT WITHOUT HARD REFRESH
       if (!guest) redirect("signin");
 
-      console.log(guest);
-
       setGuest(guest.at(0));
       setFullname(guest.at(0).fullname);
       setPhone(guest.at(0).phone);

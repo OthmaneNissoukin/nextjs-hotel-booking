@@ -1,10 +1,39 @@
+"use client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import styles from "./styles.module.css";
+import { getRoomReservations } from "@/app/_lib/supabase/reservations";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import Loader from "@/app/_ui/Loader";
 
 function FormDayPicker({ handleDateSelection }) {
+  const [disableddDays, setDisabledDays] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const { room_slug } = useParams();
+
+  useEffect(() => {
+    if (!room_slug) return;
+    async function getBusyDays() {
+      setIsLoading(true);
+      const reservations = await getRoomReservations(room_slug);
+
+      setDisabledDays(reservations.map((item) => ({ before: item.end_date, after: item.start_date })));
+      setIsLoading(false);
+    }
+
+    getBusyDays();
+  }, []);
+
+  if (isLoading)
+    return (
+      <div className={"section-loader"}>
+        <Loader />
+      </div>
+    );
+
   return (
     <div className={styles.datepicker}>
       <div>
@@ -17,7 +46,7 @@ function FormDayPicker({ handleDateSelection }) {
           endMonth={new Date(2027, 11)}
           weekStartsOn={1}
           numberOfMonths={2}
-          disabled={[{ before: new Date() }]}
+          disabled={[{ before: new Date() }, ...disableddDays]}
           footer={
             <p>
               <span className={styles.footerIcon}>

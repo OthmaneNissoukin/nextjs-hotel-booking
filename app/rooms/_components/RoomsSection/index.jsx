@@ -35,7 +35,6 @@ async function RoomsSection({ filter, range }) {
       filteredRooms = filteredRooms;
   }
 
-  console.log(filteredRooms);
   return (
     <div className={styles.roomsGrid}>
       {filteredRooms.map((item) => (

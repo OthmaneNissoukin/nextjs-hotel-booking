@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.css";
-import { faBed, faDollar, faRuler } from "@fortawesome/free-solid-svg-icons";
+import { faBed, faDollar, faUsers } from "@fortawesome/free-solid-svg-icons";
 
 function Features({ room }) {
   return (
@@ -13,7 +13,7 @@ function Features({ room }) {
       </li>
       <li>
         <span className={styles.featureIcon}>
-          <FontAwesomeIcon icon={faRuler} />
+          <FontAwesomeIcon icon={faUsers} />
         </span>
         <span className={styles.featureLabel}>Capacity:</span> {room.capacity}
       </li>
