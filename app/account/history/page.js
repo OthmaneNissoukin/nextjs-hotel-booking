@@ -13,6 +13,7 @@ async function History() {
       <div>
         {reservations.map((item) => (
           <ReservationCard
+            key={item.id}
             thumbnailPath={item.rooms.thumbnail}
             title={item.rooms.name}
             date={`${item.start_date} / ${item.end_date}`}

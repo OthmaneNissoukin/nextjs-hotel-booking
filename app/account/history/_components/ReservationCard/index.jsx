@@ -18,6 +18,7 @@ function ReservationCard({ thumbnailPath = "/bg.png", title, guestsCount, date, 
           <h2>{title}</h2>
           <p>{guestsCount} Guests</p>
           <p>{date}</p>
+
           {/* CREATE A SEPARATED COMPONENT FOR THE STATUS AS BADGE */}
           <Badge
             type={status == "unconfirmed" ? "warning" : status == "canceled" || status == "finished" ? "danger" : ""}

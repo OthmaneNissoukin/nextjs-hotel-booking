@@ -51,8 +51,13 @@
   flex-grow: 1;
 }
 
+.sidebarButton {
+  border: none;
+  outline: none;
+}
 
-.sidebarLink {
+
+.sidebarLink, .sidebarButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,29 +70,29 @@
 }
 
 @media (min-width: 780px) {
-  .sidebarLink {
+  .sidebarLink, .sidebarButton {
     justify-content: initial;
   }
 }
 
-.sidebarLink:hover {
+.sidebarLink:hover, .sidebarButton:hover {
   background-color: crimson;
 }
 
 @media (min-width: 780px) {
-  .sidebarLink {
+  .sidebarLink, .sidebarButton {
     gap: 12px;
     padding: 16px 32px;
     font-size: 17px;
   }
 }
 
-.sidebarLink span:last-child {
+.sidebarLink span:last-child, .sidebarButton span:last-child {
   display: none;
 }
 
 @media (min-width: 714px) {
-  .sidebarLink span:last-child {
+  .sidebarLink span:last-child, .sidebarButton span:last-child {
     display: inline;
   }
 }

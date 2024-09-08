@@ -1,28 +1,33 @@
 import Link from "next/link";
+import bcrypt from "bcrypt";
 import styles from "./styles.module.css";
+import { signIn } from "@/auth";
 
 function SigninForm() {
+  async function authAction(formData) {
+    "use server";
+    const credentials = { email: formData.get("email"), password: formData.get("password") };
+    await signIn("credentials", { ...credentials, redirectTo: "/account/history" });
+  }
+
   return (
     <div className={`${styles.formSection} container`}>
-      <form action="" className={styles.form}>
+      <form action={authAction} className={styles.form}>
         <h2 className={styles.loginHeading}>Login</h2>
         <div className={styles.formControl}>
           <label htmlFor="" className={styles.loginLabel}>
             Email Address
           </label>
-          <input type="email" className={styles.loginInput} />
+          <input type="email" name="email" className={styles.loginInput} />
         </div>
         <div className={styles.formControl}>
           <label htmlFor="" className={styles.loginLabel}>
             Password
           </label>
-          <input type="password" className={styles.loginInput} />
+          <input type="password" name="password" className={styles.loginInput} />
         </div>
 
-        {/* TODO: CONVERT THIS TO BUTTON */}
-        <Link href="account/history" type="button" className={styles.formButton}>
-          Sign In
-        </Link>
+        <button className={styles.formButton}>Sign In</button>
         <br />
         <a href="#">Forget Password?</a>
       </form>

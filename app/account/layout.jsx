@@ -2,8 +2,13 @@ import Link from "next/link";
 import styles from "./styles.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHistory, faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
+import { signOut } from "@/auth";
 
 function Layout({ children }) {
+  async function signOutAction() {
+    "use server";
+    await signOut({ redirectTo: "/signin" });
+  }
   return (
     <section className={styles.accountLayout}>
       <aside className={styles.accountSidebar}>
@@ -25,12 +30,14 @@ function Layout({ children }) {
             </Link>
           </li>
           <li>
-            <Link href={"#"} className={styles.sidebarLink}>
-              <span>
-                <FontAwesomeIcon icon={faSignOut} />
-              </span>
-              <span>Sign out</span>
-            </Link>
+            <form action={signOutAction}>
+              <button className={styles.sidebarButton}>
+                <span>
+                  <FontAwesomeIcon icon={faSignOut} />
+                </span>
+                <span>Sign out</span>
+              </button>
+            </form>
           </li>
         </ul>
       </aside>
