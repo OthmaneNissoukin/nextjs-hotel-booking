@@ -1,0 +1,22 @@
+.badgeContainer {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.success {
+  background-color: #0761c7c2;
+  color: #ffffff;
+}
+
+.danger {
+  background-color: #c90d2fd4;
+  color: #ffffff;
+}
+
+.warning {
+  background-color: #b2d30bde;
+  color: #000;
+}
