@@ -1,9 +1,9 @@
 import styles from "./styles.module.css";
 
-function SubmitButton({ onClick = null, className = "", disabled = false, children }) {
+function SubmitButton({ onClick = null, type = "button", className = "", disabled = false, children }) {
   return (
     <button
-      type="button"
+      type={type}
       onClick={onClick ? () => onClick() : null}
       disabled={disabled}
       className={`${styles.sendBtn} ${className}`}

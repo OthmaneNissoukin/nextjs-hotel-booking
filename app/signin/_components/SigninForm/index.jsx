@@ -1,5 +1,3 @@
-import Link from "next/link";
-import bcrypt from "bcrypt";
 import styles from "./styles.module.css";
 import { signIn } from "@/auth";
 

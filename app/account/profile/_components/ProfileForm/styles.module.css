@@ -20,7 +20,7 @@
 
 .formControl {
   font-size: 17px;
-  font-weight: 600;
+  /* font-weight: 600; */
   padding: 12px 16px;
   border-radius: none;
   outline: none;

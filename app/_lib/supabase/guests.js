@@ -1,7 +1,7 @@
 import supabase from "./db";
 
 export async function getGuestById(id) {
-  let { data: guests, error } = await supabase.from("guests").select("*").eq("id", id);
+  let { data: guests, error } = await supabase.from("guests").select("*").eq("id", id).single();
 
   await new Promise((resolve) => setTimeout(resolve, 2000));
 

@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-
-import bcrypt from "bcrypt";
+import { compareSync } from "bcryptjs";
 import { getGuestByEmail } from "./app/_lib/supabase/guests";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -29,7 +28,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         }
 
         // Verifying user password
-        const isValidPwd = bcrypt.compareSync(credentials.password, user.password);
+        const isValidPwd = compareSync(credentials.password, user.password);
 
         if (!isValidPwd) {
           throw new Error("Wrong email or password");
@@ -40,4 +39,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
     }),
   ],
+  callbacks: {
+    authorized({ req, auth }) {
+      console.log("HITTED");
+      return !!auth;
+    },
+
+    async session({ session, token, user }) {
+      const currentGuest = await getGuestByEmail(session.user.email);
+
+      session.user.id = currentGuest.id;
+      session.user.name = currentGuest.fullname;
+
+      return session;
+    },
+  },
 });
