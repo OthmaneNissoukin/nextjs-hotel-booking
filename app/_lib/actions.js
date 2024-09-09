@@ -4,7 +4,7 @@ import { signInSchema } from "./zodSchemas";
 import { redirect } from "next/navigation";
 
 export async function authAction(prevState, formData) {
-  await new Promise((res) => setTimeout(res, 500));
+  // await new Promise((res) => setTimeout(res, 500));
   const email = formData.get("email");
   const password = formData.get("password");
 

@@ -25,14 +25,14 @@ function CredentialsForm({ authAction }) {
           Email Address
         </label>
         <input type="email" name="email" defaultValue={"trigger2000p@gmail.com"} className={styles.loginInput} />
-        {state.email && <span className={styles.errorMessage}>{state.email}</span>}
+        {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
       </div>
       <div className={styles.formControl}>
         <label htmlFor="" className={styles.loginLabel}>
           Password
         </label>
         <input type="password" name="password" defaultValue={"azerty"} className={styles.loginInput} />
-        {state.password && <span className={styles.errorMessage}>{state.password}</span>}
+        {/* {state.password && <span className={styles.errorMessage}>{state.password}</span>} */}
       </div>
 
       <SignInButton />
