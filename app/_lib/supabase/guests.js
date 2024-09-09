@@ -27,3 +27,25 @@ export async function updateGuest(id, name, nationality, countryFlag, phone, ema
 
   return data;
 }
+
+export async function createGuest(
+  fullname,
+  email,
+  avatar = "",
+  phone = "",
+  nationality = "",
+  countryFlag = "",
+  nationalID = ""
+) {
+  const { data, error } = await supabase
+    .from("guests")
+    .insert([{ fullname, email, phone, avatar, nationality, countryFlag, nationalID }])
+    .select();
+
+  if (error) {
+    console.log("ERROR SUPABASE");
+    console.log(error);
+  }
+
+  return data;
+}
