@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { createGuest, getGuestByEmail } from "./app/_lib/supabase/guests";
 import { credentials } from "./app/_lib/authjs/credentialsCallback";
 import Google from "next-auth/providers/google";
+import Facebook from "next-auth/providers/facebook";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
@@ -11,6 +12,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials(credentials),
     Google({ clientId: process.env.AUTH_GOOGLE_ID, clientSecret: process.env.AUTH_GOOGLE_SECRET }),
+    Facebook({ clientId: process.env.AUTH_FACEBOOK_ID, clientSecret: process.env.AUTH_FACEBOOK_SECRET }),
   ],
   callbacks: {
     authorized({ req, auth }) {
@@ -19,6 +21,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async signIn({ account, user }) {
+      // console.log("++++++ USER +++++++");
+      // console.log(user);
+      // console.log(account);
+      if (!user.email) return false;
       try {
         const guest = await getGuestByEmail(user.email);
         if (guest) {

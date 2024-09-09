@@ -20,10 +20,17 @@ function OAuthProviderButtons() {
           </button>
         </form>
 
-        <button className={styles.facebookBtn}>
-          <i className={styles.facebookIcon}></i>
-          Sign in with Facebook
-        </button>
+        <form
+          action={async () => {
+            "use server";
+            await signIn("facebook", { redirectTo: "/account/history" });
+          }}
+        >
+          <button className={styles.facebookBtn}>
+            <i className={styles.facebookIcon}></i>
+            Continue with Facebook
+          </button>
+        </form>
       </div>
     </div>
   );
