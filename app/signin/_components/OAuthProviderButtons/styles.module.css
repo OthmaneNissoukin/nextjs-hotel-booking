@@ -1,0 +1,86 @@
+.authProviders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  justify-content: center;
+}
+
+.googleButton {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem; 
+  font-size: 1.125rem; 
+  border: 1px solid #dedede;
+  background-color: transparent;
+  padding: 1rem 2.5rem;
+  font-weight: 500;
+}
+
+.googleButton:hover {
+  background-color: #dedede;
+}
+
+.googleButton {
+  cursor: pointer;
+  transition: all 150ms linear;
+}
+
+.facebookBtn, .googleButton {
+  min-width: 304px;
+}
+
+.facebookBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background-color: #1877f2;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1.125rem; 
+
+  padding: 1rem 2.5rem;
+  font-weight: 500;
+}
+
+.facebookBtn:hover {
+  background-color: #165dab;
+}
+
+.facebookIcon {
+  background-image: url('https://upload.wikimedia.org/wikipedia/commons/5/51/Facebook_f_logo_%282019%29.svg'); /* Facebook logo */
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 20px;
+  height: 20px;
+}
+
+/* OR DIVIDER */
+
+.orDivider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #888; /* Adjust color as needed */
+  margin: 1rem 0;
+  margin-bottom: 48px;
+}
+
+.orDivider::before,
+.orDivider::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc; /* Adjust line color as needed */
+}
+
+.orDivider::before {
+  margin-right: 0.5rem;
+}
+
+.orDivider::after {
+  margin-left: 0.5rem;
+}
