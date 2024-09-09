@@ -22,7 +22,7 @@
 }
 
 .accountSidebar {
-  height: 100%;
+  height: calc(100% - 64px);
   /* background-color: #ddd; */
   background-color: #252525;
   padding: 20px 12px;

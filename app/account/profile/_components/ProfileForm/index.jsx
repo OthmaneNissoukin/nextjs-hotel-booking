@@ -1,32 +1,25 @@
+"use client";
+
 import SubmitButton from "@/app/_ui/SubmitButton";
 import styles from "./styles.module.css";
-import { getGuestById, updateGuest } from "@/app/_lib/supabase/guests";
-import { redirect } from "next/navigation";
+import { useFormState } from "react-dom";
 
-import "react-toastify/dist/ReactToastify.css";
+import SelectCountry from "@/app/_ui/SelectCountry";
 
-async function ProfileForm({ user }) {
-  const guest = await getGuestById(user.id);
-  console.log(guest);
+// import "react-toastify/dist/ReactToastify.css";
 
-  if (!guest) redirect("signin");
+const initialState = {
+  fullnameErr: "",
+  nationalityErr: "",
+  phoneErr: "",
+  emailErr: "",
+};
 
-  async function guestUpdateAction(formData) {
-    "use server";
-    // TODO: ADD FORM VALIDATION FOR ALL FIELDS
-    // TODO: STYLE THE TOSTSIFY COMPONENT
-
-    const guestID = user.id;
-    const fullname = formData.get("fullname");
-    const nationality = formData.get("nationality");
-    const email = formData.get("email");
-    const phone = formData.get("phone");
-
-    const updateData = await updateGuest(guestID, fullname, nationality, phone, email);
-  }
+function ProfileForm({ guestUpdateAction, guest }) {
+  const [state, formAction] = useFormState(guestUpdateAction, initialState);
 
   return (
-    <form action={guestUpdateAction}>
+    <form action={formAction}>
       <div className={styles.profileFormInputs}>
         <div>
           <label className={styles.formLabel}>Fullname</label>
@@ -37,6 +30,7 @@ async function ProfileForm({ user }) {
             name="fullname"
             defaultValue={guest.fullname}
           />
+          {state?.fullnameErr && <span className={styles.errorMessage}>{state.fullnameErr}</span>}
         </div>
         <div>
           <label className={styles.formLabel}>Email Address</label>
@@ -47,16 +41,18 @@ async function ProfileForm({ user }) {
             placeholder="john.doe@mail.com"
             name="email"
           />
+          {state?.email && <span className={styles.errorMessage}>{state.email}</span>}
         </div>
         <div>
-          <label className={styles.formLabel}>Nationality</label>
-          <input
-            className={styles.formControl}
-            defaultValue={guest.nationality}
-            type="text"
-            placeholder="Moroccan"
-            name="nationality"
-          />
+          <label className={styles.formLabel}>
+            <span>Nationality</span>
+            <span className={styles.countryFlag}>
+              <img src={guest.countryFlag} alt={`${guest.nationality ?? "country"} flag`} />
+            </span>
+          </label>
+
+          <SelectCountry className={styles.formControl} name={"nationality"} defaultCountry={guest.nationality} />
+          {state?.nationality && <span className={styles.errorMessage}>{state.nationality}</span>}
         </div>
         <div>
           <label className={styles.formLabel}>Phone Number</label>
@@ -67,12 +63,28 @@ async function ProfileForm({ user }) {
             placeholder="+212 6 879900830"
             name="phone"
           />
+          {state?.phone && <span className={styles.errorMessage}>{state.phone}</span>}
+        </div>
+        <div>
+          <label className={styles.formLabel}>New Password</label>
+          <input className={styles.formControl} type="text" placeholder="Later" name="pwd" readOnly disabled={true} />
+          {state?.phone && <span className={styles.errorMessage}>{state.phone}</span>}
+        </div>
+        <div>
+          <label className={styles.formLabel}>Confirm Password</label>
+          <input
+            className={styles.formControl}
+            type="text"
+            placeholder="Later"
+            name="pwd_confirmation"
+            readOnly
+            disabled={true}
+          />
+          {state?.phone && <span className={styles.errorMessage}>{state.phone}</span>}
         </div>
       </div>
       <div className={styles.formButtonContainer}>
-        <SubmitButton type="submit" className={styles.formButton}>
-          Save
-        </SubmitButton>
+        <SubmitButton type="submit" className={styles.formButton} content={{ pending: "Saving...", base: "Save" }} />
       </div>
     </form>
   );
