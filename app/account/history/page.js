@@ -6,9 +6,9 @@ import { auth } from "@/auth";
 import Link from "next/link";
 
 async function History() {
-  const session = await auth();
+  // const session = await auth();
 
-  const reservations = await getGuestReservations(session?.user.id);
+  // const reservations = await getGuestReservations(session?.user.id);
 
   return (
     <>
