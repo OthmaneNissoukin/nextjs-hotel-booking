@@ -14,5 +14,10 @@ export async function getGuestReservations(guest_id) {
     .select("*, rooms(thumbnail, name)")
     .eq("guest_id", guest_id);
 
+  if (error) {
+    console.log("SUPABASE ERROR");
+    console.log(error);
+  }
+
   return reservations;
 }
