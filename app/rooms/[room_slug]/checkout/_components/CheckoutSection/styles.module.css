@@ -1,0 +1,18 @@
+.formSection {
+  padding: 40px 20px;
+  background-color: #fff;
+  /* display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  justify-content: center; */
+}
+
+
+@media (min-width: 720px) {
+  .formSection {
+    display: grid;
+    gap: 48px;
+    grid-template-columns: 1fr 320px;
+    justify-content: center;
+  }
+}

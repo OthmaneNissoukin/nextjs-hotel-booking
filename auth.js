@@ -21,12 +21,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async signIn({ account, user }) {
-      // console.log("++++++ SIGNIN CALLBACK +++++++");
-      // console.log(user);
-      // console.log(account);
-      // console.log(account);
-      // console.log(user);
-
       // When credentials are valid, there is no need to go through SignIn callback because
       // all the needed validation have been handled in the authorize() of the credentials provider
       if (account.provider === "credentials") return true;
