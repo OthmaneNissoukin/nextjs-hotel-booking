@@ -6,14 +6,14 @@ import { auth } from "@/auth";
 import Link from "next/link";
 
 async function History() {
-  // const session = await auth();
+  const session = await auth();
 
-  // const reservations = await getGuestReservations(session?.user.id);
+  const reservations = (await getGuestReservations(session?.user?.id)) ?? [];
 
   return (
     <>
       <Heading textClassName={styles.heading}>Your History</Heading>
-      {/* <div>
+      <div>
         {reservations.length ? (
           reservations.map((item) => (
             <ReservationCard
@@ -32,7 +32,7 @@ async function History() {
             <Link href={"/rooms"}>View Rooms</Link>
           </div>
         )}
-      </div> */}
+      </div>
     </>
   );
 }
