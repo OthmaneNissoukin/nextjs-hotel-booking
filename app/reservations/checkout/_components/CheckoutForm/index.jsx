@@ -7,19 +7,22 @@ import { useFormState } from "react-dom";
 import SelectCountry from "@/app/_ui/SelectCountry";
 
 const initialState = {
+  fullname: "",
   email: "",
-  password: "",
+  phone: "",
+  nationalID: "",
+  message: "",
   criticalError: "",
 };
 
-function CheckoutForm({ guest, authAction }) {
-  const [state, formAction] = useFormState(authAction, initialState);
+function CheckoutForm({ guest, createReservationAction }) {
+  const [state, formAction] = useFormState(createReservationAction, initialState);
 
   return (
     <form action={formAction} className={styles.form}>
       <h2 className={styles.formHeading}>Reservation Confirmation</h2>
 
-      {state.criticalError && <Alert>{state.criticalError}</Alert>}
+      {state?.criticalError && <Alert>{state?.criticalError}</Alert>}
 
       <div className={styles.formControlRow}>
         <div className={styles.formControl}>
@@ -27,7 +30,7 @@ function CheckoutForm({ guest, authAction }) {
             Fullname
           </label>
           <input type="text" name="fullname" defaultValue={guest.fullname} className={styles.formInput} />
-          {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
+          {state?.fullname && <span className={styles.errorMessage}>{state?.fullname}</span>}
         </div>
 
         <div className={styles.formControl}>
@@ -35,7 +38,7 @@ function CheckoutForm({ guest, authAction }) {
             NationalID
           </label>
           <input type="text" name="nationalID" defaultValue={guest.nationalID} className={styles.formInput} />
-          {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
+          {state?.nationalID && <span className={styles.errorMessage}>{state?.nationalID}</span>}
         </div>
       </div>
 
@@ -44,7 +47,7 @@ function CheckoutForm({ guest, authAction }) {
           Email Address
         </label>
         <input type="email" name="email" defaultValue={guest.email} className={styles.formInput} />
-        {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
+        {state?.email && <span className={styles.errorMessage}>{state?.email}</span>}
       </div>
 
       <div className={styles.formControl}>
@@ -52,7 +55,7 @@ function CheckoutForm({ guest, authAction }) {
           Phone Number
         </label>
         <input type="tel" name="phone" defaultValue={guest.phone} className={styles.formInput} />
-        {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
+        {state?.phone && <span className={styles.errorMessage}>{state?.phone}</span>}
       </div>
 
       <div className={styles.formControl}>
@@ -62,14 +65,16 @@ function CheckoutForm({ guest, authAction }) {
             <img src={guest.countryFlag} alt={`${guest.nationality ?? "country"} flag`} />
           </span>
         </label>
-        <SelectCountry className={styles.formInput} defaultCountry={guest.nationality} />
+        <SelectCountry name={"nationality"} className={styles.formInput} defaultCountry={guest.nationality} />
+        {state?.nationality && <span className={styles.errorMessage}>{state?.nationality}</span>}
       </div>
 
       <div className={styles.formControl}>
         <label htmlFor="" className={styles.formLabel}>
           More Informations
         </label>
-        <textarea name="" id="" className={styles.formTextArea} rows={5}></textarea>
+        <textarea name="message" id="" className={styles.formTextArea} rows={5}></textarea>
+        {state?.message && <span className={styles.errorMessage}>{state?.message}</span>}
       </div>
 
       <ConfirmationButton />

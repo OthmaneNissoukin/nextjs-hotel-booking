@@ -47,7 +47,7 @@ async function RoomContainer({ params }) {
       const reservation_cookies = cookies();
       reservation_cookies.set("pending_reservation", JSON.stringify({ start_date, end_date, guests_count, room_id }));
 
-      redirect(`/rooms/${room_id}/checkout`);
+      redirect(`/reservations/checkout`);
     }
   }
 

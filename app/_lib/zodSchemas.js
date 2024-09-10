@@ -17,3 +17,12 @@ export const bookingSchema = z.object({
   start_date: z.string({ message: "date is invalid" }).date({ message: "date is invalid" }),
   end_date: z.string({ message: "date is invalid" }).date({ message: "date is invalid" }),
 });
+
+export const reservationSchema = z.object({
+  fullname: z.string().trim().min(3).max(64),
+  nationality: z.string(),
+  phone: z.string().regex(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/, "Invalid phone number."),
+  email: z.string().email("invalid email format."),
+  nationalID: z.string().regex(/^[a-zA-Z0-9]{6,12}$/, "Invalid national ID format"),
+  message: z.string().max(255).optional(),
+});

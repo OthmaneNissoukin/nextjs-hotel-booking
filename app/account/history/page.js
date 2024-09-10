@@ -4,8 +4,17 @@ import ReservationCard from "./_components/ReservationCard";
 import { getGuestReservations } from "@/app/_lib/supabase/reservations";
 import { auth } from "@/auth";
 import Link from "next/link";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 async function History() {
+  const reservations_cookies = cookies();
+  const has_pernding_reservation = reservations_cookies.has("pending_reservation");
+
+  if (has_pernding_reservation) {
+    redirect("/reservations/checkout");
+  }
+
   let session = {};
   let reservations = [];
   try {
