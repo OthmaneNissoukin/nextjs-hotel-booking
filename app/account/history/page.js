@@ -13,7 +13,7 @@ async function History() {
   return (
     <>
       <Heading textClassName={styles.heading}>Your History</Heading>
-      <div>
+      {/* <div>
         {reservations.length ? (
           reservations.map((item) => (
             <ReservationCard
@@ -32,7 +32,7 @@ async function History() {
             <Link href={"/rooms"}>View Rooms</Link>
           </div>
         )}
-      </div>
+      </div> */}
     </>
   );
 }
