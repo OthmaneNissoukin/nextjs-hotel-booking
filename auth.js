@@ -21,10 +21,19 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async signIn({ account, user }) {
-      // console.log("++++++ USER +++++++");
+      // console.log("++++++ SIGNIN CALLBACK +++++++");
       // console.log(user);
       // console.log(account);
+      // console.log(account);
+      // console.log(user);
+
+      // When credentials are valid, there is no need to go through SignIn callback because
+      // all the needed validation have been handled in the authorize() of the credentials provider
+      if (account.provider === "credentials") return true;
+
+      // This is for facebook provider, since some accounts might not be bound with an email address
       if (!user.email) return false;
+
       try {
         const guest = await getGuestByEmail(user.email);
         if (guest) {
@@ -34,6 +43,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         return false;
       }
 
+      // When going with OAuth providers, if a user does not have already an account, we simply create it on the go just to reduce a sign up step
       try {
         await createGuest(user.name, user.email, user.image);
       } catch (err) {
