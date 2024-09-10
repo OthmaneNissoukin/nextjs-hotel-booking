@@ -8,14 +8,11 @@ export async function getRoomReservations(id) {
   return reservations;
 }
 
-export async function getGuestReservations(guestID) {
-  try {
-    const { data, error } = await supabase.from("reservations").select("*").eq("guestID", guestID);
+export async function getGuestReservations(guest_id) {
+  let { data: reservations, error } = await supabase
+    .from("reservations")
+    .select("*, rooms(thumbnail, name)")
+    .eq("guest_id", guest_id);
 
-    if (error) throw error;
-    return data || [];
-  } catch (error) {
-    console.error("Error fetching reservations:", error);
-    return [];
-  }
+  return reservations;
 }
