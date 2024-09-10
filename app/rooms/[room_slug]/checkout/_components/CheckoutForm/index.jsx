@@ -12,7 +12,7 @@ const initialState = {
   criticalError: "",
 };
 
-function CheckoutForm({ authAction }) {
+function CheckoutForm({ guest, authAction }) {
   const [state, formAction] = useFormState(authAction, initialState);
 
   return (
@@ -26,7 +26,7 @@ function CheckoutForm({ authAction }) {
           <label htmlFor="" className={styles.formLabel}>
             Fullname
           </label>
-          <input type="text" name="fullname" defaultValue={""} className={styles.formInput} />
+          <input type="text" name="fullname" defaultValue={guest.fullname} className={styles.formInput} />
           {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
         </div>
 
@@ -34,7 +34,7 @@ function CheckoutForm({ authAction }) {
           <label htmlFor="" className={styles.formLabel}>
             NationalID
           </label>
-          <input type="text" name="nationalID" defaultValue={""} className={styles.formInput} />
+          <input type="text" name="nationalID" defaultValue={guest.nationalID} className={styles.formInput} />
           {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
         </div>
       </div>
@@ -43,7 +43,7 @@ function CheckoutForm({ authAction }) {
         <label htmlFor="" className={styles.formLabel}>
           Email Address
         </label>
-        <input type="email" name="email" defaultValue={"trigger2000p@gmail.com"} className={styles.formInput} />
+        <input type="email" name="email" defaultValue={guest.email} className={styles.formInput} />
         {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
       </div>
 
@@ -51,15 +51,18 @@ function CheckoutForm({ authAction }) {
         <label htmlFor="" className={styles.formLabel}>
           Phone Number
         </label>
-        <input type="tel" name="phone" defaultValue={""} className={styles.formInput} />
+        <input type="tel" name="phone" defaultValue={guest.phone} className={styles.formInput} />
         {/* {state.email && <span className={styles.errorMessage}>{state.email}</span>} */}
       </div>
 
       <div className={styles.formControl}>
         <label htmlFor="" className={styles.formLabel}>
-          Where are you from?
+          <span>Where are you from?</span>{" "}
+          <span className={styles.countryFlag}>
+            <img src={guest.countryFlag} alt={`${guest.nationality ?? "country"} flag`} />
+          </span>
         </label>
-        <SelectCountry className={styles.formInput} />
+        <SelectCountry className={styles.formInput} defaultCountry={guest.nationality} />
       </div>
 
       <div className={styles.formControl}>
@@ -70,9 +73,6 @@ function CheckoutForm({ authAction }) {
       </div>
 
       <ConfirmationButton />
-
-      <br />
-      <a href="#">Forget Password?</a>
     </form>
   );
 }

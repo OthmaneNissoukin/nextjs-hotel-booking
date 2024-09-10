@@ -38,6 +38,9 @@
 .formLabel {
   letter-spacing: 1px;
   color: #656a70;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .formInput, .formTextArea {
@@ -56,4 +59,14 @@
 .errorMessage {
   font-size: 12px;
   color: red;
+}
+
+.countryFlag {
+  display: inline-block;
+  width: 24px;
+  overflow: hidden;
+}
+
+.countryFlag img {
+  width: 100%;
 }

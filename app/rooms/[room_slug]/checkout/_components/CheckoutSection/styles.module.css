@@ -11,8 +11,8 @@
 @media (min-width: 720px) {
   .formSection {
     display: grid;
-    gap: 48px;
-    grid-template-columns: 1fr 320px;
+    gap: 32px;
+    grid-template-columns: 2fr minmax(320px, 1fr);
     justify-content: center;
   }
 }

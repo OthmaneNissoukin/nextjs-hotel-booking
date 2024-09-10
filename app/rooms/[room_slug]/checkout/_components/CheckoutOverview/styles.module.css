@@ -11,7 +11,7 @@
 .bookingSummary {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   margin-bottom: 12px;
 }
 
@@ -27,6 +27,7 @@
 .bookingSummary p {
   display: flex;
   justify-content: space-between;
+  gap: 4px;
 }
 
 
@@ -42,8 +43,9 @@
 .totalPrice {
   display: flex;
   justify-content: space-between;
+  gap: 4px;
   padding-top: 8px;
-  margin-top: 12px;
+  margin-top: 24px;
   border-top: 1px solid #dedede;
 }
 
@@ -52,6 +54,6 @@
 }
 
 .totalPrice span:last-of-type {
-  color: #131313;
+  color: crimson;
   font-weight: 600;
 }

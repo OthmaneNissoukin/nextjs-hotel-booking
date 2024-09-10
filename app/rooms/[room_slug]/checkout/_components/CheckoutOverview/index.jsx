@@ -1,52 +1,74 @@
-import { signIn } from "@/auth";
+import { formatToAbrFormat } from "@/app/utils/datetime";
 import styles from "./styles.module.css";
 import Card from "@/app/_components/Card/Card";
+import Image from "next/image";
+import { differenceInCalendarDays } from "date-fns";
 
-function CheckoutOverview() {
+const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
+
+function CheckoutOverview({ room, pending_reservation }) {
   return (
     <div>
       <Card>
         <Card.Thumbnail>
-          <img src="/bg.png" alt="" />
+          <Image fill src={`${SUPABASE_ROOMS_URL}/${room.thumbnail}`} alt={`${room.name} thumbnail`} />
         </Card.Thumbnail>
 
         <Card.Description className={styles.overviewDescription}>
-          <h2>King Room</h2>
+          <h2>{room.name}</h2>
           <div className={styles.bookingSummary}>
             <h3>Booking Summary</h3>
             <p>
               <span>Arrival</span>
-              <span>Fri, Dec 01</span>
+              <span>{formatToAbrFormat(pending_reservation.start_date)}</span>
             </p>
             <p>
-              <span>Arrival</span>
-              <span>Tue, Dec 05</span>
+              <span>Departure</span>
+              <span>{formatToAbrFormat(pending_reservation.end_date)}</span>
             </p>
             <p>
               <span>Guests</span>
-              <span>04</span>
+              <span>{String(pending_reservation.guests_count).padStart(2, "0")}</span>
             </p>
           </div>
 
           <div className={styles.bookingSummary}>
             <h3>Pricing Breakdown</h3>
             <p>
-              <span>$30.00 x night</span>
-              <span>$30.00</span>
+              <span>${room.price} x night (Base Rate for 1 Guest)</span>
+              <span>${room.price}</span>
             </p>
             <p>
-              <span>Cleaning Fee</span>
-              <span>$10.00</span>
+              <span>
+                Additional Guests ({pending_reservation.guests_count - 1} x ${room.price / 2}per night)
+              </span>
+              <span>${((pending_reservation.guests_count - 1) * (room.price / 2)).toFixed(2)}</span>
             </p>
             <p>
-              <span>Aeroport Transport</span>
-              <span>$12.00</span>
+              <span>Total per Night: </span>
+              <span>${((pending_reservation.guests_count - 1) * (room.price / 2) + room.price).toFixed(2)}</span>
             </p>
           </div>
 
           <div className={styles.totalPrice}>
-            <span>Total Without Taxes</span>
-            <span>$52.00</span>
+            <span>
+              Total Without Taxes (
+              {differenceInCalendarDays(
+                new Date(pending_reservation.end_date),
+                new Date(pending_reservation.start_date)
+              )}{" "}
+              Nights)
+            </span>
+            <span>
+              $
+              {(
+                ((pending_reservation.guests_count - 1) * (room.price / 2) + room.price) *
+                differenceInCalendarDays(
+                  new Date(pending_reservation.end_date),
+                  new Date(pending_reservation.start_date)
+                )
+              ).toFixed(2)}
+            </span>
           </div>
         </Card.Description>
       </Card>
