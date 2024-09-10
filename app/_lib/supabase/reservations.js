@@ -8,9 +8,9 @@ export async function getRoomReservations(id) {
   return reservations;
 }
 
-export async function getGuestReservations(userId) {
+export async function getGuestReservations(guestID) {
   try {
-    const { data, error } = await supabase.from("reservations").select("*").eq("user_id", userId);
+    const { data, error } = await supabase.from("reservations").select("*").eq("guestID", guestID);
 
     if (error) throw error;
     return data || [];
