@@ -6,9 +6,14 @@ import { auth } from "@/auth";
 import Link from "next/link";
 
 async function History() {
-  const session = await auth();
-
-  const reservations = await getGuestReservations(session?.user.id);
+  let session = {};
+  let reservations = [];
+  try {
+    session = await auth();
+    reservations = (await getGuestReservations(session.user?.id)) ?? [];
+  } catch (err) {
+    console.log(err);
+  }
 
   return (
     <>
