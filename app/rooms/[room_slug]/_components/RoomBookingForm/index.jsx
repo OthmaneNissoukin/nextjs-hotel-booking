@@ -7,11 +7,20 @@ import { formatISO } from "date-fns";
 import FormDayPicker from "../FormDayPicker";
 import Loader from "@/app/_ui/Loader";
 
-function RoomBookingForm({ room }) {
+import { useFormState } from "react-dom";
+
+const initialState = {
+  dateError: "",
+  guestsError: "",
+  criticalError: "",
+};
+
+function RoomBookingForm({ bookingAction, room }) {
+  const [state, formAction] = useFormState(bookingAction, initialState);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const [guests, setGuests] = useState(1);
+  const [guests, setGuests] = useState("");
 
   function handleDateSelection(range) {
     if (!range) return;
@@ -21,6 +30,15 @@ function RoomBookingForm({ room }) {
 
     setStartDate(from);
     setEndDate(to);
+  }
+
+  function handleSubmit() {
+    const newForm = new FormData();
+    newForm.set("start_date", startDate);
+    newForm.set("end_date", endDate);
+    newForm.set("guests_count", guests);
+    newForm.set("room_id", room.id);
+    formAction(newForm);
   }
 
   return (
@@ -42,7 +60,7 @@ function RoomBookingForm({ room }) {
           </div>
           <div className={styles.formControl}>
             <label>Room Type</label>
-            <input type="text" value={"King Room"} readOnly disabled />
+            <input type="text" value={room.name} readOnly disabled />
           </div>
         </div>
         <div className={styles.formInput}>
@@ -69,17 +87,27 @@ function RoomBookingForm({ room }) {
           </div>
           <div className={styles.formControl}>
             <label>Guests</label>
-            <input
+            <select name="" id="" onChange={(e) => setGuests(e.target.value)}>
+              <option value="">Select guests number</option>
+              {Array.from(Array(room?.capacity ?? 0)).map((item, index) => (
+                <option key={index} value={index + 1}>
+                  {index + 1}
+                </option>
+              ))}
+            </select>
+            {/* <input
               type="number"
               min={1}
               value={guests}
               onChange={(e) => setGuests(e.target.value)}
               max={room.capacity}
-            />
+            /> */}
           </div>
         </div>
 
-        <button className={styles.formButton}>Book Now</button>
+        <button type="button" onClick={handleSubmit} className={styles.formButton}>
+          Book Now
+        </button>
       </div>
     </form>
   );

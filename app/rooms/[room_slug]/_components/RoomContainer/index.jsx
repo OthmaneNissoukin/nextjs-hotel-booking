@@ -8,7 +8,9 @@ import RoomDescription from "../RoomDescription";
 import Facilities from "../Facilities";
 import BookingPolicy from "../BookingPolicy";
 import { getRoomById, getRoomImages } from "@/app/_lib/supabase/rooms";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { bookingSchema } from "@/app/_lib/zodSchemas";
+import { cookies } from "next/headers";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
@@ -19,12 +21,42 @@ async function RoomContainer({ params }) {
   const images = room_images.map((item) => `${SUPABASE_ROOMS_URL}/${item.img_path}`);
 
   if (!room) notFound();
+
+  async function bookingAction(prevState, formData) {
+    "use server";
+
+    const start_date = formData.get("start_date");
+    const end_date = formData.get("end_date");
+    const guests_count = parseInt(formData.get("guests_count"));
+    const room_id = formData.get("room_id");
+
+    // FORM VALIDATION
+    let isValid = true;
+    try {
+      bookingSchema.parse({ start_date, end_date, guests_count });
+    } catch (err) {
+      isValid = false;
+      err.errors.forEach((element) => {
+        prevState[element?.path[0] ?? "unknown"] = element.message;
+      });
+
+      return { ...prevState };
+    }
+
+    if (isValid) {
+      const reservation_cookies = cookies();
+      reservation_cookies.set("pending_reservation", { start_date, end_date, guests_count, room_id });
+
+      redirect(`/rooms/${room_id}/checkout`);
+    }
+  }
+
   return (
     <>
       <Heading className={styles.heading}>{room.name}</Heading>
       <Features room={room} />
       <RoomSlider images={images} />
-      <RoomBookingForm room={room} />
+      <RoomBookingForm bookingAction={bookingAction} room={room} />
       <RoomDescription />
       <Facilities />
       <BookingPolicy />

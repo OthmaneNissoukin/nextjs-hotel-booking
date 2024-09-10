@@ -11,3 +11,9 @@ export const signInSchema = z.object({
   email: z.string().email("invalid email format."),
   password: z.string().min(1, "the password is required.").max(64),
 });
+
+export const bookingSchema = z.object({
+  guests_count: z.number({ message: "guests number is invalid" }).gt(0),
+  start_date: z.string({ message: "date is invalid" }).date({ message: "date is invalid" }),
+  end_date: z.string({ message: "date is invalid" }).date({ message: "date is invalid" }),
+});

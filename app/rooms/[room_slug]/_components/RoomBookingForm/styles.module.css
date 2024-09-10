@@ -48,7 +48,7 @@
   font-size: 17px;
 }
 
-.formControl input {
+.formControl input, .formControl select {
   color: #656a70;
   font-size: 17px;
   width: 100%;
