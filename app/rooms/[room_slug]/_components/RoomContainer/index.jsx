@@ -25,6 +25,7 @@ async function RoomContainer({ params }) {
   async function bookingAction(prevState, formData) {
     "use server";
 
+    prevState = { ...prevState, isBooking: true };
     const start_date = formData.get("start_date");
     const end_date = formData.get("end_date");
     const guests_count = parseInt(formData.get("guests_count"));
@@ -40,7 +41,9 @@ async function RoomContainer({ params }) {
         prevState[element?.path[0] ?? "unknown"] = element.message;
       });
 
-      return { ...prevState };
+      return { ...prevState, isBooking: false };
+    } finally {
+      prevState = { ...prevState, isBooking: false };
     }
 
     if (isValid) {

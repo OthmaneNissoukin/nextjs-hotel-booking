@@ -8,18 +8,19 @@ import FormDayPicker from "../FormDayPicker";
 import Loader from "@/app/_ui/Loader";
 
 import { useFormState } from "react-dom";
+import ReservationButton from "../../ReservationButton";
 
 const initialState = {
   dateError: "",
   guestsError: "",
   criticalError: "",
+  isBooking: false,
 };
 
 function RoomBookingForm({ bookingAction, room }) {
   const [state, formAction] = useFormState(bookingAction, initialState);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isBooking, setIsBooking] = useState(false);
 
   const [guests, setGuests] = useState("");
 
@@ -33,19 +34,17 @@ function RoomBookingForm({ bookingAction, room }) {
     setEndDate(to);
   }
 
-  async function handleSubmit() {
-    setIsBooking(true);
+  function handleSubmit() {
     const newForm = new FormData();
     newForm.set("start_date", startDate);
     newForm.set("end_date", endDate);
     newForm.set("guests_count", guests);
     newForm.set("room_id", room.id);
-    await formAction(newForm);
-    setIsBooking(false);
+    formAction(newForm);
   }
 
   return (
-    <form className={styles.roomBookingForm}>
+    <form action={handleSubmit} className={styles.roomBookingForm}>
       <Suspense
         fallback={
           <div className="section-loader">
@@ -101,9 +100,10 @@ function RoomBookingForm({ bookingAction, room }) {
           </div>
         </div>
 
-        <button type="button" onClick={handleSubmit} className={styles.formButton} disabled={isBooking}>
-          {isBooking ? "Booking..." : "Book Now"}
-        </button>
+        {/* <button type="submit" className={styles.formButton} disabled={state.isBooking}>
+          {state.isBooking ? "Booking..." : "Book Now"}
+        </button> */}
+        <ReservationButton />
       </div>
     </form>
   );
