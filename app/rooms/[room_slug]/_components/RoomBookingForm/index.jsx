@@ -7,7 +7,7 @@ import FormDayPicker from "../FormDayPicker";
 
 import { useFormState } from "react-dom";
 import ReservationButton from "../ReservationButton";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
 const initialState = {
   dateError: "",
@@ -23,15 +23,16 @@ function RoomBookingForm({ bookingAction, room }) {
 
   const [guests, setGuests] = useState("");
 
-  function handleDateSelection(range) {
+  const handleDateSelection = useCallback((range) => {
     if (!range) return;
     const from = formatISO(range?.from, { representation: "date" });
     const to = formatISO(range?.to, { representation: "date" });
+
     console.log({ from, to });
 
     setStartDate(from);
     setEndDate(to);
-  }
+  }, []);
 
   function handleSubmit() {
     const newForm = new FormData();

@@ -6,13 +6,14 @@ import "react-day-picker/style.css";
 import styles from "./styles.module.css";
 import { getRoomReservations } from "@/app/_lib/supabase/reservations";
 import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Loader from "@/app/_ui/Loader";
 
 function FormDayPicker({ handleDateSelection }) {
   const [disableddDays, setDisabledDays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { room_slug } = useParams();
+  const calendarRangeRef = useRef({ start: new Date(2024, 0), end: new Date(2027, 11) });
 
   console.log("rerender");
 
@@ -44,8 +45,8 @@ function FormDayPicker({ handleDateSelection }) {
           min={0}
           onSelect={(range) => handleDateSelection(range)}
           mode="range"
-          startMonth={new Date(2024, 0)}
-          endMonth={new Date(2027, 11)}
+          startMonth={calendarRangeRef.current.start}
+          endMonth={calendarRangeRef.current.end}
           weekStartsOn={1}
           numberOfMonths={2}
           disabled={[{ before: new Date() }, ...disableddDays]}
