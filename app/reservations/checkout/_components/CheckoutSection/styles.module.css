@@ -2,6 +2,8 @@
   padding: 40px 20px;
   background-color: #fff;
   min-height: calc(70vh);
+  display: flex;
+  flex-direction: column-reverse;
   /* display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -9,9 +11,10 @@
 }
 
 
-@media (min-width: 720px) {
+@media (min-width: 892px) {
   .formSection {
     display: grid;
+    gap: 32px;
     
     grid-template-columns: 2fr minmax(320px, 1fr);
     justify-content: center;
