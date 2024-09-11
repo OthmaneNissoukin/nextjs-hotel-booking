@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 import { useFormState } from "react-dom";
 
 import CancelButton from "../CancelButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const initialState = {
   fullname: "",
@@ -17,11 +17,18 @@ const initialState = {
   criticalError: "",
 };
 
-function CheckoutForm({ guest, createReservationAction, bookingCancelAction, children }) {
+function CheckoutForm({ guest, createReservationAction, bookingCancelAction, clearReservationCookie, children }) {
   const [state, formAction] = useFormState(createReservationAction, initialState);
   const [isLoading, setIsLoading] = useState(false);
 
-  async function increment() {
+  useEffect(() => {
+    return () => {
+      console.log("Unmounting");
+      clearReservationCookie();
+    };
+  }, []);
+
+  async function handleCancel() {
     setIsLoading(true);
     await bookingCancelAction();
     // await new Promise((res) => setTimeout(res, 5000));
@@ -89,7 +96,7 @@ function CheckoutForm({ guest, createReservationAction, bookingCancelAction, chi
 
       <div className={styles.checkOutButtons}>
         <ConfirmationButton disabled={isLoading} />
-        <CancelButton isLoading={isLoading} increment={increment} />
+        <CancelButton isLoading={isLoading} handleCancel={handleCancel} />
       </div>
     </form>
   );

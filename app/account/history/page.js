@@ -8,10 +8,15 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 async function History() {
-  const reservations_cookies = cookies();
-  const has_pernding_reservation = reservations_cookies.has("pending_reservation");
+  const cookiesStore = cookies();
+  // console.log("+++++++ ALL COOKIES ++++++++");
+  // console.log(cookiesStore);
+  const has_pernding_reservation = cookiesStore.has("pending_reservation");
+  const is_reservation_confirmed = cookiesStore.has("reservation_confirmed");
 
-  if (has_pernding_reservation) {
+  if (has_pernding_reservation && !is_reservation_confirmed) {
+    console.log("HISTORY RESERVATION");
+    console.log(has_pernding_reservation);
     redirect("/reservations/checkout");
   }
 
@@ -34,7 +39,10 @@ async function History() {
               key={item.id}
               thumbnailPath={item.rooms.thumbnail}
               title={item.rooms.name}
-              date={`${item.start_date} / ${item.end_date}`}
+              date={`${item.start_date?.split("-").reverse().join("-")} / ${item.end_date
+                ?.split("-")
+                .reverse()
+                .join("-")}`}
               status={`${item.status}`}
               guestsCount={`${item.guests_count}`}
               price={`$${item.reserved_price}`}

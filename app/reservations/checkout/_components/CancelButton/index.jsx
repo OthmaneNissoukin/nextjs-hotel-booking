@@ -1,9 +1,11 @@
 "use client";
 import styles from "./styles.module.css";
+import { useFormStatus } from "react-dom";
 
-function CancelButton({ increment, isLoading }) {
+function CancelButton({ handleCancel, isLoading }) {
+  const { pending } = useFormStatus();
   return (
-    <button type="button" onClick={increment} className={styles.cancelButton} disabled={isLoading}>
+    <button type="button" onClick={handleCancel} className={styles.cancelButton} disabled={isLoading || pending}>
       {isLoading ? "Cancelling..." : "Cancel"}
     </button>
   );

@@ -8,16 +8,19 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { reservationSchema } from "@/app/_lib/zodSchemas";
 import { createNewReservation } from "@/app/_lib/supabase/reservations";
-import { bookingCancelAction } from "@/app/_lib/actions";
+import { bookingCancelAction, clearReservationCookie } from "@/app/_lib/actions";
 import SelectCountry from "@/app/_ui/SelectCountry";
+// import { NextResponse } from "next/server";
 
 async function CheckoutSection() {
   const session = await auth();
   const reservation_cookies = cookies();
-  if (!reservation_cookies.has("pending_reservation")) {
+  if (!reservation_cookies.has("pending_reservation") || reservation_cookies.has("reservation_confirmed")) {
+    console.log("ALREADY DELETED");
+    console.log(reservation_cookies);
     redirect("/rooms");
-    return;
   }
+
   const pending_reservation = JSON.parse(reservation_cookies.get("pending_reservation").value);
 
   const [room, guest] = await Promise.all([getRoomById(pending_reservation.room_id), getGuestById(session.user?.id)]);
@@ -28,6 +31,7 @@ async function CheckoutSection() {
     "use server";
     console.log("state");
     console.log(prevState);
+    prevState = { ...prevState, isConfirming: true };
     const fullname = formData.get("fullname");
     const nationalID = formData.get("nationalID");
     const email = formData.get("email");
@@ -63,11 +67,12 @@ async function CheckoutSection() {
         pending_reservation.end_date
       );
       await updateGuest(guest.id, fullname, nationality, countryFlag, phone, email, nationalID);
-      cookies().delete("pending_reservation");
-      redirect("/account/profile");
+      cookies().set("reservation_confirmed", "true");
     } catch (err) {
       console.log(err);
       return { ...prevState, criticalErr: "Failed to confirm your booking!" };
+    } finally {
+      redirect("/account/history");
     }
   }
 
@@ -78,7 +83,12 @@ async function CheckoutSection() {
         room={room}
         guest={guest}
         bookingCancelAction={bookingCancelAction}
+        clearReservationCookie={clearReservationCookie}
       >
+        {/* PASSING THIS AS CHILD TO PREVENT UNCESSACERY RERENDERS FOR THIS COMPONENT SINCE:
+          1 - ITS A SERVER COMPONENT AND NEEDED TO BE RENDERED INSIDE A CLIENT COMPONENT
+          2 - IT HAS SOME INNER API CALLS, SO RENDERING AS A CHILD WOULD PREVENT WASTING RENDERES
+        */}
         <SelectCountry name={"nationality"} className={styles.formInput} defaultCountry={guest.nationality} />
       </CheckoutForm>
 

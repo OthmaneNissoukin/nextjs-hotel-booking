@@ -34,12 +34,17 @@ export async function authAction(prevState, formData) {
 }
 
 export async function bookingCancelAction() {
-  "use server";
-  console.log("CLICKED");
   await new Promise((res) => setTimeout(res, 5000));
   const cookiesStore = cookies();
   if (cookiesStore.has("pending_reservation")) {
     cookies().delete("pending_reservation");
     redirect("/rooms", "replace");
+  }
+}
+
+export async function clearReservationCookie() {
+  if (cookies().has("reservation_confirmed")) {
+    cookies().delete("reservation_confirmed");
+    cookies().delete("pending_reservation");
   }
 }
