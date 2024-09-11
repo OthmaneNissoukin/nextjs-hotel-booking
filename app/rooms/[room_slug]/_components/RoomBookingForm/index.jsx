@@ -2,13 +2,12 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from "./styles.module.css";
 import { faBed, faCalendar, faUsers } from "@fortawesome/free-solid-svg-icons";
-import { Suspense, useState } from "react";
 import { formatISO } from "date-fns";
 import FormDayPicker from "../FormDayPicker";
-import Loader from "@/app/_ui/Loader";
 
 import { useFormState } from "react-dom";
-import ReservationButton from "../../ReservationButton";
+import ReservationButton from "../ReservationButton";
+import { useState } from "react";
 
 const initialState = {
   dateError: "",
@@ -45,15 +44,7 @@ function RoomBookingForm({ bookingAction, room }) {
 
   return (
     <form action={handleSubmit} className={styles.roomBookingForm}>
-      <Suspense
-        fallback={
-          <div className="section-loader">
-            <Loader />
-          </div>
-        }
-      >
-        <FormDayPicker handleDateSelection={handleDateSelection} />
-      </Suspense>
+      <FormDayPicker endDate={endDate} handleDateSelection={handleDateSelection} />
 
       <div className={styles.formItem}>
         <div className={styles.formInput}>

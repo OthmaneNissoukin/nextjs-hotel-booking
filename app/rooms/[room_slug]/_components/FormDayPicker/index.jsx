@@ -14,6 +14,8 @@ function FormDayPicker({ handleDateSelection }) {
   const [isLoading, setIsLoading] = useState(false);
   const { room_slug } = useParams();
 
+  console.log("rerender");
+
   useEffect(() => {
     if (!room_slug) return;
     async function getBusyDays() {
