@@ -84,7 +84,11 @@
   padding: 40px;
 }
 
-.formButton:hover {
+.formButton:not(:disabled):hover {
   background-color: rgb(128, 12, 35);
+}
 
+.formButton:disabled {
+  background-color: rgb(219, 46, 81);
+  cursor: not-allowed;
 }

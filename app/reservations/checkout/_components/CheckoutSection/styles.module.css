@@ -1,6 +1,7 @@
 .formSection {
   padding: 40px 20px;
   background-color: #fff;
+  min-height: calc(70vh);
   /* display: grid;
   gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));

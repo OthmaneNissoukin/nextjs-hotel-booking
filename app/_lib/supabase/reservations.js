@@ -21,3 +21,41 @@ export async function getGuestReservations(guest_id) {
 
   return reservations;
 }
+/**
+ * fullname,
+  email,
+  phone,
+  nationality,
+  countryFlag,
+  reserved_price,
+  nationalID,
+ */
+
+export async function createNewReservation(
+  room_id,
+  guest_id,
+  guests_count,
+  message,
+  reserved_price,
+  start_date,
+  end_date
+) {
+  const { data: reservations, error } = await supabase
+    .from("reservations")
+    .insert([
+      {
+        room_id,
+        guest_id,
+        guests_count,
+        reserved_price,
+        message,
+        start_date,
+        end_date,
+      },
+    ])
+    .select();
+
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return reservations;
+}

@@ -3,14 +3,19 @@ import CheckoutOverview from "../CheckoutOverview";
 import styles from "./styles.module.css";
 import { cookies } from "next/headers";
 import { getRoomById } from "@/app/_lib/supabase/rooms";
-import { getGuestById } from "@/app/_lib/supabase/guests";
-import { notFound } from "next/navigation";
+import { getGuestById, updateGuest } from "@/app/_lib/supabase/guests";
+import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { reservationSchema } from "@/app/_lib/zodSchemas";
+import { createNewReservation } from "@/app/_lib/supabase/reservations";
 
 async function CheckoutSection() {
   const session = await auth();
   const reservation_cookies = cookies();
+  if (!reservation_cookies.has("pending_reservation")) {
+    redirect("/rooms");
+    return;
+  }
   const pending_reservation = JSON.parse(reservation_cookies.get("pending_reservation").value);
 
   const [room, guest] = await Promise.all([getRoomById(pending_reservation.room_id), getGuestById(session.user?.id)]);
@@ -42,8 +47,26 @@ async function CheckoutSection() {
     }
 
     const [nationality, countryFlag] = nationalityWithFlag.split("%");
-    console.log("RESULT");
-    console.log({ fullname, email, phone, nationalID, message, nationality, countryFlag });
+
+    const total_price = (room.price + ((room.price / 2) * pending_reservation.guests_count - 1)).toFixed(2);
+
+    try {
+      await createNewReservation(
+        room.id,
+        guest.id,
+        pending_reservation.guests_count,
+        message,
+        total_price,
+        pending_reservation.start_date,
+        pending_reservation.end_date
+      );
+      await updateGuest(guest.id, fullname, nationality, countryFlag, phone, email, nationalID);
+      cookies().delete("pending_reservation");
+      redirect("/account/profile");
+    } catch (err) {
+      console.log(err);
+      return { ...prevState, criticalErr: "Failed to confirm your booking!" };
+    }
   }
 
   return (

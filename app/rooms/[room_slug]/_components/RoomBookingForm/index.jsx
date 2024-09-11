@@ -19,6 +19,7 @@ function RoomBookingForm({ bookingAction, room }) {
   const [state, formAction] = useFormState(bookingAction, initialState);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [isBooking, setIsBooking] = useState(false);
 
   const [guests, setGuests] = useState("");
 
@@ -32,13 +33,15 @@ function RoomBookingForm({ bookingAction, room }) {
     setEndDate(to);
   }
 
-  function handleSubmit() {
+  async function handleSubmit() {
+    setIsBooking(true);
     const newForm = new FormData();
     newForm.set("start_date", startDate);
     newForm.set("end_date", endDate);
     newForm.set("guests_count", guests);
     newForm.set("room_id", room.id);
-    formAction(newForm);
+    await formAction(newForm);
+    setIsBooking(false);
   }
 
   return (
@@ -95,18 +98,11 @@ function RoomBookingForm({ bookingAction, room }) {
                 </option>
               ))}
             </select>
-            {/* <input
-              type="number"
-              min={1}
-              value={guests}
-              onChange={(e) => setGuests(e.target.value)}
-              max={room.capacity}
-            /> */}
           </div>
         </div>
 
-        <button type="button" onClick={handleSubmit} className={styles.formButton}>
-          Book Now
+        <button type="button" onClick={handleSubmit} className={styles.formButton} disabled={isBooking}>
+          {isBooking ? "Booking..." : "Book Now"}
         </button>
       </div>
     </form>

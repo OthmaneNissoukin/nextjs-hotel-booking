@@ -1,12 +1,17 @@
-import { formatToAbrFormat } from "@/app/utils/datetime";
+import { daysDifferCount, formatToAbrFormat } from "@/app/utils/datetime";
 import styles from "./styles.module.css";
 import Card from "@/app/_components/Card/Card";
 import Image from "next/image";
-import { differenceInCalendarDays } from "date-fns";
+
+import { bookingTotalPrice, nightTotalPrice } from "@/app/utils/reservationsCalcs";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
 function CheckoutOverview({ room, pending_reservation }) {
+  const totalNights = daysDifferCount(pending_reservation.end_date, pending_reservation.start_date);
+  const totalPerNight = nightTotalPrice(room.price, pending_reservation.guests_count);
+  const guestsPrice = ((pending_reservation.guests_count - 1) * (room.price / 2)).toFixed(2);
+  const totalPrice = bookingTotalPrice(room.price, pending_reservation.guests_count, totalNights);
   return (
     <div>
       <Card>
@@ -36,39 +41,23 @@ function CheckoutOverview({ room, pending_reservation }) {
             <h3>Pricing Breakdown</h3>
             <p>
               <span>${room.price} x night (Base Rate for 1 Guest)</span>
-              <span>${room.price}</span>
+              <span>${room.price.toFixed(2)}</span>
             </p>
             <p>
               <span>
                 Additional Guests ({pending_reservation.guests_count - 1} x ${room.price / 2}per night)
               </span>
-              <span>${((pending_reservation.guests_count - 1) * (room.price / 2)).toFixed(2)}</span>
+              <span>${guestsPrice}</span>
             </p>
             <p>
               <span>Total per Night: </span>
-              <span>${((pending_reservation.guests_count - 1) * (room.price / 2) + room.price).toFixed(2)}</span>
+              <span>${totalPerNight}</span>
             </p>
           </div>
 
           <div className={styles.totalPrice}>
-            <span>
-              Total Without Taxes (
-              {differenceInCalendarDays(
-                new Date(pending_reservation.end_date),
-                new Date(pending_reservation.start_date)
-              )}{" "}
-              Nights)
-            </span>
-            <span>
-              $
-              {(
-                ((pending_reservation.guests_count - 1) * (room.price / 2) + room.price) *
-                differenceInCalendarDays(
-                  new Date(pending_reservation.end_date),
-                  new Date(pending_reservation.start_date)
-                )
-              ).toFixed(2)}
-            </span>
+            <span>Total Without Taxes ({totalNights} Nights)</span>
+            <span>${totalPrice}</span>
           </div>
         </Card.Description>
       </Card>
