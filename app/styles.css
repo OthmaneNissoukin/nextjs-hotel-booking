@@ -24,6 +24,10 @@ a {
 
 /* GLOBAL STYLES */
 
+main {
+  min-height: 70vh;
+}
+
 .container {
   max-width: 1200px;
   margin: auto;

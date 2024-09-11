@@ -21,13 +21,6 @@ function CheckoutForm({ guest, createReservationAction, bookingCancelAction, cle
   const [state, formAction] = useFormState(createReservationAction, initialState);
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      console.log("Unmounting");
-      clearReservationCookie();
-    };
-  }, []);
-
   async function handleCancel() {
     setIsLoading(true);
     await bookingCancelAction();

@@ -1,8 +1,8 @@
 import styles from "./styles.module.css";
 
-function Alert({ children }) {
+function Alert({ type = "danger", children }) {
   return (
-    <div className={styles.alertDanger}>
+    <div className={`${styles.alertDanger} ${styles[type]}`}>
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path
           stroke-linecap="round"

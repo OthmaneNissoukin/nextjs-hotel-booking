@@ -29,7 +29,7 @@ export async function authAction(prevState, formData) {
     console.log(err.message);
     return { ...prevState, criticalError: "Wrong email or password!" };
   } finally {
-    if (loginSuccess) redirect("/account/history");
+    if (loginSuccess) redirect(cookies().has("pending_reservation") ? "/reservations/checkout" : "/account/history");
   }
 }
 
@@ -39,12 +39,5 @@ export async function bookingCancelAction() {
   if (cookiesStore.has("pending_reservation")) {
     cookies().delete("pending_reservation");
     redirect("/rooms", "replace");
-  }
-}
-
-export async function clearReservationCookie() {
-  if (cookies().has("reservation_confirmed")) {
-    cookies().delete("reservation_confirmed");
-    cookies().delete("pending_reservation");
   }
 }

@@ -1,6 +1,4 @@
 .alertDanger {
-  background-color: #f87171; /* Tailwind's red-400 */
-  color: white;
   padding: 1rem;
   border-radius: 0.5rem; /* Tailwind's rounded-md */
   display: flex;
@@ -8,6 +6,21 @@
   font-family: Arial, sans-serif;
   font-size: 1rem;
   margin-bottom: 1rem;
+}
+
+.danger {
+  background-color: #f87171; /* Tailwind's red-400 */
+  color: white;
+}
+
+.warning {
+  background-color: #b3bf00b5; /* Tailwind's red-400 */
+  color: #161616;
+}
+
+.success {
+  background-color: #0032bf82; /* Tailwind's red-400 */
+  color: #161616;
 }
 
 .alertDanger svg {

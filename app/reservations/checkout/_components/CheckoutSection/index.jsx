@@ -10,12 +10,13 @@ import { reservationSchema } from "@/app/_lib/zodSchemas";
 import { createNewReservation } from "@/app/_lib/supabase/reservations";
 import { bookingCancelAction, clearReservationCookie } from "@/app/_lib/actions";
 import SelectCountry from "@/app/_ui/SelectCountry";
+import { revalidatePath } from "next/cache";
 // import { NextResponse } from "next/server";
 
 async function CheckoutSection() {
   const session = await auth();
   const reservation_cookies = cookies();
-  if (!reservation_cookies.has("pending_reservation") || reservation_cookies.has("reservation_confirmed")) {
+  if (!reservation_cookies.has("pending_reservation")) {
     console.log("ALREADY DELETED");
     console.log(reservation_cookies);
     redirect("/rooms");
@@ -67,11 +68,14 @@ async function CheckoutSection() {
         pending_reservation.end_date
       );
       await updateGuest(guest.id, fullname, nationality, countryFlag, phone, email, nationalID);
-      cookies().set("reservation_confirmed", "true");
+      // cookies().set("reservation_confirmed", "true");
+      cookies().delete("pending_reservation");
     } catch (err) {
+      console.log("CHECKOUT COOKIE ERROR");
       console.log(err);
       return { ...prevState, criticalErr: "Failed to confirm your booking!" };
     } finally {
+      revalidatePath("/account/history");
       redirect("/account/history");
     }
   }

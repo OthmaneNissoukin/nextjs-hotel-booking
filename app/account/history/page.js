@@ -4,22 +4,8 @@ import ReservationCard from "./_components/ReservationCard";
 import { getGuestReservations } from "@/app/_lib/supabase/reservations";
 import { auth } from "@/auth";
 import Link from "next/link";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 async function History() {
-  const cookiesStore = cookies();
-  // console.log("+++++++ ALL COOKIES ++++++++");
-  // console.log(cookiesStore);
-  const has_pernding_reservation = cookiesStore.has("pending_reservation");
-  const is_reservation_confirmed = cookiesStore.has("reservation_confirmed");
-
-  if (has_pernding_reservation && !is_reservation_confirmed) {
-    console.log("HISTORY RESERVATION");
-    console.log(has_pernding_reservation);
-    redirect("/reservations/checkout");
-  }
-
   let session = {};
   let reservations = [];
   try {
