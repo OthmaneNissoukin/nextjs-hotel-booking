@@ -4,7 +4,9 @@ import Alert from "@/app/_ui/Alert";
 import ConfirmationButton from "../ConfirmationButton";
 import styles from "./styles.module.css";
 import { useFormState } from "react-dom";
-import SelectCountry from "@/app/_ui/SelectCountry";
+
+import CancelButton from "../CancelButton";
+import { useState } from "react";
 
 const initialState = {
   fullname: "",
@@ -15,8 +17,16 @@ const initialState = {
   criticalError: "",
 };
 
-function CheckoutForm({ guest, createReservationAction }) {
+function CheckoutForm({ guest, createReservationAction, bookingCancelAction, children }) {
   const [state, formAction] = useFormState(createReservationAction, initialState);
+  const [isLoading, setIsLoading] = useState(false);
+
+  async function increment() {
+    setIsLoading(true);
+    await bookingCancelAction();
+    // await new Promise((res) => setTimeout(res, 5000));
+    setIsLoading(false);
+  }
 
   return (
     <form action={formAction} className={styles.form}>
@@ -65,7 +75,7 @@ function CheckoutForm({ guest, createReservationAction }) {
             <img src={guest.countryFlag} alt={`${guest.nationality ?? "country"} flag`} />
           </span>
         </label>
-        <SelectCountry name={"nationality"} className={styles.formInput} defaultCountry={guest.nationality} />
+        {children}
         {state?.nationality && <span className={styles.errorMessage}>{state?.nationality}</span>}
       </div>
 
@@ -77,7 +87,10 @@ function CheckoutForm({ guest, createReservationAction }) {
         {state?.message && <span className={styles.errorMessage}>{state?.message}</span>}
       </div>
 
-      <ConfirmationButton />
+      <div className={styles.checkOutButtons}>
+        <ConfirmationButton disabled={isLoading} />
+        <CancelButton isLoading={isLoading} increment={increment} />
+      </div>
     </form>
   );
 }

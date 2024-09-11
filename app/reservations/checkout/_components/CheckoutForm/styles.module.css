@@ -70,3 +70,8 @@
 .countryFlag img {
   width: 100%;
 }
+
+.checkOutButtons {
+  display: flex;
+  gap: 16px;
+}

@@ -8,6 +8,8 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { reservationSchema } from "@/app/_lib/zodSchemas";
 import { createNewReservation } from "@/app/_lib/supabase/reservations";
+import { bookingCancelAction } from "@/app/_lib/actions";
+import SelectCountry from "@/app/_ui/SelectCountry";
 
 async function CheckoutSection() {
   const session = await auth();
@@ -71,7 +73,14 @@ async function CheckoutSection() {
 
   return (
     <div className={`${styles.formSection} container`}>
-      <CheckoutForm createReservationAction={createReservationAction} room={room} guest={guest} />
+      <CheckoutForm
+        createReservationAction={createReservationAction}
+        room={room}
+        guest={guest}
+        bookingCancelAction={bookingCancelAction}
+      >
+        <SelectCountry name={"nationality"} className={styles.formInput} defaultCountry={guest.nationality} />
+      </CheckoutForm>
 
       <CheckoutOverview room={room} pending_reservation={pending_reservation} />
     </div>

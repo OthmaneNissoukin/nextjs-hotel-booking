@@ -17,3 +17,11 @@
     justify-content: center;
   }
 }
+
+.formInput, .formTextArea {
+  padding: 16px 12px;
+  border-radius: none;
+  outline: none;
+  border: 1px solid #dedede;
+  font-size: 17px;
+}

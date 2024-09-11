@@ -2,6 +2,7 @@
 import { signIn } from "@/auth";
 import { signInSchema } from "./zodSchemas";
 import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 export async function authAction(prevState, formData) {
   // await new Promise((res) => setTimeout(res, 500));
@@ -29,5 +30,16 @@ export async function authAction(prevState, formData) {
     return { ...prevState, criticalError: "Wrong email or password!" };
   } finally {
     if (loginSuccess) redirect("/account/history");
+  }
+}
+
+export async function bookingCancelAction() {
+  "use server";
+  console.log("CLICKED");
+  await new Promise((res) => setTimeout(res, 5000));
+  const cookiesStore = cookies();
+  if (cookiesStore.has("pending_reservation")) {
+    cookies().delete("pending_reservation");
+    redirect("/rooms", "replace");
   }
 }
