@@ -2,7 +2,7 @@
 .deleteButton {
   display: inline-block;
   padding: 12px 16px;
-  background-color: crimson;
+  background-color: crimson !important;
   color: #fff;
   outline: none;
   border: none;
@@ -11,10 +11,10 @@
 }
 
 .deleteButton:not(:disabled):hover {
-  background-color: rgb(160, 6, 37)
+  background-color: rgb(160, 6, 37) !important
 }
 
 .deleteButton:disabled {
-  background-color: rgb(194, 89, 110);
+  background-color: rgb(194, 89, 110) !important;
   cursor: not-allowed;
 }

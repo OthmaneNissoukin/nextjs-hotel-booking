@@ -9,7 +9,7 @@
 }
 
 @media (min-width: 820px) {
-  .modalOverlay {
+  .modalOverlay .hideOnLargerScreens {
     display: none;
   }
 }
@@ -30,7 +30,7 @@
 }
 
 @media (min-width: 820px) {
-  .modalWrapper {
+  .modalWrapper .hideOnLargerScreens {
     display: none;
   }
 }

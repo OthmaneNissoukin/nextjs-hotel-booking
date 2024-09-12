@@ -1,0 +1,30 @@
+.closeButton, .overviewButton {
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  color: crimson;
+  background-color: #fff;
+  border-radius: 50%;
+  font-size: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overviewButton {
+  background-color: #333;
+  color: #fff;
+  transition: all 150ms linear;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.overviewButton:hover {
+  background-color: #161616;
+}

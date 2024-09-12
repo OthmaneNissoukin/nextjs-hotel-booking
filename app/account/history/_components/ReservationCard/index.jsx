@@ -6,6 +6,9 @@ import { auth } from "@/auth";
 import { deleteReservation, getReservationByID } from "@/app/_lib/supabase/reservations";
 import DeleteForm from "../DeleteFrom";
 import { revalidatePath } from "next/cache";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
+import ControlButtons from "../ControlButtons";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
@@ -56,7 +59,12 @@ function ReservationCard({ reservation_id, thumbnailPath = "/bg.png", title, gue
         <div className={styles.reservationPriceContainer}>
           {/* USE 3rd PARTY API FOR CURRENCY CONVERSION */}
           <p>{price}</p>
-          <DeleteForm deleteAction={deleteReservationAction} />
+
+          <div className={styles.controlButtons}>
+            <ControlButtons deleteAction={deleteReservationAction} />
+          </div>
+
+          {/* <DeleteForm deleteAction={deleteReservationAction} /> */}
         </div>
       </div>
     </article>

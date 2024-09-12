@@ -14,7 +14,7 @@ function Modal({ children }) {
   return <ModalContext.Provider value={{ isOpen, open, close }}>{children}</ModalContext.Provider>;
 }
 
-function Overlay({ children }) {
+function Overlay({ hideOnLargerScreens = true, children }) {
   const { isOpen } = useContext(ModalContext);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -29,7 +29,9 @@ function Overlay({ children }) {
       <>
         {isOpen
           ? createPortal(
-              <div className={styles.modalOverlay}>{children}</div>,
+              <div className={`${styles.modalOverlay} ${hideOnLargerScreens ? styles.hideOnLargerScreens : ""}`}>
+                {children}
+              </div>,
               typeof window !== "undefined" ? document.body : null
             )
           : null}
@@ -46,8 +48,10 @@ function ToggleOpen({ children }) {
   return cloneElement(children, { onClick: open });
 }
 
-function Wrapper({ children }) {
-  return <div className={styles.modalWrapper}>{children}</div>;
+function Wrapper({ hideOnLargerScreens = true, children }) {
+  return (
+    <div className={`${styles.modalWrapper} ${hideOnLargerScreens ? styles.hideOnLargerScreens : ""}`}>{children}</div>
+  );
 }
 
 function ToggleClose({ children }) {

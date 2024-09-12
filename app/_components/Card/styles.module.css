@@ -19,6 +19,6 @@
 }
 
 
-.thumbnailContainer img:hover {
+.thumbnailContainer .zoomOnHover img:hover {
   transform: scale(1.2);
 }

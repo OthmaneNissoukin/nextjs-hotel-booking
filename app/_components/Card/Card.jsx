@@ -4,8 +4,8 @@ function Card({ children }) {
   return <article className={styles.Card}>{children}</article>;
 }
 
-function Thumbnail({ children }) {
-  return <div className={styles.thumbnailContainer}>{children}</div>;
+function Thumbnail({ zoomOnHover = true, children }) {
+  return <div className={`${styles.thumbnailContainer} ${zoomOnHover ? styles.zoomOnHover : ""}`}>{children}</div>;
 }
 
 function Description({ className = "", children }) {
