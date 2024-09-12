@@ -20,20 +20,23 @@ async function History() {
       <Heading textClassName={styles.heading}>Your History</Heading>
       <div>
         {reservations.length ? (
-          reservations.map((item) => (
-            <ReservationCard
-              key={item.id}
-              thumbnailPath={item.rooms.thumbnail}
-              title={item.rooms.name}
-              date={`${item.start_date?.split("-").reverse().join("-")} / ${item.end_date
-                ?.split("-")
-                .reverse()
-                .join("-")}`}
-              status={`${item.status}`}
-              guestsCount={`${item.guests_count}`}
-              price={`$${item.reserved_price}`}
-            />
-          ))
+          reservations
+            .reverse()
+            .map((item) => (
+              <ReservationCard
+                key={item.id}
+                reservation_id={item.id}
+                thumbnailPath={item.rooms.thumbnail}
+                title={item.rooms.name}
+                date={`${item.start_date?.split("-").reverse().join("-")} / ${item.end_date
+                  ?.split("-")
+                  .reverse()
+                  .join("-")}`}
+                status={`${item.status}`}
+                guestsCount={`${item.guests_count}`}
+                price={`$${item.reserved_price}`}
+              />
+            ))
         ) : (
           <div>
             <p>You have no booked room.</p>

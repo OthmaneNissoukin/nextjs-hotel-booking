@@ -71,20 +71,6 @@
 }
 
 
-.reservationPriceContainer button {
-  display: inline-block;
-  padding: 12px 16px;
-  background-color: crimson;
-  color: #fff;
-  outline: none;
-  border: none;
-  cursor: pointer;
-  transition: all 150ms linear;
-}
-
-.reservationPriceContainer button:hover {
-  background-color: rgb(160, 6, 37)
-}
 
 .reservationPriceContainer p {
   font-size: 17px;

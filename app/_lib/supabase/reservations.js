@@ -1,3 +1,4 @@
+import { formatISO, formatISO9075 } from "date-fns";
 import supabase from "./db";
 
 export async function getRoomReservations(id) {
@@ -12,7 +13,8 @@ export async function getGuestReservations(guest_id) {
   let { data: reservations, error } = await supabase
     .from("reservations")
     .select("*, rooms(thumbnail, name)")
-    .eq("guest_id", guest_id);
+    .eq("guest_id", guest_id)
+    .is("deleted_at", null);
 
   if (error) {
     console.log("SUPABASE ERROR");
@@ -56,6 +58,22 @@ export async function createNewReservation(
     .select();
 
   // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  return reservations;
+}
+
+export async function deleteReservation(id) {
+  const { data: reservations, error } = await supabase
+    .from("reservations")
+    .update({ deleted_at: formatISO9075(new Date()) })
+    .eq("id", id);
+
+  console.log("datetime", formatISO9075(new Date()));
+  return reservations;
+}
+
+export async function getReservationByID(id) {
+  let { data: reservations, error } = await supabase.from("reservations").select("*").eq("id", id).single();
 
   return reservations;
 }
