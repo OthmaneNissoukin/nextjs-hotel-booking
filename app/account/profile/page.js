@@ -19,6 +19,7 @@ async function Profile() {
     // TODO: ADD FORM VALIDATION FOR ALL FIELDS
     // TODO: STYLE THE TOSTSIFY COMPONENT
 
+    prevState = {};
     const guestID = user.id;
     const fullname = formData.get("fullname");
     const nationalityWithFlag = formData.get("nationality");

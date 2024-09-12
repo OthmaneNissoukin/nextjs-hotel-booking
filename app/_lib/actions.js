@@ -8,6 +8,9 @@ export async function authAction(prevState, formData) {
   // await new Promise((res) => setTimeout(res, 500));
   const email = formData.get("email");
   const password = formData.get("password");
+  prevState = {};
+
+  if (!(email && password)) return { message: "email and password are required" };
 
   try {
     signInSchema.parse({ email, password });

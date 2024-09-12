@@ -8,6 +8,7 @@ import FormDayPicker from "../FormDayPicker";
 import { useFormState } from "react-dom";
 import ReservationButton from "../ReservationButton";
 import { useCallback, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const initialState = {
   dateError: "",
@@ -35,6 +36,16 @@ function RoomBookingForm({ bookingAction, room }) {
   }, []);
 
   function handleSubmit() {
+    if (!(startDate && endDate)) {
+      toast.error("Please select a date range from the calendar");
+      return;
+    }
+
+    if (!guests || parseInt(guests) < 1 || parseInt(guests) > room.capacity) {
+      toast.error("Please provide guests number");
+      return;
+    }
+
     const newForm = new FormData();
     newForm.set("start_date", startDate);
     newForm.set("end_date", endDate);
@@ -97,6 +108,7 @@ function RoomBookingForm({ bookingAction, room }) {
         </button> */}
         <ReservationButton />
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }

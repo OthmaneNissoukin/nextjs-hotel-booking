@@ -4,13 +4,13 @@ import DatePicker from "react-datepicker";
 import BookingButton from "../BookingButton";
 import styles from "./index.module.css";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { formatISO } from "date-fns";
 
-function BookingForm({ children }) {
+import { formatISO, isBefore, isValid } from "date-fns";
+import toast, { Toaster } from "react-hot-toast";
+
+function BookingForm({ bookingSearchAction, children }) {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const router = useRouter();
 
   function handleStartSelection(date) {
     setStartDate(date);
@@ -20,17 +20,24 @@ function BookingForm({ children }) {
     setEndDate(date);
   }
 
-  function handleSearch() {
+  async function handleSearch() {
     if (!startDate || !endDate) return;
     const arrival = formatISO(new Date(startDate), { representation: "date" });
     const departure = formatISO(new Date(endDate), { representation: "date" });
     const formatedRange = `${arrival}_${departure}`;
 
-    router.push(`rooms?range=${formatedRange}`);
+    if (!isBefore(arrival, departure)) {
+      toast.error("Invalid date range!");
+      return;
+    }
+    // await new Promise((res) => setTimeout(res, 5000));
+    console.log("-> Event Handler");
+    await bookingSearchAction(formatedRange);
+    // router.push(`rooms?range=${formatedRange}`);
   }
 
   return (
-    <form className={styles.bookingForm}>
+    <form action={handleSearch} className={styles.bookingForm}>
       <h1 className={styles.formHeading}>BOOK A ROOM ONLINE</h1>
       <div className={styles.formControl}>
         <label htmlFor="" className={styles.formLabel}>
@@ -65,9 +72,10 @@ function BookingForm({ children }) {
       </div>
 
       <div className={styles.actions}>
-        <BookingButton onClick={handleSearch} />
+        <BookingButton />
         <div>{children}</div>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }

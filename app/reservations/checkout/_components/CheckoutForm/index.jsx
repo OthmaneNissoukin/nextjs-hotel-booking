@@ -7,6 +7,7 @@ import { useFormState } from "react-dom";
 
 import CancelButton from "../CancelButton";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const initialState = {
   fullname: "",
@@ -27,6 +28,10 @@ function CheckoutForm({ guest, createReservationAction, bookingCancelAction, cle
     // await new Promise((res) => setTimeout(res, 5000));
     setIsLoading(false);
   }
+
+  const errors = Object.values(state)?.filter((item) => item.length);
+  console.log(errors);
+  if (errors.length) errors.forEach((item) => toast.error(item ?? "Failed to confirm you booking, please try again"));
 
   return (
     <form action={formAction} className={styles.form}>
@@ -91,6 +96,7 @@ function CheckoutForm({ guest, createReservationAction, bookingCancelAction, cle
         <ConfirmationButton disabled={isLoading} />
         <CancelButton isLoading={isLoading} handleCancel={handleCancel} />
       </div>
+      <Toaster position="top-center" reverseOrder={true} />
     </form>
   );
 }

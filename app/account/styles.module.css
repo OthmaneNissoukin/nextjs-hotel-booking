@@ -22,7 +22,6 @@
 }
 
 .accountSidebar {
-  height: calc(100% - 64px);
   /* background-color: #ddd; */
   background-color: #252525;
   padding: 20px 12px;
@@ -31,6 +30,9 @@
 @media (min-width: 780px) {
   .accountSidebar {
     padding: 32px 20px;
+    max-height: 50vh;
+    position: sticky;
+    top: 20px;
   }
 }
 

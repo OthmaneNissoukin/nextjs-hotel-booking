@@ -5,6 +5,7 @@ import SignInButton from "../SignInButton";
 import styles from "./styles.module.css";
 import { useFormState } from "react-dom";
 import { usePathname } from "next/navigation";
+import toast, { Toaster } from "react-hot-toast";
 
 const initialState = {
   email: "",
@@ -16,7 +17,8 @@ function CredentialsForm({ authAction }) {
   const [state, formAction] = useFormState(authAction, initialState);
   const pathname = usePathname();
 
-  console.log(pathname);
+  const errors = Object.values(state)?.filter((item) => item.length);
+  if (errors.length) errors.forEach((item) => toast.error(item ?? "Failed to sign in, please try again"));
 
   return (
     <form action={formAction} className={styles.form}>
@@ -46,6 +48,7 @@ function CredentialsForm({ authAction }) {
 
       <br />
       <a href="#">Forget Password?</a>
+      <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }

@@ -11,8 +11,13 @@
   cursor: pointer;
 }
 
-.bookingBtn:hover {
+.bookingBtn:not(:disabled):hover {
   color: rgb(168, 13, 44);
   background-color: #fff;
+}
+
+.bookingBtn:disabled {
+  background-color: rgb(233, 65, 99);
+  cursor: not-allowed;
 }
 

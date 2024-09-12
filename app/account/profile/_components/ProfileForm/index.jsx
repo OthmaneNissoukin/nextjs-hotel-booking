@@ -5,6 +5,7 @@ import styles from "./styles.module.css";
 import { useFormState } from "react-dom";
 
 import SelectCountry from "@/app/_ui/SelectCountry";
+import toast, { Toaster } from "react-hot-toast";
 
 // import "react-toastify/dist/ReactToastify.css";
 
@@ -18,6 +19,9 @@ const initialState = {
 function ProfileForm({ guestUpdateAction, guest }) {
   const [state, formAction] = useFormState(guestUpdateAction, initialState);
 
+  const errors = Object.values(state)?.filter((item) => item.length);
+  if (errors.length) errors.forEach((item) => toast.error(item ?? "Failed to update your profile, please try again"));
+
   return (
     <form action={formAction}>
       <div className={styles.profileFormInputs}>
@@ -30,7 +34,7 @@ function ProfileForm({ guestUpdateAction, guest }) {
             name="fullname"
             defaultValue={guest.fullname}
           />
-          {state?.fullnameErr && <span className={styles.errorMessage}>{state.fullnameErr}</span>}
+          {state?.fullname && <span className={styles.errorMessage}>{state.fullname}</span>}
         </div>
         <div>
           <label className={styles.formLabel}>Email Address</label>
@@ -86,6 +90,7 @@ function ProfileForm({ guestUpdateAction, guest }) {
       <div className={styles.formButtonContainer}>
         <SubmitButton type="submit" className={styles.formButton} content={{ pending: "Saving...", base: "Save" }} />
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }

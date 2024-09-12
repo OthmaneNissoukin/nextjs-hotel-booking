@@ -7,6 +7,7 @@ import Gallery from "./_components/Gallery";
 import HeroSection from "./_components/HeroSection";
 import Rooms from "./_components/Rooms";
 import LoadingSpinner from "./_ui/LoadingSpinner";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "Hotel Booking App",
@@ -14,9 +15,16 @@ export const metadata = {
 };
 
 export default async function Home() {
+  async function bookingSearchAction(formatedRange) {
+    "use server";
+    console.log("-> Server Action");
+    console.log(formatedRange);
+
+    redirect(`rooms?range=${formatedRange}`);
+  }
   return (
     <>
-      <HeroSection />
+      <HeroSection bookingSearchAction={bookingSearchAction} />
       <About />
       <Suspense
         fallback={

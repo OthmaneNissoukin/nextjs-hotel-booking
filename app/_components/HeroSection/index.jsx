@@ -6,12 +6,12 @@ import BookingButton from "../BookingButton";
 import Modal from "@/app/_components/Modal/Modal";
 const images = ["/bg.png", "/bg.png", "/bg.png", "/bg.png"];
 
-function HeroSection() {
+function HeroSection({ bookingSearchAction }) {
   return (
     <Slider images={images}>
       <div className={`container ${styles.wrapper}`}>
         <div className="bookingFormContainer">
-          <BookingForm />
+          <BookingForm bookingSearchAction={bookingSearchAction} />
         </div>
         <div className={styles.heroTitle}>
           <p>Find Comfort In a Foriegn Land With Us</p>

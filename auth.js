@@ -6,6 +6,7 @@ import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: { maxAge: 60 * 60 },
   pages: {
     signIn: "/signin",
   },

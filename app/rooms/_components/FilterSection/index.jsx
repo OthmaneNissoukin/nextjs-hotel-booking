@@ -7,9 +7,10 @@ import "react-datepicker/dist/react-datepicker.css";
 import Select from "react-select";
 import DatePicker from "react-datepicker";
 import { useState } from "react";
-import { formatISO, formatRFC7231, isValid } from "date-fns";
+import { formatISO, formatRFC7231, isBefore, isValid } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import toast, { Toaster } from "react-hot-toast";
 
 const options = [
   { value: "default", label: "Default Sorting" },
@@ -51,9 +52,15 @@ function FilterSection({ filters }) {
 
   function handleSearch() {
     if (!startDate || !endDate) return;
-    const params = new URLSearchParams(searchParams);
     const arrival = formatISO(new Date(startDate), { representation: "date" });
     const departure = formatISO(new Date(endDate), { representation: "date" });
+
+    if (!isBefore(arrival, departure)) {
+      toast.error("Invalid date range!");
+      return;
+    }
+
+    const params = new URLSearchParams(searchParams);
     const formatedRange = `${arrival}_${departure}`;
     params.set("range", formatedRange);
     replace(`${pathname}?${params.toString()}`, { scroll: false });
@@ -111,6 +118,7 @@ function FilterSection({ filters }) {
           </button>
         </div>
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }
