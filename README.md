@@ -40,8 +40,8 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/OthmaneNissoukin/hotel-booking-system.git
-   cd hotel-booking-system
+   git clone https://github.com/OthmaneNissoukin/nextjs-hotel-booking.git
+   cd nextjs-hotel-booking
    ```
 
 2. Install the dependencies:
@@ -76,13 +76,13 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 ## Screenshots
 
 1. **Homepage**
-   ![Homepage Screenshot](https://github.com/OthmaneNissoukin/hotel-booking-system/blob/master/screenshots/homepage.png)
+   ![Homepage Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/homepage.png)
 2. **Room Listing**
-   ![Room Listing Screenshot](https://github.com/OthmaneNissoukin/hotel-booking-system/blob/master/screenshots/rooms.png)
+   ![Room Listing Screenshot](https://github.com/OthmaneNissoukinnextjs-hotel-booking/tree/main/screenshots/rooms.png)
 3. **Room Details**
-   ![Room Details Screenshot](https://github.com/OthmaneNissoukin/hotel-booking-system/blob/master/screenshots/details.png)
+   ![Room Details Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/details.png)
 4. **Checkout Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/hotel-booking-system/blob/master/screenshots/checkout.png)
+   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/checkout.png)
 
 ## Future Development
 
@@ -95,4 +95,4 @@ Feel free to submit issues or pull requests. Contributions, suggestions, and imp
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](./blob/main/Licence.txt) file for details.
