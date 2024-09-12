@@ -3,12 +3,9 @@ import styles from "./styles.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHistory, faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "@/auth";
+import { signOutAction } from "../_lib/actions";
 
 function Layout({ children }) {
-  async function signOutAction() {
-    "use server";
-    await signOut({ redirectTo: "/signin" });
-  }
   return (
     <section className={styles.accountLayout}>
       <aside className={styles.accountSidebar}>

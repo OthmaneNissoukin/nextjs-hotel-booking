@@ -1,5 +1,5 @@
 "use server";
-import { signIn } from "@/auth";
+import { signIn, signOut } from "@/auth";
 import { signInSchema } from "./zodSchemas";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
@@ -43,4 +43,9 @@ export async function bookingCancelAction() {
     cookies().delete("pending_reservation");
     redirect("/rooms", "replace");
   }
+}
+
+export async function signOutAction() {
+  "use server";
+  await signOut({ redirectTo: "/signin" });
 }

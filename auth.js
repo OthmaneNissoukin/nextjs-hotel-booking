@@ -57,6 +57,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
       session.user.id = currentGuest.id;
       session.user.name = currentGuest.fullname;
+      session.avatar = currentGuest.avatar;
 
       return session;
     },

@@ -5,8 +5,9 @@ import Link from "next/link";
 import fa_styles from "@fortawesome/fontawesome-svg-core/styles.css";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
+import GuestDropdown from "./GuestDropdown/GuestDropdown";
 
-function Navbar() {
+function Navbar({ user, signOutAction }) {
   const [hideMenu, setHideMenu] = useState(true);
   const pathname = usePathname();
   return (
@@ -32,13 +33,17 @@ function Navbar() {
             <li>About</li>
             <li>Contact</li>
             <li>
-              <Link
-                className={pathname.includes("account") || pathname === "/signin" ? "active" : ""}
-                href="/signin"
-                onClick={() => setHideMenu(true)}
-              >
-                Guest Area
-              </Link>
+              {user ? (
+                <GuestDropdown user={user} signOutAction={signOutAction} />
+              ) : (
+                <Link
+                  className={pathname.includes("account") || pathname === "/signin" ? "active" : ""}
+                  href="/signin"
+                  onClick={() => setHideMenu(true)}
+                >
+                  Guest Area
+                </Link>
+              )}
             </li>
           </ul>
         </nav>
