@@ -1,6 +1,4 @@
-.overviewContainer {
-  position: relative;
-}
+
 
 .overviewDescription {
   padding: 12px;
@@ -10,6 +8,38 @@
 .overviewDescription h2 {
   font-size: 22px;
   margin-bottom: 12px;
+}
+
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formControl > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.formControl div label {
+  font-size: 17px;
+  color: #656a70;
+}
+
+.formControl div input, 
+.formControl div select {
+  font-size: 17px;
+  border-radius: none;
+  border: 1px solid #656a70;
+  outline: none;
+  padding: 12px 12px;
+}
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
 }
 
 .bookingSummary {
@@ -52,11 +82,8 @@
 
 .actionsContainer button {
   border: none;
-  padding: 12px 16px;
-  text-align: center;
-  width: 100%;
-  font-size: 18px;
   outline: none;
+  padding: 8px 16px;
   text-align: center;
   color: #fff;
   transition: all 150ms linear;
@@ -70,20 +97,4 @@
 
 .deleteButton {
   background-color: crimson;
-}
-
-.editLink {
-  display: inline-block;
-  padding: 12px 16px;
-  text-align: center;
-  width: 100%;
-  font-size: 18px;
-  color: #fff;
-  background-color: #292929;
-  text-decoration: none;
-  transition: all 150ms linear;
-}
-
-.editLink:hover {
-  background-color: #131313;
 }

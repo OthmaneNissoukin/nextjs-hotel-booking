@@ -6,8 +6,8 @@ import DeleteForm from "../DeleteFrom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faEye } from "@fortawesome/free-solid-svg-icons";
 
-function ControlButtons({ deleteAction, status }) {
-  if (status === "confirmed")
+function ControlButtons({ deleteAction, reservation }) {
+  if (reservation.status === "confirmed")
     return (
       <Modal>
         <Modal.ToggleOpen>
@@ -15,15 +15,21 @@ function ControlButtons({ deleteAction, status }) {
             <FontAwesomeIcon icon={faEye} />
           </button>
         </Modal.ToggleOpen>
-        <Modal.Overlay>
-          <Modal.Wrapper>
-            <ReservationOverview />
+        <Modal.Overlay hideOnLargerScreens={false}>
+          <Modal.Wrapper hideOnLargerScreens={false}>
+            <ReservationOverview reservation={reservation} allowDelete={false}>
+              <Modal.ToggleClose>
+                <button type="button" className={styles.closeButton}>
+                  <FontAwesomeIcon icon={faCircleXmark} />
+                </button>
+              </Modal.ToggleClose>
+            </ReservationOverview>
           </Modal.Wrapper>
         </Modal.Overlay>
       </Modal>
     );
 
-  if (status === "cancelled") return <DeleteForm deleteAction={deleteAction} />;
+  if (reservation.status === "cancelled") return <DeleteForm deleteAction={deleteAction} />;
 
   return (
     <>
@@ -35,7 +41,7 @@ function ControlButtons({ deleteAction, status }) {
         </Modal.ToggleOpen>
         <Modal.Overlay hideOnLargerScreens={false}>
           <Modal.Wrapper hideOnLargerScreens={false}>
-            <ReservationOverview deleteAction={deleteAction}>
+            <ReservationOverview reservation={reservation} deleteAction={deleteAction}>
               <Modal.ToggleClose>
                 <button type="button" className={styles.closeButton}>
                   <FontAwesomeIcon icon={faCircleXmark} />

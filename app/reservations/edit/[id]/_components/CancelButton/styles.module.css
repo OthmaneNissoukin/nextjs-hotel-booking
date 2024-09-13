@@ -1,0 +1,23 @@
+.cancelButton {
+  padding: 16px 48px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background-color: rgb(12, 12, 12);
+  font-size: 17px;
+  margin-bottom: 20px;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 150ms linear;
+}
+
+
+.cancelButton:not(:disabled):hover {
+  background-color: rgb(27, 26, 27);
+}
+
+.cancelButton:disabled {
+  background-color: rgb(46, 46, 46);
+  cursor: not-allowed;
+}
+

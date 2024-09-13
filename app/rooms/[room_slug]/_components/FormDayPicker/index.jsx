@@ -4,26 +4,39 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
 import styles from "./styles.module.css";
-import { getRoomReservations } from "@/app/_lib/supabase/reservations";
+import { getReservationByID, getRoomReservations } from "@/app/_lib/supabase/reservations";
 import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Loader from "@/app/_ui/Loader";
 
-function FormDayPicker({ handleDateSelection }) {
+function FormDayPicker({ handleDateSelection, start, end }) {
   const [disableddDays, setDisabledDays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const { room_slug } = useParams();
+  const { room_slug, id } = useParams();
   const calendarRangeRef = useRef({ start: new Date(2024, 0), end: new Date(2027, 11) });
 
-  console.log("rerender");
-
   useEffect(() => {
-    if (!room_slug) return;
+    if (!room_slug && !id) return;
     async function getBusyDays() {
       setIsLoading(true);
-      const reservations = await getRoomReservations(room_slug);
+      let reservations = [];
+      let busy_days = [];
 
-      setDisabledDays(reservations.map((item) => ({ before: item.end_date, after: item.start_date })));
+      if (id) {
+        const reservation_target = await getReservationByID(id);
+
+        reservations = await getRoomReservations(reservation_target.room_id);
+        busy_days = reservations.filter((item) =>
+          id != item.id ? { before: item.end_date, after: item.start_date } : false
+        );
+      } else {
+        reservations = await getRoomReservations(room_slug);
+        busy_days = reservations.map((item) => ({ before: item.end_date, after: item.start_date }));
+      }
+
+      // console.log("BLOCKED");
+      // console.log(reservations.map((item) => ({ before: item.end_date, after: item.start_date })));
+      setDisabledDays(busy_days);
       setIsLoading(false);
     }
 
@@ -45,6 +58,7 @@ function FormDayPicker({ handleDateSelection }) {
           min={0}
           onSelect={(range) => handleDateSelection(range)}
           mode="range"
+          selected={start && end ? { from: start, to: end } : null}
           startMonth={calendarRangeRef.current.start}
           endMonth={calendarRangeRef.current.end}
           weekStartsOn={1}

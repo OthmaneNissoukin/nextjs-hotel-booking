@@ -1,0 +1,31 @@
+.formSection {
+  padding: 40px 20px;
+  background-color: #fff;
+  min-height: calc(70vh);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 32px;
+
+  /* display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  justify-content: center; */
+}
+
+
+@media (min-width: 892px) {
+  .formSection {
+    display: grid;
+    
+    grid-template-columns: 2fr minmax(320px, 1fr);
+    justify-content: center;
+  }
+}
+
+.formInput, .formTextArea {
+  padding: 16px 12px;
+  border-radius: none;
+  outline: none;
+  border: 1px solid #dedede;
+  font-size: 17px;
+}

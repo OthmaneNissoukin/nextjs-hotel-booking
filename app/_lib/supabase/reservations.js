@@ -12,7 +12,7 @@ export async function getRoomReservations(id) {
 export async function getGuestReservations(guest_id) {
   let { data: reservations, error } = await supabase
     .from("reservations")
-    .select("*, rooms(thumbnail, name)")
+    .select("*, rooms(thumbnail, name, capacity)")
     .eq("guest_id", guest_id)
     .is("deleted_at", null);
 
@@ -73,7 +73,28 @@ export async function deleteReservation(id) {
 }
 
 export async function getReservationByID(id) {
-  let { data: reservations, error } = await supabase.from("reservations").select("*").eq("id", id).single();
+  let { data: reservations, error } = await supabase
+    .from("reservations")
+    .select("*, rooms(thumbnail, name, capacity, price)")
+    .eq("id", id)
+    .single();
+
+  return reservations;
+}
+
+export async function updateReseration(id, price, guests_count, start_date, end_date) {
+  const { data: reservations, error } = await supabase
+    .from("reservations")
+    .update({
+      reserved_price: price,
+      guests_count,
+      start_date: formatISO9075(new Date(start_date)),
+      end_date: formatISO9075(new Date(end_date)),
+    })
+    .eq("id", id);
+
+  console.log("SUPABASE ERROR");
+  console.log(error);
 
   return reservations;
 }

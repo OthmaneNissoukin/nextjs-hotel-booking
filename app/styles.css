@@ -267,10 +267,13 @@ div.slider nav.slider-menu button.active {
   }
 
 }
-.section-loader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+.modal-update-form .react-datepicker-wrapper, 
+.modal-update-form .styles_input__lVi_H .react-datepicker-ignore-onclickoutside, 
+.modal-update-form .styles_input__lVi_H,
+.modal-update-form .react-datepicker__input-container input
+{
+  width: 100%;
 }
 
 /* ERROR BOUNDARIES */

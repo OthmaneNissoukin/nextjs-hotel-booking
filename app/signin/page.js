@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
-import Banner from "./_components/Banner";
 import SigninForm from "./_components/SigninForm";
 import { auth } from "@/auth";
+import Banner from "../_components/Banner";
 
 async function Page() {
   const session = await auth();
