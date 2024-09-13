@@ -81,3 +81,20 @@ export async function getReservationByID(id) {
 
   return reservations;
 }
+
+export async function updateReseration(id, price, guests_count, start_date, end_date) {
+  const { data: reservations, error } = await supabase
+    .from("reservations")
+    .update({
+      reserved_price: price,
+      guests_count,
+      start_date: formatISO9075(new Date(start_date)),
+      end_date: formatISO9075(new Date(end_date)),
+    })
+    .eq("id", id);
+
+  console.log("SUPABASE ERROR");
+  console.log(error);
+
+  return reservations;
+}

@@ -10,7 +10,7 @@ import Link from "next/link";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
-function ReservationOverview({ deleteAction, reservation, children }) {
+function ReservationOverview({ deleteAction, reservation, allowDelete = true, children }) {
   return (
     <div className={styles.overviewContainer}>
       <Card>
@@ -50,11 +50,10 @@ function ReservationOverview({ deleteAction, reservation, children }) {
           </div>
 
           <div className={styles.actionsContainer}>
-            <h2>Actions</h2>
-            <Link href={`/reservations/${reservation.id}/edit`} className={styles.editButton}>
+            <Link href={`/reservations/${reservation.id}/edit`} className={styles.editLink}>
               <FontAwesomeIcon icon={faEdit} />
             </Link>
-            <DeleteForm deleteAction={deleteAction} />
+            {allowDelete && <DeleteForm deleteAction={deleteAction} />}
           </div>
         </Card.Description>
         {children}

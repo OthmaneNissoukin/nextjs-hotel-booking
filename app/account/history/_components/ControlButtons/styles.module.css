@@ -21,8 +21,7 @@
   background-color: #333;
   color: #fff;
   transition: all 150ms linear;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 12px;
 }
 
 .overviewButton:hover {

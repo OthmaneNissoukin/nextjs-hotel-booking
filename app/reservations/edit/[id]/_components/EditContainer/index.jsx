@@ -20,11 +20,11 @@ function EditContainer({ reservation, reservationUpdateAction }) {
   const handleDateSelection = useCallback((range) => {
     console.log(range);
     if (!range) return;
+
     const from = formatISO(range?.from, { representation: "date" });
     const to = formatISO(range?.to, { representation: "date" });
 
     console.log(from, to);
-
     setStartDate(from);
     setEndDate(to);
   }, []);

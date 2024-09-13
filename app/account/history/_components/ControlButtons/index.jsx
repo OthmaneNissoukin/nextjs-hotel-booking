@@ -15,9 +15,15 @@ function ControlButtons({ deleteAction, reservation }) {
             <FontAwesomeIcon icon={faEye} />
           </button>
         </Modal.ToggleOpen>
-        <Modal.Overlay>
-          <Modal.Wrapper>
-            <ReservationOverview />
+        <Modal.Overlay hideOnLargerScreens={false}>
+          <Modal.Wrapper hideOnLargerScreens={false}>
+            <ReservationOverview reservation={reservation} allowDelete={false}>
+              <Modal.ToggleClose>
+                <button type="button" className={styles.closeButton}>
+                  <FontAwesomeIcon icon={faCircleXmark} />
+                </button>
+              </Modal.ToggleClose>
+            </ReservationOverview>
           </Modal.Wrapper>
         </Modal.Overlay>
       </Modal>
