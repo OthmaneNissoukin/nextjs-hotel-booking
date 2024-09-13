@@ -1,3 +1,4 @@
+import Link from "next/link";
 import styles from "./styles.module.css";
 
 function Footer() {
@@ -10,23 +11,33 @@ function Footer() {
             <li>email@gmail.com</li>
             <li>+212 6 77 88 99 00</li>
             <li>XYZ Street Agadir</li>
+            <li className={styles.icons}></li>
           </ul>
         </div>
 
         <div>
           <h3>Link Menu</h3>
           <ul>
-            <li>Homepage</li>
-            <li>Rooms</li>
-            <li>Blog</li>
-            <li>Contact Us</li>
-            <li>About</li>
+            <li>
+              <Link href="/">Homepage</Link>
+            </li>
+            <li>
+              <Link href="/rooms">Rooms</Link>
+            </li>
+            <li>
+              <Link href="/signin">Guest Area</Link>
+            </li>
+            {/* <li>Blog</li> */}
+            {/* <li>Contact Us</li> */}
           </ul>
         </div>
 
         <div>
-          <h3>Newsletter</h3>
-          <li>Form Will Be</li>
+          <h3>Subscribe To Our Newsletter</h3>
+          <li className={styles.newsletter}>
+            <input type="text" placeholder="example@mail.com" />
+            <button>SUBMIT</button>
+          </li>
         </div>
       </nav>
     </footer>

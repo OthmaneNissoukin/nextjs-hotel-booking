@@ -6,7 +6,7 @@ function BookingButton({ onClick = null }) {
   const { pending } = useFormStatus();
 
   return (
-    <button disabled={pending} onClick={onClick ?? onClick} className={styles.bookingBtn}>
+    <button type="submit" disabled={pending} onClick={onClick ?? onClick} className={styles.bookingBtn}>
       {pending ? "Processing..." : "Book Now"}
     </button>
   );

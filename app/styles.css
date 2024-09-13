@@ -20,6 +20,7 @@ a {
   text-decoration: none;
 }
 
+
 /* END RESETING STYLES */
 
 /* GLOBAL STYLES */
@@ -101,7 +102,7 @@ header nav ul {
 }
 
 .navbar ul a:hover, .navbar ul a.active {
-  color: crimson;
+  color: #dc143c;
 }
 
 .toggle-menu-button {

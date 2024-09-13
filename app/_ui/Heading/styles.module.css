@@ -16,7 +16,7 @@
   transform: rotateZ(44.5deg);
   height: 16px;
   width: 3px;
-  background-color: crimson;
+  background-color: #dc143c;
 }
 
 .heading span::before {
@@ -27,5 +27,5 @@
   transform: rotateZ(44.5deg);
   height: 16px;
   width: 3px;
-  background-color: crimson;
+  background-color: #dc143c;
 }

@@ -54,6 +54,6 @@
 }
 
 .totalPrice span:last-of-type {
-  color: crimson;
+  color: #dc143c;
   font-weight: 600;
 }

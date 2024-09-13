@@ -20,7 +20,7 @@ export default async function Home() {
     console.log("-> Server Action");
     console.log(formatedRange);
 
-    redirect(`rooms?range=${formatedRange}`);
+    redirect(`/rooms?range=${formatedRange}`);
   }
   return (
     <>

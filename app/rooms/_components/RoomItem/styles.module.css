@@ -45,7 +45,7 @@
 .roomDescription div a {
   display: inline-block;
   padding: 12px 16px;
-  background-color: crimson;
+  background-color: #dc143c;
   text-decoration: none;
   color: #FFF;
   flex-shrink: 0;

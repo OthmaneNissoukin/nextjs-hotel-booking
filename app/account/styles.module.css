@@ -79,7 +79,7 @@
 }
 
 .sidebarLink:hover, .sidebarButton:hover {
-  background-color: crimson;
+  background-color: #dc143c;
 }
 
 @media (min-width: 780px) {

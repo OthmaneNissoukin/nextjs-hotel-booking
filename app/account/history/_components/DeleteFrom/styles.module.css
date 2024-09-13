@@ -2,7 +2,7 @@
 .deleteButton {
   display: inline-block;
   padding: 12px 16px;
-  background-color: crimson !important;
+  background-color: #dc143c !important;
   color: #fff;
   outline: none;
   border: none;
