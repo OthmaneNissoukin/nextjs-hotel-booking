@@ -10,6 +10,38 @@
   margin-bottom: 12px;
 }
 
+.formControl {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formControl > div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+
+.formControl div label {
+  font-size: 17px;
+  color: #656a70;
+}
+
+.formControl div input, 
+.formControl div select {
+  font-size: 17px;
+  border-radius: none;
+  border: 1px solid #656a70;
+  outline: none;
+  padding: 12px 12px;
+}
+
+.errorMessage {
+  font-size: 14px;
+  color: red;
+}
+
 .bookingSummary {
   display: flex;
   flex-direction: column;

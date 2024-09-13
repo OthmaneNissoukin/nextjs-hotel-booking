@@ -12,7 +12,7 @@ import ControlButtons from "../ControlButtons";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
-function ReservationCard({ reservation_id, thumbnailPath = "/bg.png", title, guestsCount, date, price, status }) {
+function ReservationCard({ reservation }) {
   async function deleteReservationAction(prevState, formData) {
     "use server";
 
@@ -22,14 +22,14 @@ function ReservationCard({ reservation_id, thumbnailPath = "/bg.png", title, gue
 
     if (!active_user) return { ...prevState, error: "unauthorized action, please authenticate and try again" };
 
-    const targeted_reservation = await getReservationByID(reservation_id);
+    const targeted_reservation = await getReservationByID(reservation.reservation_id);
 
     if (targeted_reservation.status === "confirmed")
       return { ...prevState, error: "Cannot delete active reservations! You may want to cancel it instead" };
 
     if (targeted_reservation.guest_id !== active_user.id) return { ...prevState, error: "unauthorized action!" };
 
-    await deleteReservation(reservation_id);
+    await deleteReservation(reservation.reservation_id);
     revalidatePath("/account/history");
 
     return { ...prevState, status: "success" };
@@ -38,30 +38,37 @@ function ReservationCard({ reservation_id, thumbnailPath = "/bg.png", title, gue
   return (
     <article className={styles.reservationItem}>
       <div className={styles.reservationThumbnail}>
-        <Image fill src={`${SUPABASE_ROOMS_URL}/${thumbnailPath}`} />
+        <Image fill src={`${SUPABASE_ROOMS_URL}/${reservation.rooms.thumbnail}`} />
       </div>
 
       <div className={styles.reservationInfos}>
         <div className={styles.reservationOverview}>
-          <h2>{title}</h2>
-          <p>{guestsCount} Guests</p>
-          <p>{date}</p>
+          <h2>{reservation.rooms.name}</h2>
+          <p>{reservation.guestsCount} Guests</p>
+          <p>{`${reservation.start_date?.split("-").reverse().join("-")} / ${reservation.end_date
+            ?.split("-")
+            .reverse()
+            .join("-")}`}</p>
 
           {/* CREATE A SEPARATED COMPONENT FOR THE STATUS AS BADGE */}
           <Badge
             type={
-              status == "unconfirmed" ? "warning" : status == "canceled" || status == "finished" ? "danger" : "success"
+              reservation.status == "unconfirmed"
+                ? "warning"
+                : reservation.status == "canceled" || reservation.status == "finished"
+                ? "danger"
+                : "success"
             }
           >
-            {status}
+            {reservation.status}
           </Badge>
         </div>
         <div className={styles.reservationPriceContainer}>
           {/* USE 3rd PARTY API FOR CURRENCY CONVERSION */}
-          <p>{price}</p>
+          <p>{reservation.price}</p>
 
           <div className={styles.controlButtons}>
-            <ControlButtons deleteAction={deleteReservationAction} />
+            <ControlButtons deleteAction={deleteReservationAction} reservation={reservation} />
           </div>
 
           {/* <DeleteForm deleteAction={deleteReservationAction} /> */}

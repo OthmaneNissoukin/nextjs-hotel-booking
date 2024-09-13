@@ -12,7 +12,7 @@ export async function getRoomReservations(id) {
 export async function getGuestReservations(guest_id) {
   let { data: reservations, error } = await supabase
     .from("reservations")
-    .select("*, rooms(thumbnail, name)")
+    .select("*, rooms(thumbnail, name, capacity)")
     .eq("guest_id", guest_id)
     .is("deleted_at", null);
 
