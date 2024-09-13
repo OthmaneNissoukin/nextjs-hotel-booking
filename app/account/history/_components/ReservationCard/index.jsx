@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-solid-svg-icons";
 import ControlButtons from "../ControlButtons";
+import { reservationUpdateAction } from "@/app/_lib/actions";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
@@ -68,7 +69,11 @@ function ReservationCard({ reservation }) {
           <p>{reservation.price}</p>
 
           <div className={styles.controlButtons}>
-            <ControlButtons deleteAction={deleteReservationAction} reservation={reservation} />
+            <ControlButtons
+              reservationUpdateAction={reservationUpdateAction}
+              deleteAction={deleteReservationAction}
+              reservation={reservation}
+            />
           </div>
 
           {/* <DeleteForm deleteAction={deleteReservationAction} /> */}

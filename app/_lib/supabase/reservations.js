@@ -73,7 +73,11 @@ export async function deleteReservation(id) {
 }
 
 export async function getReservationByID(id) {
-  let { data: reservations, error } = await supabase.from("reservations").select("*").eq("id", id).single();
+  let { data: reservations, error } = await supabase
+    .from("reservations")
+    .select("*, rooms(thumbnail, name, capacity, price)")
+    .eq("id", id)
+    .single();
 
   return reservations;
 }

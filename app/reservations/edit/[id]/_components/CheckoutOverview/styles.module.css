@@ -1,7 +1,3 @@
-.overviewContainer {
-  position: relative;
-}
-
 .overviewDescription {
   padding: 12px;
   border: 1px solid #dedede;
@@ -44,27 +40,20 @@
   font-weight: 600;
 }
 
-.actionsContainer {
+.totalPrice {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  justify-content: space-between;
+  gap: 4px;
+  padding-top: 8px;
+  margin-top: 24px;
+  border-top: 1px solid #dedede;
 }
 
-.actionsContainer button {
-  border: none;
-  outline: none;
-  padding: 8px 16px;
-  text-align: center;
-  color: #fff;
-  transition: all 150ms linear;
-  cursor: pointer;
-  width: 100% !important;
+.totalPricespan:first-of-type {
+  color: #656a70;
 }
 
-.editButton {
-  background-color: #131313;
-}
-
-.deleteButton {
-  background-color: crimson;
+.totalPrice span:last-of-type {
+  color: crimson;
+  font-weight: 600;
 }

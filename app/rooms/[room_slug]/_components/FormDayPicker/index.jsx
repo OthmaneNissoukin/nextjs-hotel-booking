@@ -9,13 +9,11 @@ import { useParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import Loader from "@/app/_ui/Loader";
 
-function FormDayPicker({ handleDateSelection }) {
+function FormDayPicker({ handleDateSelection, start, end }) {
   const [disableddDays, setDisabledDays] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { room_slug } = useParams();
   const calendarRangeRef = useRef({ start: new Date(2024, 0), end: new Date(2027, 11) });
-
-  console.log("rerender");
 
   useEffect(() => {
     if (!room_slug) return;
@@ -45,6 +43,7 @@ function FormDayPicker({ handleDateSelection }) {
           min={0}
           onSelect={(range) => handleDateSelection(range)}
           mode="range"
+          selected={start && end ? { from: start, to: end } : null}
           startMonth={calendarRangeRef.current.start}
           endMonth={calendarRangeRef.current.end}
           weekStartsOn={1}

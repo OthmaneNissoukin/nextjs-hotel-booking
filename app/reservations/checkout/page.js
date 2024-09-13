@@ -1,4 +1,4 @@
-import Banner from "./_components/Banner";
+import Banner from "@/app/_components/Banner";
 import CheckoutForm from "./_components/CheckoutSection";
 
 function Page() {

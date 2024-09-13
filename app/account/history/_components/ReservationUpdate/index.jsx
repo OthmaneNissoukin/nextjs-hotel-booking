@@ -1,7 +1,6 @@
 "use client";
 import styles from "./styles.module.css";
 import Card from "@/app/_components/Card/Card";
-import Image from "next/image";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -62,12 +61,19 @@ function ReservationUpdate({ reservation }) {
     }
   }
 
+  async function handleSubmit() {
+    const updateFormData = new Form();
+    updateFormData.set("start_date", startDate);
+    updateFormData.set("end_date", endDate);
+    updateFormData.set("guests_count", guests);
+  }
+
   return (
     <>
       <Card>
         <Card.Description className={styles.overviewDescription}>
           <h2>Edit Reservation</h2>
-          <div className={styles.formControl}>
+          <form className={styles.formControl}>
             <div>
               <label htmlFor="">Guests</label>
               <select name="" id="" defaultValue={reservation.guests_count}>
@@ -113,7 +119,7 @@ function ReservationUpdate({ reservation }) {
               />
               {rangeError && <span className={styles.errorMessage}>{rangeError}</span>}
             </div>
-          </div>
+          </form>
 
           <div className={styles.actionsContainer}>
             <h2>Actions</h2>

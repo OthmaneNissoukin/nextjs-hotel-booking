@@ -46,6 +46,7 @@ export async function bookingCancelAction() {
 }
 
 export async function signOutAction() {
-  "use server";
   await signOut({ redirectTo: "/signin" });
 }
+
+export async function reservationUpdateAction(prevState, formData) {}

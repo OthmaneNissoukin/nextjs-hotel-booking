@@ -1,7 +1,7 @@
 import FilterSection from "./_components/FilterSection";
 
 import styles from "./styles.module.css";
-import Banner from "../signin/_components/Banner";
+import Banner from "../_components/Banner";
 import RoomsSection from "./_components/RoomsSection";
 import { Suspense } from "react";
 import Loader from "../_ui/Loader";
