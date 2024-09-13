@@ -8,7 +8,7 @@ import { bookingTotalPrice, nightTotalPrice } from "@/app/utils/reservationsCalc
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
 function CheckoutOverview({ reservation, guests, start, end }) {
-  const totalNights = daysDifferCount(reservation.end_date, reservation.start_date);
+  const totalNights = daysDifferCount(end, start);
   const totalPerNight = nightTotalPrice(reservation.rooms.price, guests);
   const guestsPrice = ((guests - 1) * (reservation.rooms.price / 2)).toFixed(2);
   const totalPrice = bookingTotalPrice(reservation.rooms.price, guests, totalNights);
@@ -61,7 +61,7 @@ function CheckoutOverview({ reservation, guests, start, end }) {
           </div>
 
           <div className={styles.totalPrice}>
-            <span>Total Without Taxes (3 Nights)</span>
+            <span>Total Without Taxes ({totalNights} Nights)</span>
             <span>${totalPrice}</span>
           </div>
         </Card.Description>

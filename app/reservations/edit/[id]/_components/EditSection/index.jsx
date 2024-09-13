@@ -2,6 +2,7 @@ import styles from "./styles.module.css";
 import { getReservationByID } from "@/app/_lib/supabase/reservations";
 import { notFound } from "next/navigation";
 import EditContainer from "../EditContainer";
+import { reservationUpdateAction } from "@/app/_lib/actions";
 
 async function EditSection({ reservation_id }) {
   console.log("RESERVATION => ", reservation_id);
@@ -16,7 +17,7 @@ async function EditSection({ reservation_id }) {
 
   return (
     <div className={`${styles.formSection} container`}>
-      <EditContainer reservation={reservation} />
+      <EditContainer reservation={reservation} reservationUpdateAction={reservationUpdateAction} />
     </div>
   );
 }

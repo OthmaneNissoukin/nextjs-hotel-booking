@@ -1,5 +1,6 @@
 "use client";
 
+import ConfirmationButton from "../ConfirmationButton";
 import styles from "./styles.module.css";
 
 const initialState = {
@@ -11,9 +12,9 @@ const initialState = {
   criticalError: "",
 };
 
-function ReservationForm({ capacity, setGuests, guests, children }) {
+function ReservationForm({ capacity, setGuests, guests, handleSubmit, children }) {
   return (
-    <form className={styles.form}>
+    <form action={handleSubmit} className={styles.form}>
       <div>
         <div className={styles.formControl}>
           <label htmlFor="" className={styles.formLabel}>
@@ -35,6 +36,9 @@ function ReservationForm({ capacity, setGuests, guests, children }) {
           </select>
         </div>
         {children}
+      </div>
+      <div>
+        <ConfirmationButton />
       </div>
     </form>
   );
