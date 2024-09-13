@@ -23,14 +23,14 @@ function ReservationCard({ reservation }) {
 
     if (!active_user) return { ...prevState, error: "unauthorized action, please authenticate and try again" };
 
-    const targeted_reservation = await getReservationByID(reservation.reservation_id);
+    const targeted_reservation = await getReservationByID(reservation.id);
 
     if (targeted_reservation.status === "confirmed")
       return { ...prevState, error: "Cannot delete active reservations! You may want to cancel it instead" };
 
     if (targeted_reservation.guest_id !== active_user.id) return { ...prevState, error: "unauthorized action!" };
 
-    await deleteReservation(reservation.reservation_id);
+    await deleteReservation(reservation.id);
     revalidatePath("/account/history");
 
     return { ...prevState, status: "success" };
