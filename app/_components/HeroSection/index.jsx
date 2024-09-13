@@ -23,7 +23,7 @@ function HeroSection({ bookingSearchAction }) {
               </Modal.ToggleOpen>
               <Modal.Overlay>
                 <Modal.Wrapper>
-                  <BookingForm>
+                  <BookingForm bookingSearchAction={bookingSearchAction}>
                     <div>
                       <Modal.ToggleClose>
                         <button type="button" className={styles.closeButton}>
