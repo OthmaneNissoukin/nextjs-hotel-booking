@@ -50,7 +50,7 @@ function ReservationOverview({ deleteAction, reservation, allowDelete = true, ch
           </div>
 
           <div className={styles.actionsContainer}>
-            <Link href={`/reservations/${reservation.id}/edit`} className={styles.editLink}>
+            <Link href={`/reservations/edit/${reservation.id}`} className={styles.editLink}>
               <FontAwesomeIcon icon={faEdit} />
             </Link>
             {allowDelete && <DeleteForm deleteAction={deleteAction} />}
