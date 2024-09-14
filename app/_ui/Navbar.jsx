@@ -30,8 +30,10 @@ function Navbar({ user, signOutAction }) {
                 Rooms
               </Link>
             </li>
-            {/* <li>About</li>
-            <li>Contact</li> */}
+            {/* <li>About</li> */}
+            <li>
+              <Link href={"/contact"}>Contact Us</Link>
+            </li>
             <li>
               {user ? (
                 <GuestDropdown user={user} signOutAction={signOutAction} />

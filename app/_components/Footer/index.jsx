@@ -24,11 +24,15 @@ function Footer() {
             <li>
               <Link href="/rooms">Rooms</Link>
             </li>
+
+            {/* <li>Blog</li> */}
+            <li>
+              <Link href={"/contact"}>Contact Us</Link>
+            </li>
+
             <li>
               <Link href="/signin">Guest Area</Link>
             </li>
-            {/* <li>Blog</li> */}
-            {/* <li>Contact Us</li> */}
           </ul>
         </div>
 
