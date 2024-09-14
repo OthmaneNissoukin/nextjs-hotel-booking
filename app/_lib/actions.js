@@ -4,7 +4,7 @@ import { signInSchema } from "./zodSchemas";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { areIntervalsOverlapping, isBefore, isValid } from "date-fns";
-import { getReservationByID, getRoomReservations, updateReseration } from "./supabase/reservations";
+import { cancelReservation, getReservationByID, getRoomReservations, updateReseration } from "./supabase/reservations";
 import { bookingTotalPrice } from "../utils/reservationsCalcs";
 import { daysDifferCount } from "../utils/datetime";
 import { revalidatePath } from "next/cache";
@@ -42,7 +42,7 @@ export async function authAction(prevState, formData) {
 }
 
 export async function bookingCancelAction() {
-  await new Promise((res) => setTimeout(res, 5000));
+  // await new Promise((res) => setTimeout(res, 5000));
   const cookiesStore = cookies();
   if (cookiesStore.has("pending_reservation")) {
     cookies().delete("pending_reservation");
@@ -117,4 +117,14 @@ export async function reservationUpdateAction(prevState, formData) {
 
   revalidatePath(`/reservations/edit/${reservation_id}`);
   return { status: "success" };
+}
+
+export async function reservationCancelAction(prevState, formData) {
+  console.log("formData");
+  console.log(formData);
+  const reservation_id = formData.get("reservation_id");
+
+  await cancelReservation(reservation_id);
+
+  revalidatePath("/account/history");
 }

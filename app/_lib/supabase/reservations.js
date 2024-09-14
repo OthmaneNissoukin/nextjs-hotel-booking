@@ -98,3 +98,13 @@ export async function updateReseration(id, price, guests_count, start_date, end_
 
   return reservations;
 }
+
+export async function cancelReservation(id) {
+  const { data: reservations, error } = await supabase
+    .from("reservations")
+    .update({ status: "cancelled" })
+    .eq("id", id);
+
+  console.log("datetime", formatISO9075(new Date()));
+  return reservations;
+}

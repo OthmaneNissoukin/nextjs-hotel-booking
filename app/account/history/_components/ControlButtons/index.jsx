@@ -6,7 +6,7 @@ import DeleteForm from "../DeleteFrom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faEye } from "@fortawesome/free-solid-svg-icons";
 
-function ControlButtons({ deleteAction, reservation }) {
+function ControlButtons({ deleteAction, reservation, reservationCancelAction }) {
   if (reservation.status === "confirmed")
     return (
       <Modal>
@@ -17,7 +17,11 @@ function ControlButtons({ deleteAction, reservation }) {
         </Modal.ToggleOpen>
         <Modal.Overlay hideOnLargerScreens={false}>
           <Modal.Wrapper hideOnLargerScreens={false}>
-            <ReservationOverview reservation={reservation} allowDelete={false}>
+            <ReservationOverview
+              reservation={reservation}
+              allowDelete={false}
+              reservationCancelAction={reservationCancelAction}
+            >
               <Modal.ToggleClose>
                 <button type="button" className={styles.closeButton}>
                   <FontAwesomeIcon icon={faCircleXmark} />

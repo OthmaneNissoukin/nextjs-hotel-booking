@@ -12,7 +12,7 @@ const initialState = {
   error: "",
 };
 
-function DeleteForm({ deleteAction }) {
+function DeleteForm({ deleteAction, showLabel = false }) {
   const [state, formAction] = useFormState(deleteAction, initialState);
 
   if (state?.error) {
@@ -23,17 +23,20 @@ function DeleteForm({ deleteAction }) {
 
   return (
     <form action={formAction}>
-      <DeleteButton />
+      <DeleteButton showLabel={showLabel} />
       <Toaster position="top-center" reverseOrder={false} />
     </form>
   );
 }
 
-function DeleteButton() {
+function DeleteButton({ showLabel }) {
   const { pending } = useFormStatus();
   return (
     <button type="submit" disabled={pending} className={styles.deleteButton}>
-      <FontAwesomeIcon icon={faTrash} />
+      <span>
+        <FontAwesomeIcon icon={faTrash} />
+      </span>
+      {showLabel && <span>Delete</span>}
     </button>
   );
 }

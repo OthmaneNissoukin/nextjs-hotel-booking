@@ -4,12 +4,9 @@ import styles from "./styles.module.css";
 import Badge from "@/app/_ui/Badge";
 import { auth } from "@/auth";
 import { deleteReservation, getReservationByID } from "@/app/_lib/supabase/reservations";
-import DeleteForm from "../DeleteFrom";
 import { revalidatePath } from "next/cache";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
 import ControlButtons from "../ControlButtons";
-import { reservationUpdateAction } from "@/app/_lib/actions";
+import { reservationCancelAction, reservationUpdateAction } from "@/app/_lib/actions";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
@@ -73,6 +70,7 @@ function ReservationCard({ reservation }) {
               reservationUpdateAction={reservationUpdateAction}
               deleteAction={deleteReservationAction}
               reservation={reservation}
+              reservationCancelAction={reservationCancelAction}
             />
           </div>
 
