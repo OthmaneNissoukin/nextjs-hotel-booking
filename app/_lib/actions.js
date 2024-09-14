@@ -1,6 +1,6 @@
 "use server";
 import { auth, signIn, signOut } from "@/auth";
-import { signInSchema } from "./zodSchemas";
+import { signInSchema, signupSchema } from "./zodSchemas";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { areIntervalsOverlapping, isBefore, isValid } from "date-fns";
@@ -8,6 +8,8 @@ import { cancelReservation, getReservationByID, getRoomReservations, updateReser
 import { bookingTotalPrice } from "../utils/reservationsCalcs";
 import { daysDifferCount } from "../utils/datetime";
 import { revalidatePath } from "next/cache";
+import { createGuest, getGuestByEmail } from "./supabase/guests";
+import { hash, hashSync } from "bcryptjs";
 
 export async function authAction(prevState, formData) {
   // await new Promise((res) => setTimeout(res, 500));
@@ -120,11 +122,47 @@ export async function reservationUpdateAction(prevState, formData) {
 }
 
 export async function reservationCancelAction(prevState, formData) {
-  console.log("formData");
-  console.log(formData);
   const reservation_id = formData.get("reservation_id");
 
   await cancelReservation(reservation_id);
 
   revalidatePath("/account/history");
+}
+
+export async function signupAction(prevState, formData) {
+  prevState = {};
+  const fullname = formData.get("fullname");
+  const email = formData.get("email");
+  const password = formData.get("password");
+  const confirm_password = formData.get("confirm_password");
+
+  try {
+    const z_validation = signupSchema.parse({ fullname, email, password, confirm_password });
+  } catch (err) {
+    console.log("Caugth Validation");
+    console.log(err);
+    err.errors.forEach((element) => {
+      prevState[element?.path[0] ?? "unknown"] = element.message;
+    });
+    return { ...prevState };
+  }
+
+  const does_email_exists = await getGuestByEmail(email);
+
+  if (does_email_exists) return { ...prevState, critical: "Email address already exists!" };
+
+  const avatar = `https://ui-avatars.com/api/?name=${fullname.replace(" ", "+")}&background=161616&color=F1F1F1`;
+  await createGuest(fullname, email, avatar, hashSync(password, 10));
+
+  try {
+    await signIn("credentials", { email, password, redirect: false });
+  } catch (err) {
+    console.log(err);
+    return {
+      ...prevState,
+      authErr: "Error occured while attempting to authenticate you. Please try login in through the sign page!",
+    };
+  }
+
+  redirect("/account/history");
 }

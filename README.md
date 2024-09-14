@@ -27,6 +27,7 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 - **DayPicker**: For friendly date selection.
 - **date-fns**: For handling date manipulation.
 - **Zod**: For form validation.
+- **React Hot Toast**: Showing user friendly feedbacks for errors, success and other status.
 - **Memoization**: Applied to prevent unnecessary re-renders.
 
 ### Back-end
@@ -83,6 +84,10 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
    ![Room Details Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/details.png)
 4. **Checkout Page**
    ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/checkout.png)
+5. **Reservation Update Page**
+   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/reservation-update.png)
+6. **Sign In Page**
+   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/login.png)
 
 ## Future Development
 

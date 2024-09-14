@@ -4,6 +4,7 @@ import { getGuestByEmail } from "../supabase/guests";
 export const credentials = {
   // You can specify which fields should be submitted, by adding keys to the `credentials` object.
   // e.g. domain, username, password, 2FA token, etc.
+
   credentials: {
     email: {},
     password: {},

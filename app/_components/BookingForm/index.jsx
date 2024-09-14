@@ -5,12 +5,12 @@ import BookingButton from "../BookingButton";
 import styles from "./index.module.css";
 import { useState } from "react";
 
-import { formatISO, isBefore, isValid } from "date-fns";
+import { addDays, formatISO, isBefore, isValid } from "date-fns";
 import toast, { Toaster } from "react-hot-toast";
 
 function BookingForm({ bookingSearchAction, children }) {
   const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date(addDays(new Date(), 1)));
 
   function handleStartSelection(date) {
     setStartDate(date);

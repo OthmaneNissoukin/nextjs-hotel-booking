@@ -37,6 +37,7 @@ export async function createGuest(
   fullname,
   email,
   avatar = "",
+  password = "",
   phone = "",
   nationality = "",
   countryFlag = "",
@@ -44,7 +45,7 @@ export async function createGuest(
 ) {
   const { data, error } = await supabase
     .from("guests")
-    .insert([{ fullname, email, phone, avatar, nationality, countryFlag, nationalID }])
+    .insert([{ fullname, email, phone, avatar, nationality, countryFlag, nationalID, password }])
     .select();
 
   if (error) {

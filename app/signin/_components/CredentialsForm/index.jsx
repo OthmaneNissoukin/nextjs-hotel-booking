@@ -6,6 +6,7 @@ import styles from "./styles.module.css";
 import { useFormState } from "react-dom";
 import { usePathname } from "next/navigation";
 import toast, { Toaster } from "react-hot-toast";
+import Link from "next/link";
 
 const initialState = {
   email: "",
@@ -48,6 +49,9 @@ function CredentialsForm({ authAction }) {
 
       <br />
       <a href="#">Forget Password?</a>
+      <p>
+        Don't have an account? <Link href="/signup">Sign Up</Link>
+      </p>
       <Toaster position="top-center" reverseOrder={false} />
     </form>
   );

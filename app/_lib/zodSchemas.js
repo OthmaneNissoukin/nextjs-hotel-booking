@@ -34,3 +34,18 @@ export const reservationSchema = z.object({
   nationalID: z.string().regex(/^[a-zA-Z0-9]{6,12}$/, "Invalid national ID format"),
   message: z.string().max(255, { message: "Message cannot exceed 255 characters" }).optional(),
 });
+
+export const signupSchema = z
+  .object({
+    fullname: z
+      .string({ required_error: "Required" })
+      .min(3, { message: "Name must be at least 3 characters" })
+      .max(64, "Name cannot exceed 64 charcters"),
+    email: z.string().email(),
+    password: z.string(6).min(6, { message: "Password is required" }),
+    confirm_password: z.string().min(6, { message: "Password confirmation is required" }),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Password doesn't match confirmation",
+    path: ["confirm_password"],
+  });
