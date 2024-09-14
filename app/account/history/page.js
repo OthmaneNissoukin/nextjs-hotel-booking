@@ -5,6 +5,11 @@ import { getGuestReservations } from "@/app/_lib/supabase/reservations";
 import { auth } from "@/auth";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Booking History",
+  description: "Reservations history at the Hotel Booking App ",
+};
+
 async function History() {
   let session = {};
   let reservations = [];

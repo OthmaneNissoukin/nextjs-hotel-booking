@@ -4,6 +4,11 @@ import { notFound } from "next/navigation";
 import { getReservationByID } from "@/app/_lib/supabase/reservations";
 import { auth } from "@/auth";
 
+export const metadata = {
+  title: "Edit Reservation",
+  description: "Edit your already booked reservation ",
+};
+
 async function Page({ params }) {
   const reservation_id = params?.id;
 

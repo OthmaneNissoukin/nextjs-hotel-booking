@@ -6,6 +6,11 @@ import { getGuestById, updateGuest } from "@/app/_lib/supabase/guests";
 import { revalidatePath } from "next/cache";
 import { profileSchema } from "@/app/_lib/zodSchemas";
 
+export const metadata = {
+  title: "My Profile",
+  description: "View and Edit your profile details",
+};
+
 async function Profile() {
   const session = await auth();
 
