@@ -4,6 +4,34 @@
   margin-bottom: 20px;
 }
 
+.reservationTitle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reservationEstimation {
+  font-size: 12px;
+  padding: 2px 6px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+.onGoing {
+  background-color: rgba(64, 221, 59, 0.74);
+  color: #131313;
+}
+.past {
+  background-color: #d8143bbb;
+  color: #fff;
+
+}
+.future {
+  background-color: rgba(59, 62, 221, 0.719);
+  color: #fff;
+
+}
+
 @media (min-width: 780px) {
   .reservationItem {
     display: grid;
@@ -38,6 +66,11 @@
     justify-content: space-between;
     flex-direction: row;
   }
+}
+
+.price {
+  color: #dc143c;
+  font-weight: 600;
 }
 
 
@@ -86,10 +119,10 @@
 }
 
 
-.controlButtons {
+/* .controlButtons {
   display: flex;
   gap: 4px;
-}
+} */
 
 .overviewButton {
   display: inline-block;

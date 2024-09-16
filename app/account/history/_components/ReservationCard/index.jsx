@@ -7,6 +7,8 @@ import { deleteReservation, getReservationByID } from "@/app/_lib/supabase/reser
 import { revalidatePath } from "next/cache";
 import ControlButtons from "../ControlButtons";
 import { reservationCancelAction, reservationUpdateAction } from "@/app/_lib/actions";
+import { formatToAbrFormat } from "@/app/utils/datetime";
+import { differenceInDays, isFuture, isPast } from "date-fns";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
@@ -33,6 +35,9 @@ function ReservationCard({ reservation }) {
     return { ...prevState, status: "success" };
   }
 
+  const arrivalDate = formatToAbrFormat(reservation.start_date);
+  const departureDate = formatToAbrFormat(reservation.end_date);
+
   return (
     <article className={styles.reservationItem}>
       <div className={styles.reservationThumbnail}>
@@ -41,12 +46,27 @@ function ReservationCard({ reservation }) {
 
       <div className={styles.reservationInfos}>
         <div className={styles.reservationOverview}>
-          <h2>{reservation.rooms.name}</h2>
-          <p>{reservation.guestsCount} Guests</p>
-          <p>{`${reservation.start_date?.split("-").reverse().join("-")} / ${reservation.end_date
-            ?.split("-")
-            .reverse()
-            .join("-")}`}</p>
+          <h2 className={styles.reservationTitle}>
+            <span>{reservation.rooms.name}</span>
+
+            {isPast(reservation.start_date) && isFuture(reservation.end_date) ? (
+              <span className={`${styles.onGoing} ${styles.reservationEstimation}`}>ON GOING</span>
+            ) : isFuture(reservation.start_date) ? (
+              <span className={`${styles.future} ${styles.reservationEstimation}`}>FUTURE</span>
+            ) : isPast(reservation.end_date) ? (
+              <span className={`${styles.past} ${styles.reservationEstimation}`}>PAST</span>
+            ) : (
+              ""
+            )}
+          </h2>
+          <p>
+            {formatToAbrFormat(arrivalDate)} - {formatToAbrFormat(departureDate)}
+          </p>
+
+          <p>
+            <span className={styles.price}>${reservation.reserved_price.toFixed(2)}</span> - {reservation.guests_count}{" "}
+            Guest(s)
+          </p>
 
           {/* CREATE A SEPARATED COMPONENT FOR THE STATUS AS BADGE */}
           <Badge
@@ -63,16 +83,13 @@ function ReservationCard({ reservation }) {
         </div>
         <div className={styles.reservationPriceContainer}>
           {/* USE 3rd PARTY API FOR CURRENCY CONVERSION */}
-          <p>{reservation.price}</p>
 
-          <div className={styles.controlButtons}>
-            <ControlButtons
-              reservationUpdateAction={reservationUpdateAction}
-              deleteAction={deleteReservationAction}
-              reservation={reservation}
-              reservationCancelAction={reservationCancelAction}
-            />
-          </div>
+          <ControlButtons
+            reservationUpdateAction={reservationUpdateAction}
+            deleteAction={deleteReservationAction}
+            reservation={reservation}
+            reservationCancelAction={reservationCancelAction}
+          />
 
           {/* <DeleteForm deleteAction={deleteReservationAction} /> */}
         </div>

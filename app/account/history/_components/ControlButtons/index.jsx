@@ -7,8 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleXmark, faEye } from "@fortawesome/free-solid-svg-icons";
 
 function ControlButtons({ deleteAction, reservation, reservationCancelAction }) {
-  if (reservation.status === "confirmed")
-    return (
+  return (
+    <div className={styles.buttonsContainer}>
       <Modal>
         <Modal.ToggleOpen>
           <button className={styles.overviewButton}>
@@ -21,6 +21,7 @@ function ControlButtons({ deleteAction, reservation, reservationCancelAction }) 
               reservation={reservation}
               allowDelete={false}
               reservationCancelAction={reservationCancelAction}
+              deleteAction={deleteAction}
             >
               <Modal.ToggleClose>
                 <button type="button" className={styles.closeButton}>
@@ -30,36 +31,9 @@ function ControlButtons({ deleteAction, reservation, reservationCancelAction }) 
             </ReservationOverview>
           </Modal.Wrapper>
         </Modal.Overlay>
+        {reservation.status !== "confirmed" && <DeleteForm deleteAction={deleteAction} />}
       </Modal>
-    );
-
-  if (reservation.status === "cancelled") return <DeleteForm deleteAction={deleteAction} />;
-
-  return (
-    <>
-      <Modal>
-        <Modal.ToggleOpen>
-          <button className={styles.overviewButton}>
-            <FontAwesomeIcon icon={faEye} />
-          </button>
-        </Modal.ToggleOpen>
-        <Modal.Overlay hideOnLargerScreens={false}>
-          <Modal.Wrapper hideOnLargerScreens={false}>
-            <ReservationOverview reservation={reservation} deleteAction={deleteAction}>
-              <Modal.ToggleClose>
-                <button type="button" className={styles.closeButton}>
-                  <FontAwesomeIcon icon={faCircleXmark} />
-                </button>
-              </Modal.ToggleClose>
-            </ReservationOverview>
-          </Modal.Wrapper>
-        </Modal.Overlay>
-
-        <Modal.ToggleClose>
-          <DeleteForm deleteAction={deleteAction} />
-        </Modal.ToggleClose>
-      </Modal>
-    </>
+    </div>
   );
 }
 
