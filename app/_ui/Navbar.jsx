@@ -32,7 +32,13 @@ function Navbar({ user, signOutAction }) {
             </li>
             {/* <li>About</li> */}
             <li>
-              <Link href={"/contact"}>Contact Us</Link>
+              <Link
+                href={"/contact"}
+                className={pathname === "/contact" ? "active" : ""}
+                onClick={() => setHideMenu(true)}
+              >
+                Contact Us
+              </Link>
             </li>
             <li>
               {user ? (
