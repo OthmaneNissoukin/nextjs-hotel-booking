@@ -16,10 +16,27 @@ export async function getGuestByEmail(email) {
   return guests;
 }
 
-export async function updateGuest(id, name, nationality, countryFlag, phone, email, nationalID = "") {
+export async function updateGuest(id, name, nationality, countryFlag, phone, email) {
   const { data, error } = await supabase
     .from("guests")
-    .update({ fullname: name, nationality, phone, email, countryFlag, nationalID })
+    .update({ fullname: name, nationality, phone, email, countryFlag })
+    .eq("id", id)
+    .select();
+
+  // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+  if (error) {
+    console.log("supa error");
+    console.log(error);
+  }
+
+  return data;
+}
+
+export async function updateGuestWithPwd(id, name, nationality, countryFlag, phone, email, password) {
+  const { data, error } = await supabase
+    .from("guests")
+    .update({ fullname: name, nationality, phone, email, countryFlag, password })
     .eq("id", id)
     .select();
 

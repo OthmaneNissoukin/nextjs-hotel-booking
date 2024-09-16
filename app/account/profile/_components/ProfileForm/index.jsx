@@ -19,7 +19,8 @@ const initialState = {
 function ProfileForm({ guestUpdateAction, guest }) {
   const [state, formAction] = useFormState(guestUpdateAction, initialState);
 
-  const errors = Object.values(state)?.filter((item) => item.length);
+  console.log(state);
+  const errors = Object.values(state ?? {})?.filter((item) => item.length);
   if (errors.length) errors.forEach((item) => toast.error(item ?? "Failed to update your profile, please try again"));
 
   return (
@@ -71,20 +72,13 @@ function ProfileForm({ guestUpdateAction, guest }) {
         </div>
         <div>
           <label className={styles.formLabel}>New Password</label>
-          <input className={styles.formControl} type="text" placeholder="Later" name="pwd" readOnly disabled={true} />
-          {state?.phone && <span className={styles.errorMessage}>{state.phone}</span>}
+          <input className={styles.formControl} type="password" placeholder="**********" name="password" />
+          {state?.password && <span className={styles.errorMessage}>{state.password}</span>}
         </div>
         <div>
           <label className={styles.formLabel}>Confirm Password</label>
-          <input
-            className={styles.formControl}
-            type="text"
-            placeholder="Later"
-            name="pwd_confirmation"
-            readOnly
-            disabled={true}
-          />
-          {state?.phone && <span className={styles.errorMessage}>{state.phone}</span>}
+          <input className={styles.formControl} type="password" placeholder="**********" name="confirm_password" />
+          {state?.confirm_password && <span className={styles.errorMessage}>{state.confirm_password}</span>}
         </div>
       </div>
       <div className={styles.formButtonContainer}>
