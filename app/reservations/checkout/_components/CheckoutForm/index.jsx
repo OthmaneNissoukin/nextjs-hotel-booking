@@ -6,7 +6,7 @@ import styles from "./styles.module.css";
 import { useFormState } from "react-dom";
 
 import CancelButton from "../CancelButton";
-import { useEffect, useState } from "react";
+import { useTransition } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 const initialState = {
@@ -20,13 +20,11 @@ const initialState = {
 
 function CheckoutForm({ guest, createReservationAction, bookingCancelAction, clearReservationCookie, children }) {
   const [state, formAction] = useFormState(createReservationAction, initialState);
-  const [isLoading, setIsLoading] = useState(false);
 
-  async function handleCancel() {
-    setIsLoading(true);
-    await bookingCancelAction();
-    // await new Promise((res) => setTimeout(res, 5000));
-    setIsLoading(false);
+  const [isPending, setTransition] = useTransition();
+
+  function handleCancel() {
+    setTransition(async () => await bookingCancelAction());
   }
 
   const errors = Object.values(state)?.filter((item) => item.length);
@@ -94,7 +92,7 @@ function CheckoutForm({ guest, createReservationAction, bookingCancelAction, cle
 
       <div className={styles.checkOutButtons}>
         <ConfirmationButton disabled={isLoading} />
-        <CancelButton isLoading={isLoading} handleCancel={handleCancel} />
+        <CancelButton isLoading={isPending} handleCancel={handleCancel} />
       </div>
       <Toaster position="top-center" reverseOrder={true} />
     </form>
