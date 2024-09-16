@@ -1,7 +1,9 @@
 import { signIn } from "@/auth";
 import styles from "./styles.module.css";
+import { cookies } from "next/headers";
 
 function OAuthProviderButtons() {
+  const redirectURL = cookies().has("pending_reservation") ? "/reservations/checkout" : "/account/history";
   return (
     <div>
       <div className={styles.orDivider}>
@@ -11,7 +13,7 @@ function OAuthProviderButtons() {
         <form
           action={async () => {
             "use server";
-            await signIn("google", { redirectTo: "/account/history" });
+            await signIn("google", { redirectTo: redirectURL });
           }}
         >
           <button className={styles.googleButton}>
@@ -23,7 +25,7 @@ function OAuthProviderButtons() {
         <form
           action={async () => {
             "use server";
-            await signIn("facebook", { redirectTo: "/account/history" });
+            await signIn("facebook", { redirectTo: redirectURL });
           }}
         >
           <button className={styles.facebookBtn}>

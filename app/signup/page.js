@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import SignUpForm from "@/app/signup/_components/SignUpForm";
 import { auth } from "@/auth";
 import Banner from "../_components/Banner";
+import { cookies } from "next/headers";
 
 export const metadata = {
   title: "Sign Up",
@@ -10,7 +11,8 @@ export const metadata = {
 
 async function Page() {
   const session = await auth();
-  if (session?.user) redirect("/account/history");
+  const redirectURL = cookies().has("pending_reservation") ? "/reservations/checkout" : "/account/history";
+  if (session?.user) redirect(redirectURL);
 
   return (
     <>
