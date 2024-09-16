@@ -91,7 +91,7 @@ function CheckoutForm({ guest, createReservationAction, bookingCancelAction, cle
       </div>
 
       <div className={styles.checkOutButtons}>
-        <ConfirmationButton disabled={isLoading} />
+        <ConfirmationButton disabled={isPending} />
         <CancelButton isLoading={isPending} handleCancel={handleCancel} />
       </div>
       <Toaster position="top-center" reverseOrder={true} />
