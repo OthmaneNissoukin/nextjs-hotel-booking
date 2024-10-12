@@ -25,8 +25,7 @@ function ReservationOverview({ deleteAction, reservation, allowDelete = true, re
   async function handleCancel() {
     const cancelForm = new FormData();
     cancelForm.set("reservation_id", reservation.id);
-    console.log("CREATED");
-    console.log(cancelForm);
+
     await formAction(cancelForm);
   }
 

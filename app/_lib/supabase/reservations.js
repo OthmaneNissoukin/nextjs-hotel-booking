@@ -1,5 +1,5 @@
 import { formatISO, formatISO9075 } from "date-fns";
-import supabase from "./db";
+import supabase, { supabaseWithToken } from "./db";
 
 export async function getRoomReservations(id) {
   let { data: reservations, error } = await supabase.from("reservations").select("*").eq("room_id", id);
@@ -34,6 +34,7 @@ export async function getGuestReservations(guest_id) {
  */
 
 export async function createNewReservation(
+  supabaseAccessToken,
   room_id,
   guest_id,
   guests_count,
@@ -42,7 +43,7 @@ export async function createNewReservation(
   start_date,
   end_date
 ) {
-  const { data: reservations, error } = await supabase
+  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
     .from("reservations")
     .insert([
       {
@@ -57,13 +58,19 @@ export async function createNewReservation(
     ])
     .select();
 
+  if (error) {
+    // console.log("===== CREATION ERROR =====");
+    console.log(error);
+    // console.log(session);
+  }
+
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
   return reservations;
 }
 
-export async function deleteReservation(id) {
-  const { data: reservations, error } = await supabase
+export async function deleteReservation(supabaseAccessToken, id) {
+  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
     .from("reservations")
     .update({ deleted_at: formatISO9075(new Date()) })
     .eq("id", id);
@@ -82,8 +89,8 @@ export async function getReservationByID(id) {
   return reservations;
 }
 
-export async function updateReseration(id, price, guests_count, start_date, end_date) {
-  const { data: reservations, error } = await supabase
+export async function updateReseration(supabaseAccessToken, id, price, guests_count, start_date, end_date) {
+  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
     .from("reservations")
     .update({
       reserved_price: price,
@@ -99,8 +106,8 @@ export async function updateReseration(id, price, guests_count, start_date, end_
   return reservations;
 }
 
-export async function cancelReservation(id) {
-  const { data: reservations, error } = await supabase
+export async function cancelReservation(supabaseAccessToken, id) {
+  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
     .from("reservations")
     .update({ status: "cancelled" })
     .eq("id", id);

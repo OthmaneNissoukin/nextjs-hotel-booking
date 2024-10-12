@@ -1,4 +1,4 @@
-import supabase from "./db";
+import supabase, { supabaseWithToken } from "./db";
 
 export async function getGuestById(id) {
   let { data: guests, error } = await supabase.from("guests").select("*").eq("id", id).single();
@@ -33,8 +33,17 @@ export async function updateGuest(id, name, nationality, countryFlag, phone, ema
   return data;
 }
 
-export async function updateGuestWithPwd(id, name, nationality, countryFlag, phone, email, password) {
-  const { data, error } = await supabase
+export async function updateGuestWithPwd(
+  supabaseAccessToken,
+  id,
+  name,
+  nationality,
+  countryFlag,
+  phone,
+  email,
+  password
+) {
+  const { data, error } = await supabaseWithToken(supabaseAccessToken)
     .from("guests")
     .update({ fullname: name, nationality, phone, email, countryFlag, password })
     .eq("id", id)

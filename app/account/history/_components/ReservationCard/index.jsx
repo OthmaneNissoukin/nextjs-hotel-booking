@@ -18,7 +18,8 @@ function ReservationCard({ reservation }) {
 
     prevState = {};
 
-    const active_user = (await auth())?.user;
+    const session = await auth();
+    const active_user = session?.user;
 
     if (!active_user) return { ...prevState, error: "unauthorized action, please authenticate and try again" };
 
@@ -29,7 +30,7 @@ function ReservationCard({ reservation }) {
 
     if (targeted_reservation.guest_id !== active_user.id) return { ...prevState, error: "unauthorized action!" };
 
-    await deleteReservation(reservation.id);
+    await deleteReservation(session.supabaseAccessToken, reservation.id);
     revalidatePath("/account/history");
 
     return { ...prevState, status: "success" };

@@ -19,7 +19,6 @@ const initialState = {
 function ProfileForm({ guestUpdateAction, guest }) {
   const [state, formAction] = useFormState(guestUpdateAction, initialState);
 
-  console.log(state);
   const errors = Object.values(state ?? {})?.filter((item) => item.length);
   if (errors.length) errors.forEach((item) => toast.error(item ?? "Failed to update your profile, please try again"));
 

@@ -18,8 +18,6 @@ function ReservationUpdate({ reservation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [rangeError, setRangeError] = useState("");
 
-  console.log(reservation);
-
   useEffect(() => {
     if (!reservation.room_id) return;
     async function getBusyDays() {
@@ -40,7 +38,6 @@ function ReservationUpdate({ reservation }) {
 
   function handleArrivalSelect(date) {
     setStartDate(date);
-    console.log(date);
   }
 
   function handleDepartureSelect(date) {

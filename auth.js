@@ -4,12 +4,18 @@ import { createGuest, getGuestByEmail } from "./app/_lib/supabase/guests";
 import { credentials } from "./app/_lib/authjs/credentialsCallback";
 import Google from "next-auth/providers/google";
 import Facebook from "next-auth/providers/facebook";
+import { SupabaseAdapter } from "@auth/supabase-adapter";
+import jwt from "jsonwebtoken";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   session: { maxAge: 60 * 60 },
   pages: {
     signIn: "/signin",
   },
+  adapter: SupabaseAdapter({
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
+    secret: process.env.SUPABASE_SERVICE_ROLE_KEY ?? "",
+  }),
   providers: [
     Credentials(credentials),
     Google({ clientId: process.env.AUTH_GOOGLE_ID, clientSecret: process.env.AUTH_GOOGLE_SECRET }),
@@ -17,7 +23,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   ],
   callbacks: {
     authorized({ req, auth }) {
-      console.log("HITTED");
       return !!auth;
     },
 
@@ -49,16 +54,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
 
     async session({ session, token, user }) {
-      // console.log("++++++++ SESSION CREATED +++++++");
-      // console.log(session);
-      // console.log(user);
-
       const currentGuest = await getGuestByEmail(session.user.email);
 
       session.user.id = currentGuest.id;
       session.user.name = currentGuest.fullname;
       session.avatar = currentGuest.avatar;
-
+      const signingSecret = process.env.SUPABASE_JWT_SECRET;
+      if (signingSecret) {
+        const payload = {
+          aud: "authenticated",
+          exp: Math.floor(new Date(session.expires).getTime() / 1000),
+          sub: currentGuest.fullname,
+          email: user.email,
+          role: "authenticated",
+        };
+        session.supabaseAccessToken = jwt.sign(payload, signingSecret);
+      }
       return session;
     },
   },
