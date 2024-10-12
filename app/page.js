@@ -16,10 +16,6 @@ export const metadata = {
 
 export default async function Home() {
   async function bookingSearchAction(formatedRange) {
-    "use server";
-    console.log("-> Server Action");
-    console.log(formatedRange);
-
     redirect(`/rooms?range=${formatedRange}`);
   }
   return (

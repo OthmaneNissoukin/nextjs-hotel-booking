@@ -6,6 +6,7 @@ import { getGuestById, updateGuest, updateGuestWithPwd } from "@/app/_lib/supaba
 import { revalidatePath } from "next/cache";
 import { profileSchema } from "@/app/_lib/zodSchemas";
 import { hashSync } from "bcryptjs";
+import { redirect } from "next/navigation";
 
 export const metadata = {
   title: "My Profile",
@@ -14,11 +15,12 @@ export const metadata = {
 
 async function Profile() {
   const session = await auth();
+  if (!session) redirect("/signin");
 
-  const user = await getGuestById(session.user.id);
-  console.log(user);
+  const user = await getGuestById(session?.user.id);
+  // console.log(user);
 
-  if (!user) redirect("signin");
+  if (!user) redirect("/signin");
 
   async function guestUpdateAction(prevState, formData) {
     "use server";
@@ -66,7 +68,16 @@ async function Profile() {
         };
 
       const hashedPassword = hashSync(password, 10);
-      await updateGuestWithPwd(guestID, fullname, nationality, countryFlag, phone, email, hashedPassword);
+      await updateGuestWithPwd(
+        session.supabaseAccessToken,
+        guestID,
+        fullname,
+        nationality,
+        countryFlag,
+        phone,
+        email,
+        hashedPassword
+      );
     } else {
       await updateGuest(guestID, fullname, nationality, countryFlag, phone, email);
     }

@@ -15,7 +15,7 @@ function EditContainer({ reservation, reservationUpdateAction }) {
 
   const [startDate, setStartDate] = useState(new Date(reservation.start_date));
   const [endDate, setEndDate] = useState(new Date(reservation.end_date));
-  const [guests, setGuests] = useState(reservation.rooms.capacity);
+  const [guests, setGuests] = useState(reservation.guests_count);
 
   const handleDateSelection = useCallback((range) => {
     console.log(range);

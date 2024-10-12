@@ -30,13 +30,11 @@ export async function authAction(prevState, formData) {
   }
 
   const credentials = { email, password };
-  console.log("Create Session");
   let loginSuccess = true;
   try {
     await signIn("credentials", { ...credentials, redirect: false });
   } catch (err) {
     loginSuccess = false;
-    console.log(err.message);
     return { ...prevState, criticalError: "Wrong email or password!" };
   } finally {
     if (loginSuccess) redirect(cookies().has("pending_reservation") ? "/reservations/checkout" : "/account/history");
@@ -45,6 +43,7 @@ export async function authAction(prevState, formData) {
 
 export async function bookingCancelAction() {
   // await new Promise((res) => setTimeout(res, 5000));
+
   const cookiesStore = cookies();
   if (cookiesStore.has("pending_reservation")) {
     cookies().delete("pending_reservation");
@@ -58,8 +57,6 @@ export async function signOutAction() {
 
 export async function reservationUpdateAction(prevState, formData) {
   prevState = {};
-
-  console.log(formData);
 
   const start_date = new Date(formData.get("start_date"));
   const end_date = new Date(formData.get("end_date"));
@@ -115,7 +112,7 @@ export async function reservationUpdateAction(prevState, formData) {
 
   const totalNights = daysDifferCount(end_date, start_date);
   const new_total = bookingTotalPrice(target_reservation.rooms.price, guests_count, totalNights);
-  await updateReseration(reservation_id, new_total, guests_count, start_date, end_date);
+  await updateReseration(session.supabaseAccessToken, reservation_id, new_total, guests_count, start_date, end_date);
 
   revalidatePath(`/reservations/edit/${reservation_id}`);
   return { status: "success" };
@@ -124,7 +121,9 @@ export async function reservationUpdateAction(prevState, formData) {
 export async function reservationCancelAction(prevState, formData) {
   const reservation_id = formData.get("reservation_id");
 
-  await cancelReservation(reservation_id);
+  const session = await auth();
+
+  await cancelReservation(session?.supabaseAccessToken, reservation_id);
 
   revalidatePath("/account/history");
 }

@@ -15,10 +15,9 @@ import { revalidatePath } from "next/cache";
 
 async function CheckoutSection() {
   const session = await auth();
+
   const reservation_cookies = cookies();
   if (!reservation_cookies.has("pending_reservation")) {
-    console.log("ALREADY DELETED");
-    console.log(reservation_cookies);
     redirect("/rooms");
   }
 
@@ -58,7 +57,10 @@ async function CheckoutSection() {
     const total_price = (room.price + ((room.price / 2) * pending_reservation.guests_count - 1)).toFixed(2);
 
     try {
+      const session = await auth();
+
       await createNewReservation(
+        session?.supabaseAccessToken,
         room.id,
         guest.id,
         pending_reservation.guests_count,

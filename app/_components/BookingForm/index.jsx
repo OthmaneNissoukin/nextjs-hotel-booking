@@ -31,7 +31,6 @@ function BookingForm({ bookingSearchAction, children }) {
       return;
     }
     // await new Promise((res) => setTimeout(res, 5000));
-    console.log("-> Event Handler");
     await bookingSearchAction(formatedRange);
     // router.push(`rooms?range=${formatedRange}`);
   }

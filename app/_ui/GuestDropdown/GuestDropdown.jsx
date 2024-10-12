@@ -7,7 +7,6 @@ import Link from "next/link";
 const GuestDropdown = ({ user, signOutAction }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  console.log("user", user);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
