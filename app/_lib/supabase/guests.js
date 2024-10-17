@@ -1,4 +1,4 @@
-import supabase, { supabaseWithToken } from "./db";
+import supabase, { riskySupabaseClient, supabaseWithToken } from "./db";
 
 export async function getGuestById(id) {
   let { data: guests, error } = await supabase.from("guests").select("*").eq("id", id).single();
@@ -69,7 +69,7 @@ export async function createGuest(
   countryFlag = "",
   nationalID = ""
 ) {
-  const { data, error } = await supabase
+  const { data, error } = await riskySupabaseClient
     .from("guests")
     .insert([{ fullname, email, phone, avatar, nationality, countryFlag, nationalID, password }])
     .select();
