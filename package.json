@@ -19,6 +19,7 @@
     "@supabase/supabase-js": "^2.45.4",
     "bcryptjs": "^2.4.3",
     "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "leaflet": "^1.9.4",
     "next": "14.2.6",
