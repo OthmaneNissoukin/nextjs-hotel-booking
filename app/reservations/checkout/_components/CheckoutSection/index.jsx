@@ -8,7 +8,7 @@ import { notFound, redirect } from "next/navigation";
 import { auth } from "@/auth";
 import { reservationSchema } from "@/app/_lib/zodSchemas";
 import { createNewReservation } from "@/app/_lib/supabase/reservations";
-import { bookingCancelAction, clearReservationCookie } from "@/app/_lib/actions";
+import { bookingCancelAction } from "@/app/_lib/actions";
 import SelectCountry from "@/app/_ui/SelectCountry";
 import { revalidatePath } from "next/cache";
 // import { NextResponse } from "next/server";
@@ -59,7 +59,7 @@ async function CheckoutSection() {
     try {
       const session = await auth();
 
-      await createNewReservation(
+      const new_res = await createNewReservation(
         session?.supabaseAccessToken,
         room.id,
         guest.id,
@@ -89,7 +89,6 @@ async function CheckoutSection() {
         room={room}
         guest={guest}
         bookingCancelAction={bookingCancelAction}
-        clearReservationCookie={clearReservationCookie}
       >
         {/* PASSING THIS AS CHILD TO PREVENT UNCESSACERY RERENDERS FOR THIS COMPONENT SINCE:
           1 - ITS A SERVER COMPONENT AND NEEDED TO BE RENDERED INSIDE A CLIENT COMPONENT

@@ -15,6 +15,7 @@ async function History() {
   let reservations = [];
   try {
     session = await auth();
+    console.log({ HISTORY_SESSION: session });
     reservations = (await getGuestReservations(session.user?.id)) ?? [];
   } catch (err) {
     console.log(err);

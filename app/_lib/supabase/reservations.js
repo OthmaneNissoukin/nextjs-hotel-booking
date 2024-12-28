@@ -58,9 +58,10 @@ export async function createNewReservation(
     ])
     .select();
 
+  console.log({ NEW_RESERVATION: reservations });
   if (error) {
     // console.log("===== CREATION ERROR =====");
-    console.log(error);
+    console.log({ RESERVATION_ERROR: error });
     // console.log(session);
   }
 

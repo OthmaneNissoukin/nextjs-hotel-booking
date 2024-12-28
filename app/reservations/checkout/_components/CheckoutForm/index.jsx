@@ -18,7 +18,7 @@ const initialState = {
   criticalError: "",
 };
 
-function CheckoutForm({ guest, createReservationAction, bookingCancelAction, clearReservationCookie, children }) {
+function CheckoutForm({ guest, createReservationAction, bookingCancelAction, children }) {
   const [state, formAction] = useFormState(createReservationAction, initialState);
 
   const [isPending, setTransition] = useTransition();
