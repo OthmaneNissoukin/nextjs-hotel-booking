@@ -26,7 +26,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, user }) {
       // Attach user to the token when signing in with credentials
-      console.log({ token, user });
+      // console.log({ token, user });
       if (user) {
         token.id = user.id;
         token.name = user.name;

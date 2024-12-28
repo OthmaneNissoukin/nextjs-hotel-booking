@@ -18,7 +18,7 @@ async function Profile() {
   if (!session) redirect("/signin");
 
   const user = await getGuestById(session?.user.id);
-  // console.log(user);
+  const supabaseAccessToken = session?.supabaseAccessToken;
 
   if (!user) redirect("/signin");
 
@@ -79,7 +79,7 @@ async function Profile() {
         hashedPassword
       );
     } else {
-      await updateGuest(guestID, fullname, nationality, countryFlag, phone, email);
+      await updateGuest(supabaseAccessToken, guestID, fullname, nationality, countryFlag, phone, email);
     }
 
     // REVALIDATE THE DATA FOR THE CACHE

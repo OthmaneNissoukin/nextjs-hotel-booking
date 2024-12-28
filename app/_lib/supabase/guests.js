@@ -17,12 +17,14 @@ export async function getGuestByEmail(email) {
   return guests;
 }
 
-export async function updateGuest(id, name, nationality, countryFlag, phone, email) {
-  const { data, error } = await supabase
+export async function updateGuest(supabaseAccessToken, id, name, nationality, countryFlag, phone, email) {
+  const { data, error } = await supabaseWithToken(supabaseAccessToken)
     .from("guests")
     .update({ fullname: name, nationality, phone, email, countryFlag })
     .eq("id", id)
     .select();
+
+  console.log({ data });
 
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
