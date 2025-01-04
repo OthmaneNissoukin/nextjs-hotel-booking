@@ -111,7 +111,7 @@ export async function POST(req, res) {
             },
           },
         ],
-        metadata: { payload: JSON.stringify({ pending_reservation, guest_id: guest.id }) },
+        metadata: { payload: JSON.stringify({ pending_reservation, guest_id: guest.id, supabaseAccessToken }) },
         mode: "payment",
         expires_at: Math.floor(Date.now() / 1000) + 3600 * 2, // EXPIRE IN 2 HOURS
         success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
