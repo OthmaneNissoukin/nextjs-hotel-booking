@@ -8,6 +8,7 @@ import { bookingTotalPrice, nightTotalPrice } from "@/app/utils/reservationsCalc
 import { format } from "date-fns";
 
 import jwt from "jsonwebtoken";
+import { getGuestByEmail } from "@/app/_lib/supabase/guests";
 
 export async function POST(req, res) {
   const headersList = headers();
@@ -27,9 +28,11 @@ export async function POST(req, res) {
 
   const supabaseAccessToken = bearerToken.split(" ").at(1);
   console.log({ BEARER: supabaseAccessToken });
+  let guest_email = "";
 
   try {
     const verify = jwt.verify(supabaseAccessToken, process.env.SUPABASE_JWT_SECRET);
+    guest_email = verify.email;
     console.log({ verify, data: verify ? jwt.decode(supabaseAccessToken) : null });
   } catch (err) {
     return NextResponse.json(
@@ -51,7 +54,17 @@ export async function POST(req, res) {
 
   const pending_reservation = requestBody.pending_reservation;
 
-  const room = await getRoomById(pending_reservation?.room_id);
+  const [guest, room] = await Promise.all([getGuestByEmail(guest_email), getRoomById(pending_reservation?.room_id)]);
+
+  if (!guest?.id) {
+    return NextResponse.json(
+      {
+        status: "forbidden",
+        message: "you are unauthorized to perform this operation.",
+      },
+      { status: 403 }
+    );
+  }
 
   if (!room?.id) {
     return NextResponse.json(
@@ -98,6 +111,10 @@ export async function POST(req, res) {
             },
           },
         ],
+        metadata: {
+          pending_reservation,
+          guest_id: guest.id,
+        },
         mode: "payment",
         expires_at: Math.floor(Date.now() / 1000) + 3600 * 2, // EXPIRE IN 2 HOURS
         success_url: `http://localhost:3000/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
