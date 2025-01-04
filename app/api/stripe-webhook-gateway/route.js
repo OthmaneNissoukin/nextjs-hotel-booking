@@ -35,7 +35,7 @@ export async function POST(req, res) {
     return NextResponse.json({ status: "error", message: "forbidden" }, { status: 403 });
   }
 
-  switch (data.type) {
+  switch (requestBody.type) {
     case "checkout.session.completed":
       const totalNights = daysDifferCount(pending_reservation.end_date, pending_reservation.start_date);
       const totalUSDPrice = bookingTotalPrice(room.price, pending_reservation.guests_count, totalNights);
