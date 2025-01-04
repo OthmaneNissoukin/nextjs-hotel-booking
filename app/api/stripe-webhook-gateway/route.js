@@ -56,12 +56,13 @@ export async function POST(req, res) {
       cookies().delete("pending_reservation");
       cookies().delete("payment_id");
       console.log("PAYMENT SUCCEEDED, RESERVATION SAVED & COOKIES IS CLEARED");
-      break;
+      return NextResponse.json({ received: true }, { status: 200 });
     case "payment_intent.payment_failed":
       console.log("FAILED");
       break;
     default:
       console.log("UNMATCHED");
+      break;
   }
 
   return NextResponse.json({ received: true }, { status: 200 });
