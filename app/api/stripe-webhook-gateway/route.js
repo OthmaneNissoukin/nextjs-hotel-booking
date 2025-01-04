@@ -11,12 +11,13 @@ export async function POST(req, res) {
   const requestBody = await req.json();
   const payload = requestBody.data?.object?.metadata?.payload;
 
-  console.log({
-    meta: requestBody.data?.object?.metadata,
-    payload: requestBody.data?.object?.metadata?.payload,
-    requestBody,
-    DATA: requestBody.data,
-  });
+  console.log({ event: requestBody.type });
+  // console.log({
+  //   meta: requestBody.data?.object?.metadata,
+  //   payload: requestBody.data?.object?.metadata?.payload,
+  //   requestBody,
+  //   DATA: requestBody.data,
+  // });
 
   if (!payload) return NextResponse.json({ status: "error", message: "missing required data" }, { status: 400 });
 
@@ -41,7 +42,6 @@ export async function POST(req, res) {
     case "checkout.session.completed":
       const totalNights = daysDifferCount(pending_reservation.end_date, pending_reservation.start_date);
       const totalUSDPrice = bookingTotalPrice(room.price, pending_reservation.guests_count, totalNights);
-      const totalCentPrice = totalUSDPrice * 100;
 
       const new_res = await createNewReservation(
         metadata?.supabaseAccessToken,
@@ -49,7 +49,7 @@ export async function POST(req, res) {
         guest.id,
         pending_reservation.guests_count,
         pending_reservation.message,
-        totalCentPrice,
+        totalUSDPrice,
         pending_reservation.start_date,
         pending_reservation.end_date
       );
@@ -60,6 +60,8 @@ export async function POST(req, res) {
     case "payment_intent.payment_failed":
       console.log("FAILED");
       break;
+    default:
+      console.log("UNMATCHED");
   }
 
   return NextResponse.json({ received: true }, { status: 200 });
