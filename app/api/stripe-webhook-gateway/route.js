@@ -6,11 +6,12 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
 export async function POST(req, res) {
-  const payload = await req.json();
-  const metadata = payload.data?.metadata;
+  const requestBody = await req.json();
+  const payload = requestBody.data?.metadata?.payload;
 
-  if (!metadata?.guest_id)
-    return NextResponse.json({ status: "error", message: "missing required data" }, { status: 400 });
+  if (!payload) return NextResponse.json({ status: "error", message: "missing required data" }, { status: 400 });
+
+  const metadata = JSON.parse(payload);
 
   // 2 - CHECK PENDING RESERVATION
   if (!metadata.pending_reservation) {
