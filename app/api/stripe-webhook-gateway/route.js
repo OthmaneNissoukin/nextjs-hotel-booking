@@ -9,9 +9,12 @@ export async function POST(req, res) {
   const requestBody = await req.json();
   const payload = requestBody.data?.metadata?.payload;
 
+  console.log({ payload });
+
   if (!payload) return NextResponse.json({ status: "error", message: "missing required data" }, { status: 400 });
 
   const metadata = JSON.parse(payload);
+  console.log(metadata);
 
   // 2 - CHECK PENDING RESERVATION
   if (!metadata.pending_reservation) {

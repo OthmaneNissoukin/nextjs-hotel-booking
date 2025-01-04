@@ -114,8 +114,8 @@ export async function POST(req, res) {
         metadata: { payload: JSON.stringify({ pending_reservation, guest_id: guest.id }) },
         mode: "payment",
         expires_at: Math.floor(Date.now() / 1000) + 3600 * 2, // EXPIRE IN 2 HOURS
-        success_url: `http://localhost:3000/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `http://localhost:3000/payment?cancel=true&session_id={CHECKOUT_SESSION_ID}`,
+        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?cancel=true&session_id={CHECKOUT_SESSION_ID}`,
       });
       console.log("NO ERROR");
       console.log({ session });
