@@ -88,7 +88,7 @@ async function CheckoutSection() {
 
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
       const response = await axios.post(
-        "http://localhost:3000/api/stripe",
+        `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe`,
         { pending_reservation },
         {
           headers: { Authorization: `Bearer ${session?.supabaseAccessToken}` },
