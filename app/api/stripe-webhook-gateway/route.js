@@ -9,7 +9,12 @@ export async function POST(req, res) {
   const requestBody = await req.json();
   const payload = requestBody.data?.object?.metadata?.payload;
 
-  console.log({ meta: requestBody.data.object.metadata, payload: requestBody.data.object.metadata.payload });
+  console.log({
+    meta: requestBody.data?.object?.metadata,
+    payload: requestBody.data?.object?.metadata?.payload,
+    requestBody,
+    DATA: requestBody.data,
+  });
 
   if (!payload) return NextResponse.json({ status: "error", message: "missing required data" }, { status: 400 });
 
