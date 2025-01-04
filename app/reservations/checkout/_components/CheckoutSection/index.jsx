@@ -1,7 +1,7 @@
 import CheckoutForm from "../CheckoutForm";
 import CheckoutOverview from "../CheckoutOverview";
 import styles from "./styles.module.css";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { getRoomById } from "@/app/_lib/supabase/rooms";
 import { getGuestById, updateGuest } from "@/app/_lib/supabase/guests";
 import { notFound, redirect } from "next/navigation";
@@ -11,6 +11,8 @@ import { createNewReservation } from "@/app/_lib/supabase/reservations";
 import { bookingCancelAction } from "@/app/_lib/actions";
 import SelectCountry from "@/app/_ui/SelectCountry";
 import { revalidatePath } from "next/cache";
+import { loadStripe } from "@stripe/stripe-js";
+import axios from "axios";
 // import { NextResponse } from "next/server";
 
 async function CheckoutSection() {
@@ -56,29 +58,58 @@ async function CheckoutSection() {
 
     const total_price = (room.price + ((room.price / 2) * pending_reservation.guests_count - 1)).toFixed(2);
 
+    let flagError = { error: false, payload: "" };
     try {
       const session = await auth();
 
-      const new_res = await createNewReservation(
+      await updateGuest(
         session?.supabaseAccessToken,
-        room.id,
         guest.id,
-        pending_reservation.guests_count,
-        message,
-        total_price,
-        pending_reservation.start_date,
-        pending_reservation.end_date
+        fullname,
+        nationality,
+        countryFlag,
+        phone,
+        email,
+        nationalID
       );
-      await updateGuest(guest.id, fullname, nationality, countryFlag, phone, email, nationalID);
       // cookies().set("reservation_confirmed", "true");
-      cookies().delete("pending_reservation");
+      // const new_res = await createNewReservation(
+      //   session?.supabaseAccessToken,
+      //   room.id,
+      //   guest.id,
+      //   pending_reservation.guests_count,
+      //   message,
+      //   total_price,
+      //   pending_reservation.start_date,
+      //   pending_reservation.end_date
+      // );
+      pending_reservation.message = message;
+      cookies().set("pending_reservation", JSON.stringify(pending_reservation));
+
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+      const response = await axios.post(
+        "http://localhost:3000/api/stripe",
+        { pending_reservation },
+        {
+          headers: { Authorization: `Bearer ${session?.supabaseAccessToken}` },
+        }
+      );
+      console.log({ STRIPE: response.data, KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY });
+      // redirect(response.checkout_url); // CANNOT BE USED WITH TRY BLOCK
+      flagError.payload = response.data?.checkout_url;
+      console.log({ flagError, response });
     } catch (err) {
+      flagError.error = true;
       console.log("CHECKOUT COOKIE ERROR");
       console.log(err);
       return { ...prevState, criticalErr: "Failed to confirm your booking!" };
     } finally {
       revalidatePath("/account/history");
-      redirect("/account/history");
+      // TODO: PREVENT REDIRECTING WHEN AN UNHANDLED ERROR OCCURS
+      if (!flagError.error && flagError.payload) {
+        console.log({ URL: flagError.payload });
+        redirect(flagError.payload);
+      }
     }
   }
 

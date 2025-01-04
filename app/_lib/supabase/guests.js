@@ -17,10 +17,10 @@ export async function getGuestByEmail(email) {
   return guests;
 }
 
-export async function updateGuest(supabaseAccessToken, id, name, nationality, countryFlag, phone, email) {
+export async function updateGuest(supabaseAccessToken, id, name, nationality, countryFlag, phone, email, nationalID) {
   const { data, error } = await supabaseWithToken(supabaseAccessToken)
     .from("guests")
-    .update({ fullname: name, nationality, phone, email, countryFlag })
+    .update({ fullname: name, nationality, phone, email, countryFlag, nationalID })
     .eq("id", id)
     .select();
 

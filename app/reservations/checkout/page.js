@@ -15,7 +15,7 @@ async function Page() {
 
   return (
     <>
-      <Banner title={"CHECKOUT"} />
+      <Banner title={"BOOKING CONFIRMATION"} />
       <CheckoutForm />
     </>
   );
