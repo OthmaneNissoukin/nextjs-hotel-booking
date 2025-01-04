@@ -1,6 +1,8 @@
 import { getGuestById } from "@/app/_lib/supabase/guests";
 import { createNewReservation } from "@/app/_lib/supabase/reservations";
 import { getRoomById } from "@/app/_lib/supabase/rooms";
+import { daysDifferCount } from "@/app/utils/datetime";
+import { bookingTotalPrice } from "@/app/utils/reservationsCalcs";
 import { auth } from "@/auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
