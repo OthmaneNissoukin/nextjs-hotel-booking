@@ -3,7 +3,6 @@ import { createNewReservation } from "@/app/_lib/supabase/reservations";
 import { getRoomById } from "@/app/_lib/supabase/rooms";
 import { daysDifferCount } from "@/app/utils/datetime";
 import { bookingTotalPrice } from "@/app/utils/reservationsCalcs";
-import { auth } from "@/auth";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
@@ -51,12 +50,13 @@ export async function POST(req, res) {
         pending_reservation.message,
         totalUSDPrice,
         pending_reservation.start_date,
-        pending_reservation.end_date
+        pending_reservation.end_date,
+        metadata.session_id
       );
       cookies().delete("pending_reservation");
       cookies().delete("payment_id");
       console.log("PAYMENT SUCCEEDED, RESERVATION SAVED & COOKIES IS CLEARED");
-      return NextResponse.json({ received: true }, { status: 200 });
+      return NextResponse.json({ received: true, status: 200 }, { status: 200 });
     case "payment_intent.payment_failed":
       console.log("FAILED");
       break;

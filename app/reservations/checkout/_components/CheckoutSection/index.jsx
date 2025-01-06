@@ -72,17 +72,7 @@ async function CheckoutSection() {
         email,
         nationalID
       );
-      // cookies().set("reservation_confirmed", "true");
-      // const new_res = await createNewReservation(
-      //   session?.supabaseAccessToken,
-      //   room.id,
-      //   guest.id,
-      //   pending_reservation.guests_count,
-      //   message,
-      //   total_price,
-      //   pending_reservation.start_date,
-      //   pending_reservation.end_date
-      // );
+
       pending_reservation.message = message;
       cookies().set("pending_reservation", JSON.stringify(pending_reservation));
 
@@ -94,7 +84,7 @@ async function CheckoutSection() {
           headers: { Authorization: `Bearer ${session?.supabaseAccessToken}` },
         }
       );
-      console.log({ STRIPE: response.data, KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY });
+      // console.log({ STRIPE: response.data, KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY });
       // redirect(response.checkout_url); // CANNOT BE USED WITH TRY BLOCK
       flagError.payload = response.data?.checkout_url;
       console.log({ flagError, response });

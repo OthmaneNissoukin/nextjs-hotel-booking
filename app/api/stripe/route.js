@@ -80,9 +80,9 @@ export async function POST(req, res) {
   const totalUSDPrice = bookingTotalPrice(room.price, pending_reservation.guests_count, totalNights);
   const totalCentPrice = totalUSDPrice * 100;
 
-  const data = await req;
-  console.log({ METHOD: req.method, data: data, pending_reservation });
-  console.log({ body: req.body, bodyPrice: req.body.priceId });
+  // const data = await req;
+  // console.log({ METHOD: req.method, data: data, pending_reservation });
+  // console.log({ body: req.body, bodyPrice: req.body.priceId });
 
   if (req.method === "POST") {
     try {
@@ -111,16 +111,26 @@ export async function POST(req, res) {
             },
           },
         ],
-        metadata: { payload: JSON.stringify({ pending_reservation, guest_id: guest.id, supabaseAccessToken }) },
         mode: "payment",
-        expires_at: Math.floor(Date.now() / 1000) + 3600 * 2, // EXPIRE IN 2 HOURS
-        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?success=true&session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?cancel=true&session_id={CHECKOUT_SESSION_ID}`,
+        expires_at: Math.floor(Date.now() / 1000) + 3600 * 2, // EXPIRE IN 2 HOURS FROM CREATION TIME
+        success_url: `${process.env.NEXT_PUBLIC_APP_URL}/payment?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/reservations/checkout`,
       });
-      console.log("NO ERROR");
-      console.log({ session });
+      // console.log({ session });
+      const updated_session = await stripe.checkout.sessions.update(session.id, {
+        metadata: {
+          payload: JSON.stringify({
+            session_id: session.id,
+            pending_reservation,
+            guest_id: guest.id,
+            session_id: session.id,
+            supabaseAccessToken,
+          }),
+        },
+      });
 
-      // TODO: ADD SECURE
+      console.log("NO ERROR");
+
       cookiesInstance.set("payment_id", session.id);
 
       return NextResponse.json(

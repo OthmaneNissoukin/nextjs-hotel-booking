@@ -41,7 +41,8 @@ export async function createNewReservation(
   message,
   reserved_price,
   start_date,
-  end_date
+  end_date,
+  strip_session_id
 ) {
   const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
     .from("reservations")
@@ -54,6 +55,7 @@ export async function createNewReservation(
         message,
         start_date,
         end_date,
+        strip_session_id,
       },
     ])
     .select();
@@ -115,4 +117,21 @@ export async function cancelReservation(supabaseAccessToken, id) {
 
   console.log("datetime", formatISO9075(new Date()));
   return reservations;
+}
+
+export async function getReservationByStripeSessionId(session_id) {
+  console.log({ session_id });
+  let { data: reservation, error } = await supabase
+    .from("reservations")
+    .select("*, rooms(thumbnail, name)")
+    .eq("stripe_session_id", session_id)
+    .limit(1)
+    .single();
+
+  if (error) {
+    console.log("SUPABASE ERROR");
+    console.log(error);
+  }
+
+  return reservation;
 }

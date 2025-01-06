@@ -1,4 +1,3 @@
-// TODO: Use Compound Component for this card, you have already built it once😤
 import Heading from "@/app/_ui/Heading";
 import styles from "./styles.module.css";
 import Card from "../Card/Card";
