@@ -1,5 +1,18 @@
 # Hotel Booking System
 
+## Table of Contents
+
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Screenshots](#screenshots)
+4. [Technologies Used](#technologies-used)
+5. [Installation](#installation)
+6. [Important Notes](#important-notes)
+7. [Stripe Test Cards](#stripe-test-cards)
+8. [Back Office](#back-office)
+9. [Contributing](#contributing)
+10. [License](#license)
+
 ## Overview
 
 Hotel Booking System is a full-stack web application designed to streamline the process of reserving hotel rooms. This project represents the **front office** of a hotel reservation management system, offering users an intuitive and user-friendly interface to search, filter, and book available rooms.
@@ -15,7 +28,23 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 - **Authentication**: The system supports both credential-based login and **OAuth** with Google and Facebook providers via **Auth.js**.
 - **Checkout Process**: Users are forwarded to a checkout page after selecting a room. If not authenticated, they are redirected to the login/signup page.
 - **Profile Management**: Users can update their profile, check their reservation history, cancel unconfirmed reservations, and delete past ones.
-- **Unconfirmed Reservations**: All bookings are marked as unconfirmed and can be confirmed upon arrival (back office still in development).
+- **Unconfirmed Reservations**: All bookings are marked as unconfirmed and can be confirmed upon arrival.
+- **Compound Components**: Reusable and flexible components are implemented for forms, modals, and inputs to ensure better code organization and scalability.
+
+## Screenshots
+
+1. **Homepage**
+   ![Homepage Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/homepage.png)
+2. **Room Listing**
+   ![Room Listing Screenshot](https://github.com/OthmaneNissoukinnextjs-hotel-booking/tree/main/screenshots/rooms.png)
+3. **Room Details**
+   ![Room Details Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/details.png)
+4. **Checkout Page**
+   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/checkout.png)
+5. **Reservation Update Page**
+   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/reservation-update.png)
+6. **Sign In Page**
+   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/login.png)
 
 ## Technologies Used
 
@@ -27,8 +56,9 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 - **DayPicker**: For friendly date selection.
 - **date-fns**: For handling date manipulation.
 - **Zod**: For form validation.
-- **React Hot Toast**: Showing user friendly feedbacks for errors, success and other status.
+- **React Hot Toast**: Showing user-friendly feedback for errors, success, and other statuses.
 - **Memoization**: Applied to prevent unnecessary re-renders.
+- **Compound Components**: Utilized to create cohesive and reusable UI components.
 
 ### Back-end
 
@@ -56,14 +86,33 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
    - Create a `.env.local` file in the root directory and include the following:
 
    ```env
-   NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-   NEXTAUTH_SECRET=your-nextauth-secret
-   NEXTAUTH_URL=http://localhost:3000
-   GOOGLE_CLIENT_ID=your-google-client-id
-   GOOGLE_CLIENT_SECRET=your-google-client-secret
-   FACEBOOK_CLIENT_ID=your-facebook-client-id
-   FACEBOOK_CLIENT_SECRET=your-facebook-client-secret
+   # SUPABASE
+   NEXT_PUBLIC_SUPABASE_URL=YOUR-SUPABASE-URL
+   NEXT_PUBLIC_SUPABASE_KEY=YOUR-SUPABASE-PUBLIC-KEY
+   NEXT_PUBLIC_SUPABASE_IMGS_URL=YOUR-SUPABASE-IMGS-BUCKET-URL
+   SUPABASE_JWT_SECRET=YOUR-SUPABASE-JWT-SECRET
+   SUPABASE_SERVICE_ROLE_KEY=YOUR-SUPABASE-SERVICE-ROLE-KEY
+
+   # NEXTAUTH
+   NEXTAUTH_URL=http://localhost:3000/
+   AUTH_SECRET=YOUR-AUTH-SECRET
+
+   # NEXTAUTH GOOGLE PROVIDER
+   AUTH_GOOGLE_ID=YOUR-GOOGLE-AUTH-ID
+   AUTH_GOOGLE_SECRET=YOUR-GOOGLE-SECRET
+
+   # NEXTAUTH FACEBOOK PROVIDER
+   AUTH_FACEBOOK_ID=YOUR-FACEBOOK-AUTH-ID
+   AUTH_FACEBOOK_SECRET=YOUR-FACEBOOK-SECRET
+
+   AUTH_TRUST_HOST=http://localhost:3000
+
+   # STRIPE PAYMENT
+   STRIPE_SECRET_KEY=YOUR-STRIPE-SECRET-KEY
+   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=YOUR-STRIPE-PUBLISHABLE-KEY
+
+   # PRODUCTION URL
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
    ```
 
 4. Run the development server:
@@ -74,25 +123,16 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 
 5. Visit [http://localhost:3000](http://localhost:3000) to view the app in your browser.
 
-## Screenshots
+## IMPORTANT NOTES
 
-1. **Homepage**
-   ![Homepage Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/homepage.png)
-2. **Room Listing**
-   ![Room Listing Screenshot](https://github.com/OthmaneNissoukinnextjs-hotel-booking/tree/main/screenshots/rooms.png)
-3. **Room Details**
-   ![Room Details Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/details.png)
-4. **Checkout Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/checkout.png)
-5. **Reservation Update Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/reservation-update.png)
-6. **Sign In Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/login.png)
+- **Database Sessions**: Since Supabase is used as the adapter for authentication, expose the `next_auth` schema in the Supabase dashboard to ensure OAuth providers work properly.
+  - More details: [https://authjs.dev/getting-started/adapters/supabase](https://authjs.dev/getting-started/adapters/supabase)
+- **Payment Integration**: This version does not include payment features and it is no longer synced with the hosted version at vercel. If you want to a version without payment integrated you can you this, otherwise you can switch to the main branch of this repo which will be synced and updated when needed.
 
-## Future Development
+## Back Office
 
-- **Back Office**: The next phase will include building the back office for reservation management, where admins can confirm or cancel reservations.
-- **Payment Integration**: While this is a practice project, future iterations could include payment gateway integration for live transactions.
+- **Live Version**: [https://nextjs-hotel-booking-back-office.vercel.app/](https://nextjs-hotel-booking-back-office.vercel.app/)
+- **Repo**: [https://github.com/OthmaneNissoukin/nextjs-hotel-booking-back-office](https://github.com/OthmaneNissoukin/nextjs-hotel-booking-back-office)
 
 ## Contributing
 
