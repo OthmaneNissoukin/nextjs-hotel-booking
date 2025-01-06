@@ -1,8 +1,10 @@
+"use client";
 import Image from "next/image";
 import styles from "./index.module.css";
 import Banner from "@/app/_components/Banner";
 import { format } from "date-fns";
 import Link from "next/link";
+import toast, { Toaster } from "react-hot-toast";
 
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
@@ -51,12 +53,18 @@ function SuccessPage({ reservation }) {
           </div>
         </div>
         <div className={`${styles["action-buttons"]}`}>
-          <button className={`${styles["primary-button"]}`}>Download Confirmation</button>
+          <button
+            onClick={() => toast.error("This feature hasn't been implemented yet")}
+            className={`${styles["primary-button"]}`}
+          >
+            Download Confirmation
+          </button>
           <Link href={"/rooms"} className={`${styles["secondary-button"]}`}>
             Return to Home
           </Link>
         </div>
       </div>
+      <Toaster position="bottom-right" />
     </>
   );
 }
