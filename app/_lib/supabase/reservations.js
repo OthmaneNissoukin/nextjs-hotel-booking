@@ -33,17 +33,19 @@ export async function getGuestReservations(guest_id) {
   nationalID,
  */
 
-export async function createNewReservation(
-  supabaseAccessToken,
-  room_id,
-  guest_id,
-  guests_count,
-  message,
-  reserved_price,
-  start_date,
-  end_date,
-  strip_session_id
-) {
+export async function createNewReservation(reservationObj) {
+  const {
+    authToken: supabaseAccessToken,
+    room_id,
+    guest_id,
+    guests_count,
+    message,
+    reserved_price,
+    start_date,
+    end_date,
+    stripe_session_id,
+    status,
+  } = reservationObj;
   const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
     .from("reservations")
     .insert([
@@ -55,7 +57,8 @@ export async function createNewReservation(
         message,
         start_date,
         end_date,
-        strip_session_id,
+        stripe_session_id,
+        status,
       },
     ])
     .select();

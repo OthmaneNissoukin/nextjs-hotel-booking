@@ -42,17 +42,18 @@ export async function POST(req, res) {
       const totalNights = daysDifferCount(pending_reservation.end_date, pending_reservation.start_date);
       const totalUSDPrice = bookingTotalPrice(room.price, pending_reservation.guests_count, totalNights);
 
-      const new_res = await createNewReservation(
-        metadata?.supabaseAccessToken,
-        room.id,
-        guest.id,
-        pending_reservation.guests_count,
-        pending_reservation.message,
-        totalUSDPrice,
-        pending_reservation.start_date,
-        pending_reservation.end_date,
-        metadata.session_id
-      );
+      const new_res = await createNewReservation({
+        authToken: metadata?.supabaseAccessToken,
+        room_id: room.id,
+        guest_id: guest.id,
+        guests_count: pending_reservation.guests_count,
+        message: pending_reservation.message,
+        reserved_price: totalUSDPrice,
+        start_date: pending_reservation.start_date,
+        end_date: pending_reservation.end_date,
+        stripe_session_id: metadata.session_id,
+        status: "confirmed",
+      });
       cookies().delete("pending_reservation");
       cookies().delete("payment_id");
       console.log("PAYMENT SUCCEEDED, RESERVATION SAVED & COOKIES IS CLEARED");
