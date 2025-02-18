@@ -1,5 +1,5 @@
 import { compareSync } from "bcryptjs";
-import { getGuestByEmail } from "../supabase/guests";
+import { getFullGuestByEmail, getGuestByEmail } from "../supabase/guests";
 
 export const credentials = {
   // You can specify which fields should be submitted, by adding keys to the `credentials` object.
@@ -13,7 +13,7 @@ export const credentials = {
     let user = null;
 
     // logic to verify if the user exists
-    user = await getGuestByEmail(credentials.email);
+    user = await getFullGuestByEmail(credentials.email);
 
     if (!user) {
       // No user found, so this is their first attempt to login

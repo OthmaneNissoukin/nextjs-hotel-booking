@@ -74,7 +74,10 @@ async function CheckoutSection() {
       );
 
       pending_reservation.message = message;
-      cookies().set("pending_reservation", JSON.stringify(pending_reservation));
+      cookies().set("pending_reservation", JSON.stringify(pending_reservation), {
+        maxAge: 60 * 60 * 2,
+        httpOnly: true,
+      });
 
       const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
       const response = await axios.post(

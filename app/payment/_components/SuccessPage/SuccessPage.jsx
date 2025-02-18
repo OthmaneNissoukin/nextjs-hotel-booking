@@ -64,7 +64,7 @@ function SuccessPage({ reservation }) {
           </Link>
         </div>
       </div>
-      <Toaster position="bottom-right" />
+      <Toaster position="top-right" />
     </>
   );
 }

@@ -20,7 +20,10 @@ function ProfileForm({ guestUpdateAction, guest }) {
   const [state, formAction] = useFormState(guestUpdateAction, initialState);
 
   const errors = Object.values(state ?? {})?.filter((item) => item.length);
-  if (errors.length) errors.forEach((item) => toast.error(item ?? "Failed to update your profile, please try again"));
+  if (errors.length)
+    errors.forEach((item) =>
+      toast.error(item ?? "Failed to update your profile, please try again")
+    );
 
   return (
     <form action={formAction}>
@@ -34,7 +37,9 @@ function ProfileForm({ guestUpdateAction, guest }) {
             name="fullname"
             defaultValue={guest.fullname}
           />
-          {state?.fullname && <span className={styles.errorMessage}>{state.fullname}</span>}
+          {state?.fullname && (
+            <span className={styles.errorMessage}>{state.fullname}</span>
+          )}
         </div>
         <div>
           <label className={styles.formLabel}>Email Address</label>
@@ -45,18 +50,29 @@ function ProfileForm({ guestUpdateAction, guest }) {
             placeholder="john.doe@mail.com"
             name="email"
           />
-          {state?.email && <span className={styles.errorMessage}>{state.email}</span>}
+          {state?.email && (
+            <span className={styles.errorMessage}>{state.email}</span>
+          )}
         </div>
         <div>
           <label className={styles.formLabel}>
             <span>Nationality</span>
             <span className={styles.countryFlag}>
-              <img src={guest.countryFlag} alt={`${guest.nationality ?? "country"} flag`} />
+              <img
+                src={guest.countryFlag}
+                alt={`${guest.nationality ?? "country"} flag`}
+              />
             </span>
           </label>
 
-          <SelectCountry className={styles.formControl} name={"nationality"} defaultCountry={guest.nationality} />
-          {state?.nationality && <span className={styles.errorMessage}>{state.nationality}</span>}
+          <SelectCountry
+            className={styles.formControl}
+            name={"nationality"}
+            defaultCountry={guest.nationality}
+          />
+          {state?.nationality && (
+            <span className={styles.errorMessage}>{state.nationality}</span>
+          )}
         </div>
         <div>
           <label className={styles.formLabel}>Phone Number</label>
@@ -67,21 +83,43 @@ function ProfileForm({ guestUpdateAction, guest }) {
             placeholder="+212 6 879900830"
             name="phone"
           />
-          {state?.phone && <span className={styles.errorMessage}>{state.phone}</span>}
+          {state?.phone && (
+            <span className={styles.errorMessage}>{state.phone}</span>
+          )}
         </div>
         <div>
           <label className={styles.formLabel}>New Password</label>
-          <input className={styles.formControl} type="password" placeholder="**********" name="password" />
-          {state?.password && <span className={styles.errorMessage}>{state.password}</span>}
+          <input
+            className={styles.formControl}
+            type="password"
+            placeholder="**********"
+            name="password"
+          />
+          {state?.password && (
+            <span className={styles.errorMessage}>{state.password}</span>
+          )}
         </div>
         <div>
           <label className={styles.formLabel}>Confirm Password</label>
-          <input className={styles.formControl} type="password" placeholder="**********" name="confirm_password" />
-          {state?.confirm_password && <span className={styles.errorMessage}>{state.confirm_password}</span>}
+          <input
+            className={styles.formControl}
+            type="password"
+            placeholder="**********"
+            name="confirm_password"
+          />
+          {state?.confirm_password && (
+            <span className={styles.errorMessage}>
+              {state.confirm_password}
+            </span>
+          )}
         </div>
       </div>
       <div className={styles.formButtonContainer}>
-        <SubmitButton type="submit" className={styles.formButton} content={{ pending: "Saving...", base: "Save" }} />
+        <SubmitButton
+          type="submit"
+          className={styles.formButton}
+          content={{ pending: "Saving...", base: "Save" }}
+        />
       </div>
       <Toaster position="top-center" reverseOrder={false} />
     </form>

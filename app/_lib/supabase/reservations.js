@@ -2,7 +2,10 @@ import { formatISO, formatISO9075 } from "date-fns";
 import supabase, { supabaseWithToken } from "./db";
 
 export async function getRoomReservations(id) {
-  let { data: reservations, error } = await supabase.from("reservations").select("*").eq("room_id", id);
+  let { data: reservations, error } = await supabase
+    .from("reservations")
+    .select("*")
+    .eq("room_id", id);
 
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -46,7 +49,10 @@ export async function createNewReservation(reservationObj) {
     stripe_session_id,
     status,
   } = reservationObj;
-  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
+
+  const { data: reservations, error } = await supabaseWithToken(
+    supabaseAccessToken
+  )
     .from("reservations")
     .insert([
       {
@@ -76,7 +82,9 @@ export async function createNewReservation(reservationObj) {
 }
 
 export async function deleteReservation(supabaseAccessToken, id) {
-  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
+  const { data: reservations, error } = await supabaseWithToken(
+    supabaseAccessToken
+  )
     .from("reservations")
     .update({ deleted_at: formatISO9075(new Date()) })
     .eq("id", id);
@@ -95,8 +103,17 @@ export async function getReservationByID(id) {
   return reservations;
 }
 
-export async function updateReseration(supabaseAccessToken, id, price, guests_count, start_date, end_date) {
-  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
+export async function updateReseration(
+  supabaseAccessToken,
+  id,
+  price,
+  guests_count,
+  start_date,
+  end_date
+) {
+  const { data: reservations, error } = await supabaseWithToken(
+    supabaseAccessToken
+  )
     .from("reservations")
     .update({
       reserved_price: price,
@@ -113,7 +130,9 @@ export async function updateReseration(supabaseAccessToken, id, price, guests_co
 }
 
 export async function cancelReservation(supabaseAccessToken, id) {
-  const { data: reservations, error } = await supabaseWithToken(supabaseAccessToken)
+  const { data: reservations, error } = await supabaseWithToken(
+    supabaseAccessToken
+  )
     .from("reservations")
     .update({ status: "cancelled" })
     .eq("id", id);

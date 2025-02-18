@@ -6,6 +6,10 @@ import ExpirePage from "./_components/ExpirePage/ExpirePage";
 import { auth } from "@/auth";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
+export const metadata = {
+  title: "Booking Overview",
+};
+
 export default async function PreviewPage({ searchParams }) {
   const session_id = searchParams?.session_id;
   // console.log({ session_id });
