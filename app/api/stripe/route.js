@@ -4,7 +4,10 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 import { cookies, headers } from "next/headers";
 import { getRoomById } from "@/app/_lib/supabase/rooms";
 import { daysDifferCount } from "@/app/utils/datetime";
-import { bookingTotalPrice, nightTotalPrice } from "@/app/utils/reservationsCalcs";
+import {
+  bookingTotalPrice,
+  nightTotalPrice,
+} from "@/app/utils/reservationsCalcs";
 import { format } from "date-fns";
 
 import jwt from "jsonwebtoken";
@@ -17,26 +20,38 @@ export async function POST(req, res) {
   // PREVENT MALICIOUS ACCESS
 
   const bearerToken = headersList.get("Authorization");
-  console.log({ bearerToken });
+  // console.log({ bearerToken });
 
   if (!bearerToken?.length) {
     return NextResponse.json(
-      { status: "forbidden", message: "you are unauthorized to access this resource" },
+      {
+        status: "forbidden",
+        message: "you are unauthorized to access this resource",
+      },
       { status: 403 }
     );
   }
 
   const supabaseAccessToken = bearerToken.split(" ").at(1);
-  console.log({ BEARER: supabaseAccessToken });
+
   let guest_email = "";
 
   try {
-    const verify = jwt.verify(supabaseAccessToken, process.env.SUPABASE_JWT_SECRET);
+    const verify = jwt.verify(
+      supabaseAccessToken,
+      process.env.SUPABASE_JWT_SECRET
+    );
     guest_email = verify.email;
-    console.log({ verify, data: verify ? jwt.decode(supabaseAccessToken) : null });
+    // console.log({
+    //   verify,
+    //   data: verify ? jwt.decode(supabaseAccessToken) : null,
+    // });
   } catch (err) {
     return NextResponse.json(
-      { status: "unauthenticated", message: err?.message ?? "you are unauthorized to access this resource" },
+      {
+        status: "unauthenticated",
+        message: err?.message ?? "you are unauthorized to access this resource",
+      },
       { status: 401 }
     );
   }
@@ -47,14 +62,18 @@ export async function POST(req, res) {
     return NextResponse.json(
       {
         status: "error",
-        message: "you are unauthorized to access this resource! please make a booking from the rooms page.",
+        message:
+          "you are unauthorized to access this resource! please make a booking from the rooms page.",
       },
       { status: 403 }
     );
 
   const pending_reservation = requestBody.pending_reservation;
 
-  const [guest, room] = await Promise.all([getGuestByEmail(guest_email), getRoomById(pending_reservation?.room_id)]);
+  const [guest, room] = await Promise.all([
+    getGuestByEmail(guest_email),
+    getRoomById(pending_reservation?.room_id),
+  ]);
 
   if (!guest?.id) {
     return NextResponse.json(
@@ -70,14 +89,22 @@ export async function POST(req, res) {
     return NextResponse.json(
       {
         status: "error",
-        message: "room doesn't exists! please make a booking from the rooms page.",
+        message:
+          "room doesn't exists! please make a booking from the rooms page.",
       },
       { status: 422 }
     );
   }
 
-  const totalNights = daysDifferCount(pending_reservation.end_date, pending_reservation.start_date);
-  const totalUSDPrice = bookingTotalPrice(room.price, pending_reservation.guests_count, totalNights);
+  const totalNights = daysDifferCount(
+    pending_reservation.end_date,
+    pending_reservation.start_date
+  );
+  const totalUSDPrice = bookingTotalPrice(
+    room.price,
+    pending_reservation.guests_count,
+    totalNights
+  );
   const totalCentPrice = totalUSDPrice * 100;
 
   // const data = await req;
@@ -100,7 +127,10 @@ export async function POST(req, res) {
                 name: room.name,
                 description: `Booking ${room.name} for ${
                   pending_reservation.guests_count
-                } guest(s). Starting from ${format(pending_reservation.start_date, "LLLL dd yyyy")} until ${format(
+                } guest(s). Starting from ${format(
+                  pending_reservation.start_date,
+                  "LLLL dd yyyy"
+                )} until ${format(
                   pending_reservation.end_date,
                   "LLLL do yyyy"
                 )} : (${totalNights}) Nights`,
@@ -117,24 +147,31 @@ export async function POST(req, res) {
         cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/reservations/checkout`,
       });
       // console.log({ session });
-      const updated_session = await stripe.checkout.sessions.update(session.id, {
-        metadata: {
-          payload: JSON.stringify({
-            session_id: session.id,
-            pending_reservation,
-            guest_id: guest.id,
-            session_id: session.id,
-            supabaseAccessToken,
-          }),
-        },
-      });
+      const updated_session = await stripe.checkout.sessions.update(
+        session.id,
+        {
+          metadata: {
+            payload: JSON.stringify({
+              session_id: session.id,
+              pending_reservation,
+              guest_id: guest.id,
+              session_id: session.id,
+              supabaseAccessToken,
+            }),
+          },
+        }
+      );
 
       console.log("NO ERROR");
 
       cookiesInstance.set("payment_id", session.id);
 
       return NextResponse.json(
-        { status: "success", session_id: session.id, checkout_url: session.url },
+        {
+          status: "success",
+          session_id: session.id,
+          checkout_url: session.url,
+        },
         { status: 200 }
       );
       // return req.redirect(303, session.url);

@@ -10,14 +10,6 @@ export async function POST(req, res) {
   const requestBody = await req.json();
   const payload = requestBody.data?.object?.metadata?.payload;
 
-  console.log({ event: requestBody.type });
-  // console.log({
-  //   meta: requestBody.data?.object?.metadata,
-  //   payload: requestBody.data?.object?.metadata?.payload,
-  //   requestBody,
-  //   DATA: requestBody.data,
-  // });
-
   if (!payload)
     return NextResponse.json(
       { status: "error", message: "missing required data" },
@@ -25,7 +17,6 @@ export async function POST(req, res) {
     );
 
   const metadata = JSON.parse(payload);
-  console.log(metadata);
 
   // 2 - CHECK PENDING RESERVATION
   if (!metadata.pending_reservation) {
@@ -74,9 +65,7 @@ export async function POST(req, res) {
         stripe_session_id: metadata.session_id,
         status: "confirmed",
       });
-      cookies().delete("pending_reservation");
-      cookies().delete("payment_id");
-      console.log("PAYMENT SUCCEEDED, RESERVATION SAVED & COOKIES IS CLEARED");
+
       return NextResponse.json(
         { received: true, status: 200 },
         { status: 200 }

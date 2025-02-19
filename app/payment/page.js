@@ -33,14 +33,23 @@ export default async function PreviewPage({ searchParams }) {
 
   const strip_session = await stripe.checkout.sessions.retrieve(session_id);
 
-  if (strip_session.status === "expired" || new Date() > new Date(strip_session.expires_at * 1000))
+  if (
+    strip_session.status === "expired" ||
+    new Date() > new Date(strip_session.expires_at * 1000)
+  )
     return <ExpirePage />;
 
-  if (strip_session.status === "complete" && strip_session.payment_status === "paid") {
+  if (
+    strip_session.status === "complete" &&
+    strip_session.payment_status === "paid"
+  ) {
     return <SuccessPage reservation={reservation} />;
   }
 
-  if (strip_session.status === "open" && strip_session.payment_status === "unpaid") {
+  if (
+    strip_session.status === "open" &&
+    strip_session.payment_status === "unpaid"
+  ) {
     redirect("/reservations/checkout");
   }
 
