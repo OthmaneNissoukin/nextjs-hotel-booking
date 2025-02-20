@@ -1,17 +1,15 @@
 "use client";
 
-import { useEffect } from "react";
+import styles from "./error.module.css";
 
 export default function Error({ error, reset }) {
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
-
   return (
-    <div className="error-container">
-      <h2>Something went wrong!</h2>
-      <p>{error}</p>
-      <button onClick={() => reset()}>Try again</button>
+    <div className={styles.errorContainer}>
+      <h2 className={styles.errorTitle}>Something went wrong!</h2>
+      <p className={styles.errorMessage}>{error?.message || "Server Error"}</p>
+      <button className={styles.errorButton} onClick={() => reset()}>
+        Try again
+      </button>
     </div>
   );
 }
