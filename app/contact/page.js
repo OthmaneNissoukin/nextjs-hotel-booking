@@ -16,7 +16,7 @@ async function Page() {
   async function contactAction(state, formData) {
     "use server";
     let currentState = {
-      errors: null,
+      errors: {},
       isSuccess: false,
     };
 
@@ -49,7 +49,7 @@ async function Page() {
       };
     }
 
-    return { ...currentState, isSuccess: true, errors: null };
+    return { ...currentState, isSuccess: true, errors: {} };
   }
 
   return (

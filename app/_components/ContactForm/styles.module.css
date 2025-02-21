@@ -53,3 +53,11 @@
   overflow: hidden;
   z-index: -100;
 }
+
+.errorMessage {
+  color: #ce0303;
+  font-size: 14px;
+  display: inline-block;
+  margin-top: 8px;
+  padding-left: 6px;
+}
