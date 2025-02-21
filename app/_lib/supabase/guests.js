@@ -2,11 +2,18 @@ import supabase, { supabaseWithToken } from "./db";
 
 import { riskySupabaseClient } from "./supabaseRiskyClient";
 export async function getGuestById(id) {
-  let { data: guests, error } = await supabase
-    .from("guests_view")
-    .select("*")
-    .eq("id", id)
-    .single();
+  let request = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/guests?id=${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_KEY}`,
+      },
+    }
+  );
+
+  const response = await request.json();
+
+  const { data: guests, error } = response;
 
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -14,11 +21,18 @@ export async function getGuestById(id) {
 }
 
 export async function getGuestByEmail(email) {
-  let { data: guests, error } = await supabase
-    .from("guests_view")
-    .select("*")
-    .eq("email", email)
-    .single();
+  let request = await fetch(
+    `${process.env.NEXT_PUBLIC_APP_URL}/api/guests?email=${email}`,
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_KEY}`,
+      },
+    }
+  );
+
+  const response = await request.json();
+
+  const { data: guests, error } = response;
 
   // await new Promise((resolve) => setTimeout(resolve, 2000));
 

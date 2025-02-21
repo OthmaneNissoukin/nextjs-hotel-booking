@@ -10,6 +10,13 @@
   color: #333;
 }
 
+.errorCode {
+  color: #333;
+  font-size: 4rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
 .errorTitle {
   font-size: 2rem;
   font-weight: bold;

@@ -10,9 +10,10 @@
   color: #333;
 }
 
-.notFoundImage {
-  width: 250px;
-  height: auto;
+.errorCode {
+  color: #333;
+  font-size: 4rem;
+  font-weight: bold;
   margin-bottom: 20px;
 }
 

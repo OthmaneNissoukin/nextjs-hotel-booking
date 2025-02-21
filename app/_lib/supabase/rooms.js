@@ -5,22 +5,35 @@ export async function getAllRooms() {
 
   // await new Promise((res) => setTimeout(res, 2000));
 
+  if (error) {
+    console.log({ roomsError: error.message });
+  }
+
   return rooms;
 }
 
 export async function getRoomById(id) {
-  let { data: rooms, error } = await supabase.from("rooms").select("*").eq("id", id);
+  let { data: rooms, error } = await supabase
+    .from("rooms")
+    .select("*")
+    .eq("id", id);
 
   return rooms?.at(0);
 }
 
 export async function getRoomImages(id) {
-  let { data: room_images, error } = await supabase.from("room_images").select("*").eq("room_id", id);
+  let { data: room_images, error } = await supabase
+    .from("room_images")
+    .select("*")
+    .eq("room_id", id);
 
   return room_images;
 }
 
-export async function filterRoomsByDate(start = "2024-09-21", end = "2024-09-27") {
+export async function filterRoomsByDate(
+  start = "2024-09-21",
+  end = "2024-09-27"
+) {
   let { data: reservations, error } = await supabase
     .from("reservations")
     .select("*")
