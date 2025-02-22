@@ -2,7 +2,11 @@ import styles from "./styles.module.css";
 import Heading from "@/app/_ui/Heading";
 import ProfileForm from "./_components/ProfileForm";
 import { auth } from "@/auth";
-import { getGuestById, updateGuest, updateGuestWithPwd } from "@/app/_lib/supabase/guests";
+import {
+  getGuestById,
+  updateGuest,
+  updateGuestWithPwd,
+} from "@/app/_lib/supabase/guests";
 import { revalidatePath } from "next/cache";
 import { profileSchema } from "@/app/_lib/zodSchemas";
 import { hashSync } from "bcryptjs";
@@ -15,7 +19,7 @@ export const metadata = {
 
 async function Profile() {
   const session = await auth();
-  if (!session) redirect("/signin");
+  if (!session?.user?.email) redirect("/signin");
 
   const user = await getGuestById(session?.user.id);
   const supabaseAccessToken = session?.supabaseAccessToken;
@@ -59,7 +63,11 @@ async function Profile() {
     const [nationality, countryFlag] = nationalityWithFlag.split("%");
 
     if (password.trim() || confirm_password.trim()) {
-      if (password.length < 6) return { ...prevState, password: "Password must be at least 6 characters" };
+      if (password.length < 6)
+        return {
+          ...prevState,
+          password: "Password must be at least 6 characters",
+        };
       if (password != confirm_password)
         return {
           ...prevState,
@@ -79,7 +87,15 @@ async function Profile() {
         hashedPassword
       );
     } else {
-      await updateGuest(supabaseAccessToken, guestID, fullname, nationality, countryFlag, phone, email);
+      await updateGuest(
+        supabaseAccessToken,
+        guestID,
+        fullname,
+        nationality,
+        countryFlag,
+        phone,
+        email
+      );
     }
 
     // REVALIDATE THE DATA FOR THE CACHE

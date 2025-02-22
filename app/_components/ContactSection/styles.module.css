@@ -1,0 +1,22 @@
+.contactSection {
+  padding: 60px 0px;
+  background-color: #fff;
+}
+
+.heading {
+  margin-bottom: 20px;
+}
+
+.contactContainer {
+  display: grid;
+  grid-template-rows: auto 320px;
+  gap: 20px;
+}
+
+@media (min-width: 720px) {
+  .contactContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+}

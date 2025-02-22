@@ -36,15 +36,19 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 1. **Homepage**
    ![Homepage Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/homepage.png)
 2. **Room Listing**
-   ![Room Listing Screenshot](https://github.com/OthmaneNissoukinnextjs-hotel-booking/tree/main/screenshots/rooms.png)
+   ![Room Listing Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/rooms.png)
 3. **Room Details**
    ![Room Details Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/details.png)
 4. **Checkout Page**
    ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/checkout.png)
 5. **Reservation Update Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/reservation-update.png)
+   ![Reservation Update Sceenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/reservation-update.png)
 6. **Sign In Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/login.png)
+   ![Sign In Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/login.png)
+7. **Booking Overview**
+   ![Booking Overview Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/booking-overview.png)
+8. **Supabase Schema**
+   ![Supabase Schema Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/supabase-schema.png?raw=true)
 
 ## Technologies Used
 
@@ -87,6 +91,10 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 
    ```env
    # SUPABASE
+   # Your supabase schema in case you want to use a custom one, default is `public`
+   # In case if you are going to use a custom schema, make sure to expose it to API access in your project settings
+   NEXT_PUBLIC_SUPABASE_SCHEMA_ENV=public
+
    NEXT_PUBLIC_SUPABASE_URL=YOUR-SUPABASE-URL
    NEXT_PUBLIC_SUPABASE_KEY=YOUR-SUPABASE-PUBLIC-KEY
    NEXT_PUBLIC_SUPABASE_IMGS_URL=YOUR-SUPABASE-IMGS-BUCKET-URL
@@ -129,6 +137,16 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
   - More details: [https://authjs.dev/getting-started/adapters/supabase](https://authjs.dev/getting-started/adapters/supabase)
 - **Payment Integration**: Reservations will only be created upon successful payment. A webhook at `localhost:3000/api/stripe-webhook-gateway` handles Stripe events (checkout.session.completed). Register this link in your Stripe dashboard.
   - More details: [https://docs.stripe.com/webhooks](https://docs.stripe.com/webhooks)
+- **Guests Data**: Since this project is using a table `guests` to save users data including the password, it was necessary to create a `table view (guests_view)` in order to restrict access to all the fields and prevent exposing the password in the API response when that field is not needed. When authenticating a user, the API call reads directly from the original `guests` table to get the user password for verification and this Supabase call will need to be provided with `SUPABASE_SERVICE_ROLE_KEY` to bypass Row Level Security (RLS) since authenticating doesn't have any authenticated user to empower it with his own token itself.
+- **View Creation**: Run the following query in your Supabase SQL Editor to create the `guests` view:
+  <code>
+  CREATE VIEW public.guests_view
+  // Ensure this view follows the same RLS policies as the original table using security_invoker
+  WITH (security_invoker=on)
+  AS
+  SELECT id, email, "nationalID", nationality, "countryFlag", fullname, phone, created_at, avatar
+  FROM public.guests;
+  </code>
 
 ## Stripe Test Cards
 
@@ -165,12 +183,6 @@ Use this card for testing 3D Secure scenarios.
 | Card Number         | Card Type | Expiration Date | CVC | Usage                            |
 | ------------------- | --------- | --------------- | --- | -------------------------------- |
 | 4000 0035 0000 0010 | Visa      | Any future date | Any | Successful charge with 3D Secure |
-
-### Testing for Subscription Trials
-
-| Card Number         | Card Type | Expiration Date | CVC | Usage                                 |
-| ------------------- | --------- | --------------- | --- | ------------------------------------- |
-| 4000 0025 0000 3110 | Visa      | Any future date | Any | Successful subscription trial payment |
 
 ## Back Office
 

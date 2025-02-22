@@ -15,10 +15,17 @@ import { cookies } from "next/headers";
 const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 
 async function RoomContainer({ params }) {
-  const room = await getRoomById(params?.room_slug);
-  const room_images = await getRoomImages(params?.room_slug ?? []);
+  const room_slug = params?.room_slug;
 
-  const images = room_images.map((item) => `${SUPABASE_ROOMS_URL}/${item.img_path}`);
+  // if (!room_slug || !/^-?\d+$/.test(room_slug)) notFound();
+
+  const room = await getRoomById(room_slug);
+
+  const room_images = await getRoomImages(room_slug ?? []);
+
+  const images = room_images.map(
+    (item) => `${SUPABASE_ROOMS_URL}/${item.img_path}`
+  );
 
   if (!room) notFound();
 
@@ -48,7 +55,14 @@ async function RoomContainer({ params }) {
 
     if (isValid) {
       const reservation_cookies = cookies();
-      reservation_cookies.set("pending_reservation", JSON.stringify({ start_date, end_date, guests_count, room_id }));
+      reservation_cookies.set(
+        "pending_reservation",
+        JSON.stringify({ start_date, end_date, guests_count, room_id }),
+        {
+          maxAge: 60 * 60 * 2,
+          httpOnly: true,
+        }
+      );
 
       redirect(`/reservations/checkout`);
     }

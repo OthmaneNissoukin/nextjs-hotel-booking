@@ -23,9 +23,14 @@ async function CheckoutSection() {
     redirect("/rooms");
   }
 
-  const pending_reservation = JSON.parse(reservation_cookies.get("pending_reservation").value);
+  const pending_reservation = JSON.parse(
+    reservation_cookies.get("pending_reservation").value
+  );
 
-  const [room, guest] = await Promise.all([getRoomById(pending_reservation.room_id), getGuestById(session.user?.id)]);
+  const [room, guest] = await Promise.all([
+    getRoomById(pending_reservation.room_id),
+    getGuestById(session.user?.id),
+  ]);
 
   if (!room) notFound();
 
@@ -42,7 +47,14 @@ async function CheckoutSection() {
     const message = formData.get("message");
 
     try {
-      reservationSchema.parse({ fullname, email, phone, nationality: nationalityWithFlag, nationalID, message });
+      reservationSchema.parse({
+        fullname,
+        email,
+        phone,
+        nationality: nationalityWithFlag,
+        nationalID,
+        message,
+      });
     } catch (err) {
       // console.log("errors");
       // console.log(err.errors);
@@ -56,7 +68,10 @@ async function CheckoutSection() {
 
     const [nationality, countryFlag] = nationalityWithFlag.split("%");
 
-    const total_price = (room.price + ((room.price / 2) * pending_reservation.guests_count - 1)).toFixed(2);
+    const total_price = (
+      room.price +
+      ((room.price / 2) * pending_reservation.guests_count - 1)
+    ).toFixed(2);
 
     let flagError = { error: false, payload: "" };
     try {
@@ -74,9 +89,18 @@ async function CheckoutSection() {
       );
 
       pending_reservation.message = message;
-      cookies().set("pending_reservation", JSON.stringify(pending_reservation));
+      cookies().set(
+        "pending_reservation",
+        JSON.stringify(pending_reservation),
+        {
+          maxAge: 60 * 60 * 2,
+          httpOnly: true,
+        }
+      );
 
-      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+      const stripe = await loadStripe(
+        process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+      );
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_APP_URL}/api/stripe`,
         { pending_reservation },
@@ -87,7 +111,7 @@ async function CheckoutSection() {
       // console.log({ STRIPE: response.data, KEY: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY });
       // redirect(response.checkout_url); // CANNOT BE USED WITH TRY BLOCK
       flagError.payload = response.data?.checkout_url;
-      console.log({ flagError, response });
+      // console.log({ flagError, response });
     } catch (err) {
       flagError.error = true;
       console.log("CHECKOUT COOKIE ERROR");
@@ -115,7 +139,11 @@ async function CheckoutSection() {
           1 - ITS A SERVER COMPONENT AND NEEDED TO BE RENDERED INSIDE A CLIENT COMPONENT
           2 - IT HAS SOME INNER API CALLS, SO RENDERING AS A CHILD WOULD PREVENT WASTING RENDERES
         */}
-        <SelectCountry name={"nationality"} className={styles.formInput} defaultCountry={guest.nationality} />
+        <SelectCountry
+          name={"nationality"}
+          className={styles.formInput}
+          defaultCountry={guest.nationality}
+        />
       </CheckoutForm>
 
       <CheckoutOverview room={room} pending_reservation={pending_reservation} />

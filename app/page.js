@@ -1,13 +1,13 @@
 import { Suspense } from "react";
 import About from "./_components/About";
 import Blog from "./_components/Blog/Blog";
-import Contact from "./_components/Contact";
 
 import Gallery from "./_components/Gallery";
 import HeroSection from "./_components/HeroSection";
 import Rooms from "./_components/Rooms";
 import LoadingSpinner from "./_ui/LoadingSpinner";
 import { redirect } from "next/navigation";
+import ContactSection from "./_components/ContactSection";
 
 export const metadata = {
   title: "Hotel Booking App",
@@ -34,7 +34,7 @@ export default async function Home() {
         <Gallery />
       </Suspense>
       <Blog />
-      <Contact />
+      <ContactSection />
     </>
   );
 }

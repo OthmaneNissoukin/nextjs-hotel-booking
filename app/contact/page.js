@@ -1,5 +1,5 @@
 import Banner from "../_components/Banner";
-import Contact from "../_components/Contact";
+import ContactSection from "../_components/ContactSection";
 
 export const metadata = {
   title: "Contact Us",
@@ -10,7 +10,7 @@ async function Page() {
   return (
     <>
       <Banner title={"REACHING OUT"} />
-      <Contact />
+      <ContactSection />
     </>
   );
 }
