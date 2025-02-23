@@ -9,7 +9,7 @@ export default function NotFound() {
 
   return (
     <div className={styles.notFoundContainer}>
-      <span className={styles.notFoundCode}>404</span>
+      <span className={styles.errorCode}>404</span>
       <h2 className={styles.notFoundTitle}>Oops! Page Not Found</h2>
       <p className={styles.notFoundMessage}>
         The page you are looking for might have been removed or is temporarily
