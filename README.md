@@ -121,6 +121,10 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 
    # PRODUCTION URL
    NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+   # URL TO ALLOW CORS IN CASE YOU WANT TO ACCESS GUESTS DATA WITHIN ANOTHER APP (eg: Back Office)
+   # URL must have no trailing slash at the end of it
+   NEXT_PUBLIC_BACK_OFFICE_URL=http://localhost:5173
    ```
 
 4. Run the development server:
