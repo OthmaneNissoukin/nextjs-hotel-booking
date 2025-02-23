@@ -17,7 +17,7 @@ const SUPABASE_ROOMS_URL = process.env.NEXT_PUBLIC_SUPABASE_IMGS_URL;
 async function RoomContainer({ params }) {
   const room_slug = params?.room_slug;
 
-  // if (!room_slug || !/^-?\d+$/.test(room_slug)) notFound();
+  if (!room_slug || !/^-?\d+$/.test(room_slug)) notFound();
 
   const room = await getRoomById(room_slug);
 

@@ -57,6 +57,7 @@ export async function POST(req, res) {
         authToken: metadata?.supabaseAccessToken,
         room_id: room.id,
         guest_id: guest.id,
+        guest_fullname: guest.fullname, // just preserving guest fullname in case of account delete
         guests_count: pending_reservation.guests_count,
         message: pending_reservation.message,
         reserved_price: totalUSDPrice,
