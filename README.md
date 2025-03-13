@@ -33,22 +33,29 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 
 ## Screenshots
 
-1. **Homepage**
-   ![Homepage Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/homepage.png)
-2. **Room Listing**
-   ![Room Listing Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/rooms.png)
-3. **Room Details**
-   ![Room Details Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/details.png)
-4. **Checkout Page**
-   ![Checkout Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/checkout.png)
-5. **Reservation Update Page**
-   ![Reservation Update Sceenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/reservation-update.png)
-6. **Sign In Page**
-   ![Sign In Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/login.png)
-7. **Booking Overview**
-   ![Booking Overview Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/booking-overview.png)
-8. **Supabase Schema**
-   ![Supabase Schema Screenshot](https://github.com/OthmaneNissoukin/nextjs-hotel-booking/tree/main/screenshots/supabase-schema.png?raw=true)
+1. **Homepage**  
+   ![Homepage Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/homepage.png)
+
+2. **Room Listing**  
+   ![Room Listing Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/rooms.png)
+
+3. **Room Details**  
+   ![Room Details Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/details.png)
+
+4. **Checkout Page**  
+   ![Checkout Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/checkout.png)
+
+5. **Reservation Update Page**  
+   ![Reservation Update Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/reservation-update.png)
+
+6. **Sign In Page**  
+   ![Sign In Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/login.png)
+
+7. **Booking Overview**  
+   ![Booking Overview Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/booking-overview.png)
+
+8. **Supabase Schema**  
+   ![Supabase Schema Screenshot](https://raw.githubusercontent.com/OthmaneNissoukin/nextjs-hotel-booking/main/screenshots/supabase-schema.png)
 
 ## Technologies Used
 
@@ -138,7 +145,28 @@ This app is built using **Next.js** for the front-end and **Supabase** for the d
 ## IMPORTANT NOTES
 
 - **Database Sessions**: Since Supabase is used as the adapter for authentication, expose the `next_auth` schema in the Supabase dashboard to ensure OAuth providers work properly.
+
   - More details: [https://authjs.dev/getting-started/adapters/supabase](https://authjs.dev/getting-started/adapters/supabase)
+
+- **Image Storage (Buckets)**:  
+   This project stores images in a **Supabase storage bucket** named `rooms-imgs`. To ensure your images are accessible in the application, you must configure your **Bucket Policies** to allow public access and image manipulation.
+
+  - If the bucket is not properly configured, your application **won’t be able to retrieve images**.
+
+  - You can configure your policies through the buttom link, and make sure to select the **For full customization** option:
+
+  ```
+  https://supabase.com/dashboard/project/PROJECT_ID/storage/policies
+  ```
+
+  - You can access images using the following URL structure:
+
+  ```
+  https://YOUR_PROJECT_ID.storage.supabase.co/storage/v1/object/public/rooms-imgs/IMAGE_NAME
+  ```
+
+  - Replace `YOUR_PROJECT_ID` with your actual Supabase project ID and `IMAGE_NAME` with the specific image filename.
+
 - **Payment Integration**: Reservations will only be created upon successful payment. A webhook at `localhost:3000/api/stripe-webhook-gateway` handles Stripe events (checkout.session.completed). Register this link in your Stripe dashboard.
   - More details: [https://docs.stripe.com/webhooks](https://docs.stripe.com/webhooks)
 - **Guests Data**: Since this project is using a table `guests` to save users data including the password, it was necessary to create a `table view (guests_view)` in order to restrict access to all the fields and prevent exposing the password in the API response when that field is not needed. When authenticating a user, the API call reads directly from the original `guests` table to get the user password for verification and this Supabase call will need to be provided with `SUPABASE_SERVICE_ROLE_KEY` to bypass Row Level Security (RLS) since authenticating doesn't have any authenticated user to empower it with his own token itself.
